@@ -4,19 +4,20 @@
 FROM node:24-alpine AS base
 WORKDIR /repo
 # Primeiro só os package.json: a camada do npm ci só é refeita quando as dependências mudam.
+# --ignore-scripts: o postinstall da raiz (patch-package) é do app mobile, não da API.
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/
 COPY apps/mobile/package.json apps/mobile/
 COPY packages/shared/package.json packages/shared/
 
 FROM base AS build
-RUN npm ci -w @crazy-training/api -w @crazy-training/shared
+RUN npm ci --ignore-scripts -w @crazy-training/api -w @crazy-training/shared
 COPY packages/shared packages/shared
 COPY apps/api apps/api
 RUN npm run build -w @crazy-training/shared && npm run build -w @crazy-training/api
 
 FROM base AS prod-deps
-RUN npm ci --omit=dev -w @crazy-training/api -w @crazy-training/shared
+RUN npm ci --ignore-scripts --omit=dev -w @crazy-training/api -w @crazy-training/shared
 
 FROM node:24-alpine
 ENV NODE_ENV=production

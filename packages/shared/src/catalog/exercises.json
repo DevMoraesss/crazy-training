@@ -1,0 +1,3010 @@
+[
+  {
+    "id": "supino-reto-barra",
+    "name": "Supino reto com barra",
+    "aliases": [
+      "supino reto",
+      "supino com barra",
+      "supino barra",
+      "supino reto livre",
+      "supino reto barra reta",
+      "bench press",
+      "barbell bench press"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros"],
+    "equipment": "barra",
+    "instructions": [
+      "Deite no banco com os pés firmes no chão e segure a barra um pouco além da largura dos ombros.",
+      "Tire a barra do suporte e posicione-a acima do peito com os braços estendidos.",
+      "Desça a barra controlando até encostar de leve no meio do peito.",
+      "Empurre a barra de volta para cima sem tirar as costas e o quadril do banco."
+    ],
+    "sourceId": "Barbell_Bench_Press_-_Medium_Grip",
+    "images": ["Barbell_Bench_Press_-_Medium_Grip/0.jpg", "Barbell_Bench_Press_-_Medium_Grip/1.jpg"]
+  },
+  {
+    "id": "supino-reto-halteres",
+    "name": "Supino reto com halteres",
+    "aliases": ["supino com halteres", "supino halteres", "supino reto halter", "dumbbell bench press"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite no banco reto com um halter em cada mão, apoiados nas coxas.",
+      "Leve os halteres para a linha do peito, com as palmas voltadas para os pés.",
+      "Empurre os halteres para cima até estender os braços.",
+      "Desça devagar até sentir o alongamento do peito."
+    ],
+    "sourceId": "Dumbbell_Bench_Press",
+    "images": ["Dumbbell_Bench_Press/0.jpg", "Dumbbell_Bench_Press/1.jpg"]
+  },
+  {
+    "id": "supino-inclinado-barra",
+    "name": "Supino inclinado com barra",
+    "aliases": ["supino inclinado", "supino inclinado barra", "incline bench press", "incline barbell bench press"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros", "tríceps"],
+    "equipment": "barra",
+    "instructions": [
+      "Deite no banco inclinado (30° a 45°) e segure a barra um pouco além da largura dos ombros.",
+      "Tire a barra do suporte e mantenha-a acima da parte alta do peito.",
+      "Desça a barra controlando até perto da clavícula.",
+      "Empurre de volta para cima sem descolar as costas do banco."
+    ],
+    "sourceId": "Barbell_Incline_Bench_Press_-_Medium_Grip",
+    "images": ["Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg", "Barbell_Incline_Bench_Press_-_Medium_Grip/1.jpg"]
+  },
+  {
+    "id": "supino-inclinado-halteres",
+    "name": "Supino inclinado com halteres",
+    "aliases": ["supino inclinado halter", "supino inclinado halteres", "incline dumbbell press"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros", "tríceps"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite no banco inclinado com um halter em cada mão, na altura do peito.",
+      "Empurre os halteres para cima até estender os braços.",
+      "Desça devagar, com os cotovelos um pouco abaixo da linha do ombro."
+    ],
+    "sourceId": "Incline_Dumbbell_Press",
+    "images": ["Incline_Dumbbell_Press/0.jpg", "Incline_Dumbbell_Press/1.jpg"]
+  },
+  {
+    "id": "supino-declinado-barra",
+    "name": "Supino declinado com barra",
+    "aliases": ["supino declinado", "supino declinado barra", "decline bench press"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros"],
+    "equipment": "barra",
+    "instructions": [
+      "Prenda as pernas no apoio do banco declinado e deite.",
+      "Segure a barra um pouco além da largura dos ombros e tire-a do suporte.",
+      "Desça a barra até a parte baixa do peito.",
+      "Empurre de volta até estender os braços."
+    ],
+    "sourceId": "Decline_Barbell_Bench_Press",
+    "images": ["Decline_Barbell_Bench_Press/0.jpg", "Decline_Barbell_Bench_Press/1.jpg"]
+  },
+  {
+    "id": "supino-reto-smith",
+    "name": "Supino reto no smith",
+    "aliases": ["supino no smith", "supino smith", "supino reto smith", "smith bench press"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros"],
+    "equipment": "smith",
+    "instructions": [
+      "Posicione o banco reto sob a barra do smith, alinhada com o meio do peito.",
+      "Segure a barra um pouco além da largura dos ombros e destrave-a.",
+      "Desça até encostar de leve no peito.",
+      "Empurre de volta e trave a barra ao terminar a série."
+    ],
+    "sourceId": "Smith_Machine_Bench_Press",
+    "images": ["Smith_Machine_Bench_Press/0.jpg", "Smith_Machine_Bench_Press/1.jpg"]
+  },
+  {
+    "id": "supino-maquina",
+    "name": "Supino na máquina",
+    "aliases": [
+      "supino máquina",
+      "supino articulado",
+      "supino reto máquina",
+      "supino reto articulado",
+      "chest press",
+      "machine chest press"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros"],
+    "equipment": "máquina",
+    "instructions": [
+      "Ajuste o banco para as pegadas ficarem na linha do meio do peito.",
+      "Com as costas apoiadas e o peito aberto, empurre as pegadas até estender os braços.",
+      "Volte devagar sem deixar o peso encostar no apoio."
+    ],
+    "sourceId": "Leverage_Chest_Press",
+    "images": ["Leverage_Chest_Press/0.jpg", "Leverage_Chest_Press/1.jpg"]
+  },
+  {
+    "id": "supino-inclinado-maquina",
+    "name": "Supino inclinado na máquina",
+    "aliases": ["supino inclinado máquina", "supino inclinado articulado", "incline chest press"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros", "tríceps"],
+    "equipment": "máquina",
+    "instructions": [
+      "Ajuste o banco para as pegadas ficarem na altura da parte alta do peito.",
+      "Empurre as pegadas para cima e para a frente até estender os braços.",
+      "Volte devagar, mantendo as escápulas encaixadas no encosto."
+    ],
+    "sourceId": "Leverage_Incline_Chest_Press",
+    "images": ["Leverage_Incline_Chest_Press/0.jpg", "Leverage_Incline_Chest_Press/1.jpg"]
+  },
+  {
+    "id": "crucifixo-reto-halteres",
+    "name": "Crucifixo reto com halteres",
+    "aliases": [
+      "crucifixo reto",
+      "crucifixo com halteres",
+      "crucifixo halter",
+      "crucifixo reto halter",
+      "dumbbell fly",
+      "dumbbell flyes"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite no banco reto com os halteres acima do peito e as palmas voltadas uma para a outra.",
+      "Com os cotovelos levemente dobrados, abra os braços em arco até sentir o peito alongar.",
+      "Feche os braços pelo mesmo caminho, apertando o peito no alto."
+    ],
+    "sourceId": "Dumbbell_Flyes",
+    "images": ["Dumbbell_Flyes/0.jpg", "Dumbbell_Flyes/1.jpg"]
+  },
+  {
+    "id": "crucifixo-inclinado-halteres",
+    "name": "Crucifixo inclinado com halteres",
+    "aliases": ["crucifixo inclinado", "crucifixo inclinado halter", "incline dumbbell fly"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite no banco inclinado com os halteres acima do peito.",
+      "Com os cotovelos levemente dobrados, abra os braços em arco até alongar o peito.",
+      "Volte pelo mesmo caminho até os halteres quase se tocarem."
+    ],
+    "sourceId": "Incline_Dumbbell_Flyes",
+    "images": ["Incline_Dumbbell_Flyes/0.jpg", "Incline_Dumbbell_Flyes/1.jpg"]
+  },
+  {
+    "id": "voador",
+    "name": "Voador (peck deck)",
+    "aliases": [
+      "peck deck",
+      "pec deck",
+      "peckdeck",
+      "crucifixo na máquina",
+      "crucifixo máquina",
+      "voador peitoral",
+      "fly máquina",
+      "butterfly",
+      "machine fly"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "máquina",
+    "instructions": [
+      "Ajuste o banco para os braços ficarem paralelos ao chão ao segurar as pegadas.",
+      "Com as costas apoiadas, feche os braços à frente do peito e segure 1 segundo.",
+      "Volte devagar até sentir o peito alongar."
+    ],
+    "sourceId": "Butterfly",
+    "images": ["Butterfly/0.jpg", "Butterfly/1.jpg"]
+  },
+  {
+    "id": "crossover",
+    "name": "Crossover (polia alta)",
+    "aliases": [
+      "cross over",
+      "crossover polia alta",
+      "crucifixo na polia alta",
+      "crucifixo no cross",
+      "cable crossover"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "polia",
+    "instructions": [
+      "Fique no meio do crossover segurando as pegadas das polias altas, com um pé à frente.",
+      "Incline levemente o tronco e mantenha os cotovelos um pouco dobrados.",
+      "Traga as mãos para a frente e para baixo até se encontrarem na altura do quadril.",
+      "Volte devagar até sentir o peito alongar."
+    ],
+    "sourceId": "Cable_Crossover",
+    "images": ["Cable_Crossover/0.jpg", "Cable_Crossover/1.jpg"]
+  },
+  {
+    "id": "crossover-polia-baixa",
+    "name": "Crossover polia baixa",
+    "aliases": ["crossover de baixo para cima", "crucifixo na polia baixa", "low cable crossover"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "polia",
+    "instructions": [
+      "Segure as pegadas das polias baixas e dê um passo à frente.",
+      "Com os braços quase estendidos, traga as mãos para cima e para o centro até a altura do peito.",
+      "Volte devagar à posição inicial."
+    ],
+    "sourceId": "Low_Cable_Crossover",
+    "images": ["Low_Cable_Crossover/0.jpg", "Low_Cable_Crossover/1.jpg"]
+  },
+  {
+    "id": "pullover-halter",
+    "name": "Pullover com halter",
+    "aliases": ["pullover", "pull over", "pullover halter", "dumbbell pullover"],
+    "modality": "strength",
+    "primaryMuscles": ["peito", "costas"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite no banco e segure um halter com as duas mãos acima do peito.",
+      "Com os braços quase estendidos, leve o halter para trás da cabeça em arco.",
+      "Desça até sentir o alongamento e volte pelo mesmo caminho."
+    ],
+    "sourceId": "Straight-Arm_Dumbbell_Pullover",
+    "images": ["Straight-Arm_Dumbbell_Pullover/0.jpg", "Straight-Arm_Dumbbell_Pullover/1.jpg"]
+  },
+  {
+    "id": "flexao-de-braco",
+    "name": "Flexão de braço",
+    "aliases": ["flexão", "flexões", "flexão de braço no solo", "apoio de frente", "push-up", "push up", "pushup"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros", "abdômen"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Apoie as mãos no chão um pouco além da largura dos ombros e estenda as pernas.",
+      "Mantenha o corpo reto da cabeça aos calcanhares, com o abdômen firme.",
+      "Desça o peito até perto do chão.",
+      "Empurre o chão até estender os braços."
+    ],
+    "sourceId": "Pushups",
+    "images": ["Pushups/0.jpg", "Pushups/1.jpg"]
+  },
+  {
+    "id": "flexao-inclinada",
+    "name": "Flexão inclinada",
+    "aliases": ["flexão com mãos no banco", "flexão inclinada no banco", "incline push-up"],
+    "modality": "strength",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["tríceps", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Apoie as mãos num banco ou degrau e estenda as pernas para trás.",
+      "Com o corpo reto, desça o peito até perto do banco.",
+      "Empurre de volta até estender os braços."
+    ],
+    "sourceId": "Incline_Push-Up",
+    "images": ["Incline_Push-Up/0.jpg", "Incline_Push-Up/1.jpg"]
+  },
+  {
+    "id": "puxada-frente",
+    "name": "Puxada frente",
+    "aliases": [
+      "puxada frontal",
+      "puxada aberta",
+      "puxada alta",
+      "puxada pela frente",
+      "puxada frente aberta",
+      "puxada frente pronada",
+      "pulley frente",
+      "puxador",
+      "lat pulldown",
+      "wide grip lat pulldown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "polia",
+    "instructions": [
+      "Sente no aparelho com as coxas presas sob o apoio.",
+      "Segure a barra com as mãos bem além da largura dos ombros, palmas para a frente.",
+      "Incline levemente o tronco para trás e puxe a barra até a parte alta do peito.",
+      "Volte devagar até estender os braços."
+    ],
+    "sourceId": "Wide-Grip_Lat_Pulldown",
+    "images": ["Wide-Grip_Lat_Pulldown/0.jpg", "Wide-Grip_Lat_Pulldown/1.jpg"]
+  },
+  {
+    "id": "puxada-triangulo",
+    "name": "Puxada com triângulo",
+    "aliases": [
+      "puxada triângulo",
+      "puxada fechada",
+      "puxada fechada com triângulo",
+      "puxada neutra",
+      "puxada frente triângulo",
+      "v-bar pulldown",
+      "close grip pulldown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps"],
+    "equipment": "polia",
+    "instructions": [
+      "Encaixe o triângulo na polia alta e sente com as coxas presas.",
+      "Puxe o triângulo até a parte alta do peito, levando os cotovelos para baixo.",
+      "Volte devagar até estender os braços."
+    ],
+    "sourceId": "V-Bar_Pulldown",
+    "images": ["V-Bar_Pulldown/0.jpg", "V-Bar_Pulldown/1.jpg"]
+  },
+  {
+    "id": "puxada-supinada",
+    "name": "Puxada supinada",
+    "aliases": [
+      "puxada frente supinada",
+      "puxada pegada supinada",
+      "puxada invertida",
+      "underhand pulldown",
+      "reverse grip pulldown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps"],
+    "equipment": "polia",
+    "instructions": [
+      "Segure a barra com as palmas voltadas para você, na largura dos ombros.",
+      "Puxe a barra até a parte alta do peito, com os cotovelos junto ao corpo.",
+      "Volte devagar até estender os braços."
+    ],
+    "sourceId": "Underhand_Cable_Pulldowns",
+    "images": ["Underhand_Cable_Pulldowns/0.jpg", "Underhand_Cable_Pulldowns/1.jpg"]
+  },
+  {
+    "id": "puxada-nuca",
+    "name": "Puxada por trás (nuca)",
+    "aliases": ["puxada nuca", "puxada atrás", "puxada atrás da nuca", "behind the neck pulldown"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "polia",
+    "instructions": [
+      "Sente no aparelho e segure a barra com pegada bem aberta.",
+      "Incline a cabeça levemente para a frente e puxe a barra até a nuca.",
+      "Volte devagar. Evite se tiver desconforto nos ombros."
+    ],
+    "sourceId": "Wide-Grip_Pulldown_Behind_The_Neck",
+    "images": ["Wide-Grip_Pulldown_Behind_The_Neck/0.jpg", "Wide-Grip_Pulldown_Behind_The_Neck/1.jpg"]
+  },
+  {
+    "id": "pulldown",
+    "name": "Pulldown",
+    "aliases": [
+      "pulldown braços estendidos",
+      "pulldown com barra",
+      "pullover na polia",
+      "puxada com braços estendidos",
+      "straight arm pulldown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "polia",
+    "instructions": [
+      "De pé diante da polia alta, segure a barra com os braços estendidos.",
+      "Incline o tronco uns 30° à frente, com os cotovelos levemente dobrados.",
+      "Sem dobrar os braços, leve a barra até as coxas contraindo as costas.",
+      "Volte devagar até a altura da cabeça."
+    ],
+    "sourceId": "Straight-Arm_Pulldown",
+    "images": ["Straight-Arm_Pulldown/0.jpg", "Straight-Arm_Pulldown/1.jpg"]
+  },
+  {
+    "id": "remada-curvada-barra",
+    "name": "Remada curvada com barra",
+    "aliases": ["remada curvada", "remada curvada pronada", "remada com barra", "bent over row", "barbell row"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "lombar", "ombros"],
+    "equipment": "barra",
+    "instructions": [
+      "Segure a barra com as palmas para baixo e flexione o quadril até o tronco ficar quase paralelo ao chão.",
+      "Com a coluna neutra e os joelhos levemente dobrados, puxe a barra até o abdômen.",
+      "Aperte as escápulas no alto e desça devagar."
+    ],
+    "sourceId": "Bent_Over_Barbell_Row",
+    "images": ["Bent_Over_Barbell_Row/0.jpg", "Bent_Over_Barbell_Row/1.jpg"]
+  },
+  {
+    "id": "remada-curvada-supinada",
+    "name": "Remada curvada supinada",
+    "aliases": ["remada curvada pegada supinada", "remada supinada", "reverse grip row", "yates row"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "lombar"],
+    "equipment": "barra",
+    "instructions": [
+      "Segure a barra com as palmas para cima e incline o tronco à frente com a coluna neutra.",
+      "Puxe a barra até a parte baixa do abdômen, cotovelos junto ao corpo.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Reverse_Grip_Bent-Over_Rows",
+    "images": ["Reverse_Grip_Bent-Over_Rows/0.jpg", "Reverse_Grip_Bent-Over_Rows/1.jpg"]
+  },
+  {
+    "id": "remada-unilateral",
+    "name": "Remada unilateral com halter (serrote)",
+    "aliases": [
+      "remada serrote",
+      "serrote",
+      "remada unilateral",
+      "remada unilateral halter",
+      "remada um braço",
+      "one arm dumbbell row",
+      "dumbbell row"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "halteres",
+    "instructions": [
+      "Apoie o joelho e a mão do mesmo lado no banco, com as costas retas.",
+      "Com o halter na outra mão, puxe o cotovelo para trás até o halter chegar ao quadril.",
+      "Desça devagar e troque de lado ao fim da série."
+    ],
+    "sourceId": "One-Arm_Dumbbell_Row",
+    "images": ["One-Arm_Dumbbell_Row/0.jpg", "One-Arm_Dumbbell_Row/1.jpg"]
+  },
+  {
+    "id": "remada-baixa",
+    "name": "Remada baixa",
+    "aliases": [
+      "remada baixa com triângulo",
+      "remada baixa triângulo",
+      "remada sentada",
+      "remada sentada na polia",
+      "remada baixa polia",
+      "seated cable row"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "polia",
+    "instructions": [
+      "Sente com os pés apoiados e os joelhos levemente dobrados, segurando o triângulo.",
+      "Com a coluna ereta, puxe o triângulo até o abdômen levando os cotovelos para trás.",
+      "Aperte as escápulas e volte devagar até estender os braços."
+    ],
+    "sourceId": "Seated_Cable_Rows",
+    "images": ["Seated_Cable_Rows/0.jpg", "Seated_Cable_Rows/1.jpg"]
+  },
+  {
+    "id": "remada-cavalinho",
+    "name": "Remada cavalinho",
+    "aliases": ["remada t", "remada t-bar", "remada no cavalinho", "cavalinho", "t-bar row"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "lombar"],
+    "equipment": "barra",
+    "instructions": [
+      "Fique sobre a barra com os pés afastados e segure a pegada.",
+      "Incline o tronco à frente com a coluna neutra e os joelhos levemente dobrados.",
+      "Puxe a barra até o peito e desça devagar."
+    ],
+    "sourceId": "T-Bar_Row_with_Handle",
+    "images": ["T-Bar_Row_with_Handle/0.jpg", "T-Bar_Row_with_Handle/1.jpg"]
+  },
+  {
+    "id": "remada-maquina",
+    "name": "Remada na máquina",
+    "aliases": ["remada máquina", "remada articulada", "remada sentada máquina", "remada hammer", "machine row"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "máquina",
+    "instructions": [
+      "Ajuste o banco para as pegadas ficarem na altura do peito.",
+      "Com o peito no apoio, puxe as pegadas levando os cotovelos para trás.",
+      "Aperte as escápulas e volte devagar."
+    ],
+    "sourceId": "Leverage_Iso_Row",
+    "images": ["Leverage_Iso_Row/0.jpg", "Leverage_Iso_Row/1.jpg"]
+  },
+  {
+    "id": "remada-apoiada",
+    "name": "Remada apoiada no banco inclinado",
+    "aliases": [
+      "remada apoiada",
+      "remada no banco inclinado",
+      "remada apoiada com halteres",
+      "chest supported row",
+      "incline dumbbell row"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite de bruços num banco inclinado com um halter em cada mão.",
+      "Puxe os halteres até a lateral do tronco, apertando as escápulas.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Dumbbell_Incline_Row",
+    "images": ["Dumbbell_Incline_Row/0.jpg", "Dumbbell_Incline_Row/1.jpg"]
+  },
+  {
+    "id": "remada-invertida",
+    "name": "Remada invertida",
+    "aliases": ["remada australiana", "remada na barra baixa", "australian pull-up", "inverted row"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "abdômen"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite sob uma barra baixa (ou no smith) e segure-a com as mãos na largura dos ombros.",
+      "Com o corpo reto e os calcanhares no chão, puxe o peito até a barra.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Inverted_Row",
+    "images": ["Inverted_Row/0.jpg", "Inverted_Row/1.jpg"]
+  },
+  {
+    "id": "barra-fixa",
+    "name": "Barra fixa",
+    "aliases": ["barra fixa pronada", "barra fixa aberta", "barra fixa pegada pronada", "pull-up", "pull up", "pullup"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Segure a barra com as palmas para a frente, um pouco além da largura dos ombros.",
+      "Pendure-se com os braços estendidos e o abdômen firme.",
+      "Puxe o corpo até o queixo passar da barra.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Pullups",
+    "images": ["Pullups/0.jpg", "Pullups/1.jpg"]
+  },
+  {
+    "id": "barra-fixa-supinada",
+    "name": "Barra fixa supinada",
+    "aliases": ["barra supinada", "barra fixa pegada supinada", "chin-up", "chin up", "chinup"],
+    "modality": "strength",
+    "primaryMuscles": ["costas", "bíceps"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Segure a barra com as palmas voltadas para você, na largura dos ombros.",
+      "Puxe o corpo até o queixo passar da barra.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Chin-Up",
+    "images": ["Chin-Up/0.jpg", "Chin-Up/1.jpg"]
+  },
+  {
+    "id": "graviton",
+    "name": "Graviton (barra fixa assistida)",
+    "aliases": ["barra fixa assistida", "barra assistida", "barra fixa no graviton", "assisted pull-up machine"],
+    "modality": "strength",
+    "primaryMuscles": ["costas"],
+    "secondaryMuscles": ["bíceps", "ombros"],
+    "equipment": "máquina",
+    "instructions": [
+      "Escolha o contrapeso e ajoelhe na plataforma do aparelho.",
+      "Segure as pegadas altas e puxe o corpo até o queixo passar delas.",
+      "Desça devagar. Quanto mais contrapeso, mais fácil fica."
+    ],
+    "sourceId": null,
+    "images": []
+  },
+  {
+    "id": "levantamento-terra",
+    "name": "Levantamento terra",
+    "aliases": ["terra", "terra convencional", "levantamento terra com barra", "deadlift", "barbell deadlift"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa", "glúteos", "lombar"],
+    "secondaryMuscles": ["costas", "trapézio", "quadríceps", "antebraço"],
+    "equipment": "barra",
+    "instructions": [
+      "Fique com os pés na largura do quadril e a barra sobre o meio dos pés.",
+      "Flexione quadril e joelhos e segure a barra por fora das pernas, com a coluna neutra.",
+      "Empurre o chão e suba a barra rente às pernas até ficar ereto.",
+      "Desça pelo mesmo caminho, levando o quadril para trás."
+    ],
+    "sourceId": "Barbell_Deadlift",
+    "images": ["Barbell_Deadlift/0.jpg", "Barbell_Deadlift/1.jpg"]
+  },
+  {
+    "id": "terra-sumo",
+    "name": "Levantamento terra sumô",
+    "aliases": ["terra sumô", "levantamento sumô", "sumo deadlift"],
+    "modality": "strength",
+    "primaryMuscles": ["glúteos", "adutores", "posterior de coxa"],
+    "secondaryMuscles": ["quadríceps", "lombar", "trapézio"],
+    "equipment": "barra",
+    "instructions": [
+      "Afaste bem os pés, com as pontas para fora, e a barra junto às canelas.",
+      "Segure a barra por dentro das pernas com a coluna neutra e o peito aberto.",
+      "Empurre o chão abrindo os joelhos e suba até ficar ereto.",
+      "Desça controlando pelo mesmo caminho."
+    ],
+    "sourceId": "Sumo_Deadlift",
+    "images": ["Sumo_Deadlift/0.jpg", "Sumo_Deadlift/1.jpg"]
+  },
+  {
+    "id": "terra-romeno",
+    "name": "Levantamento terra romeno",
+    "aliases": ["terra romeno", "rdl", "stiff romeno", "romanian deadlift"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa", "glúteos"],
+    "secondaryMuscles": ["lombar"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra na frente das coxas com os joelhos levemente dobrados.",
+      "Leve o quadril para trás e desça a barra rente às pernas até a altura da canela.",
+      "Mantenha a coluna neutra e suba empurrando o quadril para a frente."
+    ],
+    "sourceId": "Romanian_Deadlift",
+    "images": ["Romanian_Deadlift/0.jpg", "Romanian_Deadlift/1.jpg"]
+  },
+  {
+    "id": "hiperextensao-lombar",
+    "name": "Hiperextensão lombar",
+    "aliases": [
+      "extensão lombar",
+      "hiperextensão",
+      "banco romano",
+      "lombar no banco romano",
+      "back extension",
+      "hyperextension"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["lombar"],
+    "secondaryMuscles": ["glúteos", "posterior de coxa"],
+    "equipment": "banco",
+    "instructions": [
+      "Deite de bruços no banco romano com o quadril no apoio e os pés presos.",
+      "Cruze os braços no peito e desça o tronco com a coluna reta.",
+      "Suba até o corpo ficar alinhado, sem arquear demais a lombar."
+    ],
+    "sourceId": "Hyperextensions_Back_Extensions",
+    "images": ["Hyperextensions_Back_Extensions/0.jpg", "Hyperextensions_Back_Extensions/1.jpg"]
+  },
+  {
+    "id": "superman",
+    "name": "Superman",
+    "aliases": ["super-homem", "extensão lombar no solo", "superman lombar"],
+    "modality": "strength",
+    "primaryMuscles": ["lombar"],
+    "secondaryMuscles": ["glúteos", "posterior de coxa"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de bruços com os braços estendidos à frente.",
+      "Tire braços, peito e pernas do chão ao mesmo tempo e segure 2 segundos.",
+      "Desça devagar e repita."
+    ],
+    "sourceId": "Superman",
+    "images": ["Superman/0.jpg", "Superman/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-halteres",
+    "name": "Desenvolvimento com halteres",
+    "aliases": [
+      "desenvolvimento halter",
+      "desenvolvimento halteres",
+      "desenvolvimento sentado com halteres",
+      "dumbbell shoulder press"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "halteres",
+    "instructions": [
+      "Sente num banco com encosto e leve os halteres à altura dos ombros, palmas para a frente.",
+      "Empurre os halteres para cima até quase se tocarem.",
+      "Desça devagar até a altura das orelhas."
+    ],
+    "sourceId": "Dumbbell_Shoulder_Press",
+    "images": ["Dumbbell_Shoulder_Press/0.jpg", "Dumbbell_Shoulder_Press/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-barra",
+    "name": "Desenvolvimento com barra",
+    "aliases": [
+      "desenvolvimento frente",
+      "desenvolvimento pela frente",
+      "desenvolvimento barra",
+      "desenvolvimento sentado com barra",
+      "barbell shoulder press"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "barra",
+    "instructions": [
+      "Sente no banco com encosto e segure a barra na altura da parte alta do peito.",
+      "Empurre a barra para cima até estender os braços.",
+      "Desça devagar até perto do queixo."
+    ],
+    "sourceId": "Barbell_Shoulder_Press",
+    "images": ["Barbell_Shoulder_Press/0.jpg", "Barbell_Shoulder_Press/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-militar",
+    "name": "Desenvolvimento militar",
+    "aliases": [
+      "desenvolvimento militar em pé",
+      "desenvolvimento em pé",
+      "press militar",
+      "military press",
+      "overhead press",
+      "ohp"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps", "abdômen"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra na altura da clavícula com as mãos um pouco além dos ombros.",
+      "Contraia glúteos e abdômen e empurre a barra acima da cabeça.",
+      "Desça controlando até a clavícula."
+    ],
+    "sourceId": "Standing_Military_Press",
+    "images": ["Standing_Military_Press/0.jpg", "Standing_Military_Press/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-nuca",
+    "name": "Desenvolvimento por trás (nuca)",
+    "aliases": [
+      "desenvolvimento nuca",
+      "desenvolvimento atrás",
+      "desenvolvimento atrás da nuca",
+      "behind the neck press"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps", "trapézio"],
+    "equipment": "barra",
+    "instructions": [
+      "Apoie a barra atrás da nuca com pegada aberta.",
+      "Empurre a barra para cima até estender os braços.",
+      "Desça devagar até a altura das orelhas. Evite se tiver desconforto nos ombros."
+    ],
+    "sourceId": "Standing_Barbell_Press_Behind_Neck",
+    "images": ["Standing_Barbell_Press_Behind_Neck/0.jpg", "Standing_Barbell_Press_Behind_Neck/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-maquina",
+    "name": "Desenvolvimento na máquina",
+    "aliases": ["desenvolvimento máquina", "desenvolvimento articulado", "shoulder press", "machine shoulder press"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "máquina",
+    "instructions": [
+      "Ajuste o banco para as pegadas ficarem na altura dos ombros.",
+      "Empurre as pegadas para cima até estender os braços.",
+      "Desça devagar sem deixar o peso encostar."
+    ],
+    "sourceId": "Machine_Shoulder_Military_Press",
+    "images": ["Machine_Shoulder_Military_Press/0.jpg", "Machine_Shoulder_Military_Press/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-smith",
+    "name": "Desenvolvimento no smith",
+    "aliases": ["desenvolvimento smith", "smith shoulder press"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "smith",
+    "instructions": [
+      "Posicione um banco com encosto sob o smith, com a barra à frente do rosto.",
+      "Destrave a barra e empurre-a para cima até estender os braços.",
+      "Desça até perto do queixo e repita."
+    ],
+    "sourceId": "Smith_Machine_Overhead_Shoulder_Press",
+    "images": ["Smith_Machine_Overhead_Shoulder_Press/0.jpg", "Smith_Machine_Overhead_Shoulder_Press/1.jpg"]
+  },
+  {
+    "id": "desenvolvimento-arnold",
+    "name": "Desenvolvimento Arnold",
+    "aliases": ["arnold", "arnold press", "desenvolvimento arnold com halteres"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["tríceps"],
+    "equipment": "halteres",
+    "instructions": [
+      "Sente com os halteres à frente dos ombros, palmas voltadas para você.",
+      "Suba os halteres girando os punhos até as palmas ficarem para a frente.",
+      "Desça fazendo o giro inverso."
+    ],
+    "sourceId": "Arnold_Dumbbell_Press",
+    "images": ["Arnold_Dumbbell_Press/0.jpg", "Arnold_Dumbbell_Press/1.jpg"]
+  },
+  {
+    "id": "elevacao-lateral",
+    "name": "Elevação lateral",
+    "aliases": [
+      "elevação lateral com halteres",
+      "elevação lateral halter",
+      "elevação lateral em pé",
+      "lateral raise",
+      "side lateral raise"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["trapézio"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão ao lado do corpo.",
+      "Com os cotovelos levemente dobrados, eleve os braços pelas laterais até a altura dos ombros.",
+      "Desça devagar sem balançar o tronco."
+    ],
+    "sourceId": "Side_Lateral_Raise",
+    "images": ["Side_Lateral_Raise/0.jpg", "Side_Lateral_Raise/1.jpg"]
+  },
+  {
+    "id": "elevacao-lateral-polia",
+    "name": "Elevação lateral na polia",
+    "aliases": [
+      "elevação lateral polia",
+      "elevação lateral no cabo",
+      "elevação lateral unilateral na polia",
+      "cable lateral raise"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["trapézio"],
+    "equipment": "polia",
+    "instructions": [
+      "Fique de lado para a polia baixa e segure a pegada com a mão mais distante.",
+      "Eleve o braço pela lateral até a altura do ombro.",
+      "Desça devagar e troque de lado ao fim da série."
+    ],
+    "sourceId": "Standing_Low-Pulley_Deltoid_Raise",
+    "images": ["Standing_Low-Pulley_Deltoid_Raise/0.jpg", "Standing_Low-Pulley_Deltoid_Raise/1.jpg"]
+  },
+  {
+    "id": "elevacao-frontal",
+    "name": "Elevação frontal",
+    "aliases": [
+      "elevação frontal com halteres",
+      "elevação frontal halter",
+      "elevação frontal alternada",
+      "front raise"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["peito"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure os halteres à frente das coxas.",
+      "Com os braços quase estendidos, eleve os halteres à frente até a altura dos ombros.",
+      "Desça devagar sem balançar o tronco."
+    ],
+    "sourceId": "Front_Dumbbell_Raise",
+    "images": ["Front_Dumbbell_Raise/0.jpg", "Front_Dumbbell_Raise/1.jpg"]
+  },
+  {
+    "id": "elevacao-frontal-anilha",
+    "name": "Elevação frontal com anilha",
+    "aliases": ["elevação frontal anilha", "front plate raise", "plate front raise"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["peito"],
+    "equipment": "anilha",
+    "instructions": [
+      "Segure uma anilha pelas laterais, à frente das coxas.",
+      "Eleve a anilha à frente até a altura dos olhos.",
+      "Desça devagar."
+    ],
+    "sourceId": "Front_Plate_Raise",
+    "images": ["Front_Plate_Raise/0.jpg", "Front_Plate_Raise/1.jpg"]
+  },
+  {
+    "id": "crucifixo-inverso-halteres",
+    "name": "Crucifixo inverso com halteres",
+    "aliases": [
+      "crucifixo inverso",
+      "crucifixo invertido",
+      "crucifixo inverso no banco inclinado",
+      "reverse fly",
+      "rear delt fly"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["trapézio", "costas"],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite de bruços num banco inclinado com um halter em cada mão.",
+      "Com os cotovelos levemente dobrados, abra os braços para os lados até a linha dos ombros.",
+      "Aperte as escápulas e desça devagar."
+    ],
+    "sourceId": "Reverse_Flyes",
+    "images": ["Reverse_Flyes/0.jpg", "Reverse_Flyes/1.jpg"]
+  },
+  {
+    "id": "crucifixo-inverso-maquina",
+    "name": "Crucifixo inverso na máquina",
+    "aliases": [
+      "voador inverso",
+      "voador invertido",
+      "peck deck inverso",
+      "crucifixo inverso máquina",
+      "reverse pec deck",
+      "reverse machine fly"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["trapézio", "costas"],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente de frente para o encosto do voador e segure as pegadas na altura dos ombros.",
+      "Abra os braços para trás em arco, com os cotovelos levemente dobrados.",
+      "Volte devagar sem deixar o peso encostar."
+    ],
+    "sourceId": "Reverse_Machine_Flyes",
+    "images": ["Reverse_Machine_Flyes/0.jpg", "Reverse_Machine_Flyes/1.jpg"]
+  },
+  {
+    "id": "remada-alta-barra",
+    "name": "Remada alta com barra",
+    "aliases": ["remada alta", "remada alta barra", "upright row"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros", "trapézio"],
+    "secondaryMuscles": ["bíceps"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra à frente das coxas com as mãos na largura dos ombros.",
+      "Puxe a barra rente ao corpo até a altura do peito, cotovelos acima das mãos.",
+      "Desça devagar."
+    ],
+    "sourceId": "Upright_Barbell_Row",
+    "images": ["Upright_Barbell_Row/0.jpg", "Upright_Barbell_Row/1.jpg"]
+  },
+  {
+    "id": "face-pull",
+    "name": "Face pull",
+    "aliases": ["face pull na corda", "facepull", "puxada para o rosto", "puxada na corda para o rosto"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["trapézio", "costas"],
+    "equipment": "polia",
+    "instructions": [
+      "Encaixe a corda na polia na altura do rosto e segure uma ponta em cada mão.",
+      "Puxe a corda em direção à testa, afastando as mãos e abrindo os cotovelos.",
+      "Aperte as escápulas e volte devagar."
+    ],
+    "sourceId": "Face_Pull",
+    "images": ["Face_Pull/0.jpg", "Face_Pull/1.jpg"]
+  },
+  {
+    "id": "encolhimento-barra",
+    "name": "Encolhimento com barra",
+    "aliases": ["encolhimento", "encolhimento barra", "encolhimento de ombros", "shrug", "barbell shrug"],
+    "modality": "strength",
+    "primaryMuscles": ["trapézio"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra à frente das coxas com os braços estendidos.",
+      "Suba os ombros em direção às orelhas sem dobrar os cotovelos.",
+      "Segure 1 segundo no alto e desça devagar."
+    ],
+    "sourceId": "Barbell_Shrug",
+    "images": ["Barbell_Shrug/0.jpg", "Barbell_Shrug/1.jpg"]
+  },
+  {
+    "id": "encolhimento-halteres",
+    "name": "Encolhimento com halteres",
+    "aliases": ["encolhimento halter", "encolhimento halteres", "dumbbell shrug"],
+    "modality": "strength",
+    "primaryMuscles": ["trapézio"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão ao lado do corpo.",
+      "Suba os ombros em direção às orelhas, sem girá-los.",
+      "Segure 1 segundo no alto e desça devagar."
+    ],
+    "sourceId": "Dumbbell_Shrug",
+    "images": ["Dumbbell_Shrug/0.jpg", "Dumbbell_Shrug/1.jpg"]
+  },
+  {
+    "id": "rotacao-externa-polia",
+    "name": "Rotação externa na polia",
+    "aliases": ["rotação externa", "rotação externa de ombro", "manguito rotador", "external rotation"],
+    "modality": "strength",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "Ajuste a polia na altura do cotovelo e fique de lado para ela.",
+      "Segure a pegada com a mão mais distante, cotovelo colado ao corpo e dobrado a 90°.",
+      "Gire o antebraço para fora sem descolar o cotovelo e volte devagar."
+    ],
+    "sourceId": "External_Rotation_with_Cable",
+    "images": ["External_Rotation_with_Cable/0.jpg", "External_Rotation_with_Cable/1.jpg"]
+  },
+  {
+    "id": "rosca-direta-barra",
+    "name": "Rosca direta com barra",
+    "aliases": [
+      "rosca direta",
+      "rosca direta barra",
+      "rosca direta barra reta",
+      "rosca com barra",
+      "rosca barra reta",
+      "barbell curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra com as palmas para cima na largura dos ombros.",
+      "Com os cotovelos colados ao corpo, flexione os braços até a barra chegar ao peito.",
+      "Desça devagar até estender os braços, sem balançar o tronco."
+    ],
+    "sourceId": "Barbell_Curl",
+    "images": ["Barbell_Curl/0.jpg", "Barbell_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-direta-barra-w",
+    "name": "Rosca direta com barra W",
+    "aliases": ["rosca barra w", "rosca w", "rosca direta w", "rosca direta barra w", "rosca barra ez", "ez bar curl"],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra W nas curvas, com as palmas para cima.",
+      "Com os cotovelos colados ao corpo, flexione os braços até a barra chegar ao peito.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "EZ-Bar_Curl",
+    "images": ["EZ-Bar_Curl/0.jpg", "EZ-Bar_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-direta-halteres",
+    "name": "Rosca direta com halteres",
+    "aliases": ["rosca simultânea", "rosca direta simultânea", "rosca com halteres", "rosca halteres", "dumbbell curl"],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão com as palmas para a frente.",
+      "Flexione os dois braços juntos, mantendo os cotovelos junto ao corpo.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Dumbbell_Bicep_Curl",
+    "images": ["Dumbbell_Bicep_Curl/0.jpg", "Dumbbell_Bicep_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-alternada",
+    "name": "Rosca alternada",
+    "aliases": [
+      "rosca alternada com halteres",
+      "rosca alternada halter",
+      "rosca direta alternada",
+      "alternate dumbbell curl",
+      "alternating curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão com as palmas voltadas para o corpo.",
+      "Flexione um braço girando o punho até a palma ficar para cima.",
+      "Desça devagar e repita com o outro braço."
+    ],
+    "sourceId": "Dumbbell_Alternate_Bicep_Curl",
+    "images": ["Dumbbell_Alternate_Bicep_Curl/0.jpg", "Dumbbell_Alternate_Bicep_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-martelo",
+    "name": "Rosca martelo",
+    "aliases": [
+      "rosca martelo com halteres",
+      "rosca martelo halter",
+      "rosca martelo alternada",
+      "rosca neutra",
+      "hammer curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps", "antebraço"],
+    "secondaryMuscles": [],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure os halteres com as palmas voltadas para o corpo.",
+      "Flexione os braços sem girar os punhos, cotovelos colados ao corpo.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Hammer_Curls",
+    "images": ["Hammer_Curls/0.jpg", "Hammer_Curls/1.jpg"]
+  },
+  {
+    "id": "rosca-martelo-corda",
+    "name": "Rosca martelo na polia (corda)",
+    "aliases": [
+      "rosca martelo corda",
+      "rosca martelo na corda",
+      "rosca corda",
+      "rosca na corda",
+      "rope hammer curl",
+      "cable hammer curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps", "antebraço"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "Encaixe a corda na polia baixa e segure uma ponta em cada mão.",
+      "Com os cotovelos colados ao corpo, flexione os braços até o peito.",
+      "Desça devagar até estender os braços."
+    ],
+    "sourceId": "Cable_Hammer_Curls_-_Rope_Attachment",
+    "images": ["Cable_Hammer_Curls_-_Rope_Attachment/0.jpg", "Cable_Hammer_Curls_-_Rope_Attachment/1.jpg"]
+  },
+  {
+    "id": "rosca-scott",
+    "name": "Rosca scott",
+    "aliases": [
+      "rosca scott com barra",
+      "rosca scott barra",
+      "rosca scott barra w",
+      "rosca no banco scott",
+      "preacher curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "barra",
+    "instructions": [
+      "Sente no banco scott com a parte de trás dos braços apoiada.",
+      "Segure a barra W com as palmas para cima.",
+      "Flexione os braços até a barra chegar perto dos ombros.",
+      "Desça devagar, sem estender o cotovelo por completo com tranco."
+    ],
+    "sourceId": "Preacher_Curl",
+    "images": ["Preacher_Curl/0.jpg", "Preacher_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-scott-halter",
+    "name": "Rosca scott unilateral com halter",
+    "aliases": ["rosca scott halter", "rosca scott com halter", "rosca scott unilateral", "one arm preacher curl"],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "halteres",
+    "instructions": [
+      "Apoie a parte de trás do braço no banco scott segurando um halter.",
+      "Flexione o braço até o halter chegar perto do ombro.",
+      "Desça devagar e troque de braço ao fim da série."
+    ],
+    "sourceId": "One_Arm_Dumbbell_Preacher_Curl",
+    "images": ["One_Arm_Dumbbell_Preacher_Curl/0.jpg", "One_Arm_Dumbbell_Preacher_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-concentrada",
+    "name": "Rosca concentrada",
+    "aliases": ["rosca concentrada com halter", "rosca concentrada unilateral", "concentration curl"],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": [],
+    "equipment": "halteres",
+    "instructions": [
+      "Sente no banco com as pernas afastadas e apoie o cotovelo na parte interna da coxa.",
+      "Flexione o braço levando o halter até o ombro.",
+      "Desça devagar e troque de braço ao fim da série."
+    ],
+    "sourceId": "Concentration_Curls",
+    "images": ["Concentration_Curls/0.jpg", "Concentration_Curls/1.jpg"]
+  },
+  {
+    "id": "rosca-polia",
+    "name": "Rosca direta na polia",
+    "aliases": [
+      "rosca na polia",
+      "rosca polia",
+      "rosca direta polia",
+      "rosca polia baixa",
+      "rosca no cabo",
+      "cable curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "polia",
+    "instructions": [
+      "De frente para a polia baixa, segure a barra com as palmas para cima.",
+      "Com os cotovelos colados ao corpo, flexione os braços até o peito.",
+      "Desça devagar mantendo a tensão no cabo."
+    ],
+    "sourceId": "Standing_Biceps_Cable_Curl",
+    "images": ["Standing_Biceps_Cable_Curl/0.jpg", "Standing_Biceps_Cable_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-inclinada",
+    "name": "Rosca inclinada com halteres",
+    "aliases": ["rosca inclinada", "rosca no banco inclinado", "rosca banco inclinado", "incline dumbbell curl"],
+    "modality": "strength",
+    "primaryMuscles": ["bíceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "halteres",
+    "instructions": [
+      "Sente num banco inclinado com os braços estendidos ao lado do corpo.",
+      "Flexione os braços sem tirar os cotovelos do lugar.",
+      "Desça devagar até alongar bem o bíceps."
+    ],
+    "sourceId": "Incline_Dumbbell_Curl",
+    "images": ["Incline_Dumbbell_Curl/0.jpg", "Incline_Dumbbell_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-inversa",
+    "name": "Rosca inversa",
+    "aliases": [
+      "rosca inversa com barra",
+      "rosca pronada",
+      "rosca direta pronada",
+      "reverse curl",
+      "reverse barbell curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["antebraço", "bíceps"],
+    "secondaryMuscles": [],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra com as palmas para baixo na largura dos ombros.",
+      "Flexione os braços até a barra chegar ao peito.",
+      "Desça devagar mantendo os punhos firmes."
+    ],
+    "sourceId": "Reverse_Barbell_Curl",
+    "images": ["Reverse_Barbell_Curl/0.jpg", "Reverse_Barbell_Curl/1.jpg"]
+  },
+  {
+    "id": "triceps-polia-barra",
+    "name": "Tríceps na polia com barra",
+    "aliases": [
+      "tríceps pulley",
+      "tríceps polia",
+      "tríceps pulley barra",
+      "tríceps polia barra",
+      "tríceps barra reta",
+      "tríceps no cabo",
+      "pulley tríceps",
+      "triceps pushdown",
+      "pushdown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "De frente para a polia alta, segure a barra com as palmas para baixo.",
+      "Cole os cotovelos ao corpo e estenda os braços até a barra chegar às coxas.",
+      "Volte devagar até os antebraços passarem da linha do cotovelo."
+    ],
+    "sourceId": "Triceps_Pushdown",
+    "images": ["Triceps_Pushdown/0.jpg", "Triceps_Pushdown/1.jpg"]
+  },
+  {
+    "id": "triceps-corda",
+    "name": "Tríceps na polia com corda",
+    "aliases": [
+      "tríceps corda",
+      "tríceps na corda",
+      "tríceps pulley corda",
+      "tríceps polia corda",
+      "rope pushdown",
+      "triceps rope pushdown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "Encaixe a corda na polia alta e segure uma ponta em cada mão.",
+      "Com os cotovelos colados ao corpo, estenda os braços afastando as pontas da corda no final.",
+      "Volte devagar até a altura do peito."
+    ],
+    "sourceId": "Triceps_Pushdown_-_Rope_Attachment",
+    "images": ["Triceps_Pushdown_-_Rope_Attachment/0.jpg", "Triceps_Pushdown_-_Rope_Attachment/1.jpg"]
+  },
+  {
+    "id": "triceps-barra-v",
+    "name": "Tríceps na polia com barra V",
+    "aliases": ["tríceps barra v", "tríceps pulley v", "tríceps polia v", "v-bar pushdown"],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "Encaixe a barra V na polia alta e segure com as palmas para baixo.",
+      "Com os cotovelos colados ao corpo, estenda os braços até as coxas.",
+      "Volte devagar até a altura do peito."
+    ],
+    "sourceId": "Triceps_Pushdown_-_V-Bar_Attachment",
+    "images": ["Triceps_Pushdown_-_V-Bar_Attachment/0.jpg", "Triceps_Pushdown_-_V-Bar_Attachment/1.jpg"]
+  },
+  {
+    "id": "triceps-inverso",
+    "name": "Tríceps pulley inverso",
+    "aliases": [
+      "tríceps inverso",
+      "tríceps supinado",
+      "tríceps polia supinado",
+      "tríceps pegada invertida",
+      "reverse grip pushdown"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "polia",
+    "instructions": [
+      "Segure a barra da polia alta com as palmas para cima.",
+      "Com os cotovelos colados ao corpo, estenda os braços até as coxas.",
+      "Volte devagar sem abrir os cotovelos."
+    ],
+    "sourceId": "Reverse_Grip_Triceps_Pushdown",
+    "images": ["Reverse_Grip_Triceps_Pushdown/0.jpg", "Reverse_Grip_Triceps_Pushdown/1.jpg"]
+  },
+  {
+    "id": "triceps-testa",
+    "name": "Tríceps testa",
+    "aliases": [
+      "tríceps testa com barra",
+      "tríceps testa barra",
+      "tríceps testa barra w",
+      "testa",
+      "skull crusher",
+      "skullcrusher"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "barra",
+    "instructions": [
+      "Deite no banco segurando a barra W acima do peito, braços estendidos.",
+      "Sem mexer os braços, dobre os cotovelos e desça a barra até perto da testa.",
+      "Estenda os cotovelos de volta à posição inicial."
+    ],
+    "sourceId": "EZ-Bar_Skullcrusher",
+    "images": ["EZ-Bar_Skullcrusher/0.jpg", "EZ-Bar_Skullcrusher/1.jpg"]
+  },
+  {
+    "id": "triceps-testa-halteres",
+    "name": "Tríceps testa com halteres",
+    "aliases": [
+      "tríceps testa halter",
+      "tríceps testa halteres",
+      "dumbbell skull crusher",
+      "lying dumbbell triceps extension"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "halteres",
+    "instructions": [
+      "Deite no banco com um halter em cada mão acima do peito, palmas voltadas uma para a outra.",
+      "Dobre os cotovelos levando os halteres para os lados da cabeça.",
+      "Estenda os braços de volta sem mexer os ombros."
+    ],
+    "sourceId": "Lying_Dumbbell_Tricep_Extension",
+    "images": ["Lying_Dumbbell_Tricep_Extension/0.jpg", "Lying_Dumbbell_Tricep_Extension/1.jpg"]
+  },
+  {
+    "id": "triceps-frances",
+    "name": "Tríceps francês",
+    "aliases": [
+      "tríceps francês com halter",
+      "tríceps francês halter",
+      "tríceps francês sentado",
+      "francês",
+      "tríceps atrás da cabeça",
+      "french press",
+      "overhead triceps extension"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "halteres",
+    "instructions": [
+      "Sente com encosto e segure um halter com as duas mãos acima da cabeça.",
+      "Com os cotovelos apontando para cima, desça o halter atrás da cabeça.",
+      "Estenda os braços de volta sem abrir os cotovelos."
+    ],
+    "sourceId": "Seated_Triceps_Press",
+    "images": ["Seated_Triceps_Press/0.jpg", "Seated_Triceps_Press/1.jpg"]
+  },
+  {
+    "id": "triceps-frances-polia",
+    "name": "Tríceps francês na polia (corda)",
+    "aliases": [
+      "tríceps francês corda",
+      "tríceps francês na corda",
+      "tríceps overhead corda",
+      "rope overhead triceps extension"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "De costas para a polia, segure a corda atrás da cabeça com os cotovelos para cima.",
+      "Incline levemente o tronco à frente e estenda os braços acima da cabeça.",
+      "Volte devagar até alongar o tríceps."
+    ],
+    "sourceId": "Triceps_Overhead_Extension_with_Rope",
+    "images": ["Triceps_Overhead_Extension_with_Rope/0.jpg", "Triceps_Overhead_Extension_with_Rope/1.jpg"]
+  },
+  {
+    "id": "triceps-coice",
+    "name": "Tríceps coice",
+    "aliases": ["tríceps coice com halter", "tríceps kickback", "kickback", "triceps kickback"],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "halteres",
+    "instructions": [
+      "Apoie uma mão e um joelho no banco, com o tronco paralelo ao chão.",
+      "Com o braço colado ao corpo e o cotovelo a 90°, estenda o braço para trás.",
+      "Volte devagar e troque de lado ao fim da série."
+    ],
+    "sourceId": "Tricep_Dumbbell_Kickback",
+    "images": ["Tricep_Dumbbell_Kickback/0.jpg", "Tricep_Dumbbell_Kickback/1.jpg"]
+  },
+  {
+    "id": "supino-fechado",
+    "name": "Supino fechado",
+    "aliases": ["supino pegada fechada", "supino fechado com barra", "supino reto fechado", "close grip bench press"],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": ["peito", "ombros"],
+    "equipment": "barra",
+    "instructions": [
+      "Deite no banco reto e segure a barra com as mãos na largura dos ombros.",
+      "Desça a barra até a parte baixa do peito com os cotovelos junto ao corpo.",
+      "Empurre de volta até estender os braços."
+    ],
+    "sourceId": "Close-Grip_Barbell_Bench_Press",
+    "images": ["Close-Grip_Barbell_Bench_Press/0.jpg", "Close-Grip_Barbell_Bench_Press/1.jpg"]
+  },
+  {
+    "id": "mergulho-paralelas",
+    "name": "Mergulho nas paralelas",
+    "aliases": [
+      "mergulho",
+      "paralelas",
+      "paralela",
+      "mergulho na paralela",
+      "tríceps paralela",
+      "dips",
+      "parallel bar dips"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps", "peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Apoie-se nas barras paralelas com os braços estendidos.",
+      "Dobre os cotovelos e desça o corpo até os braços formarem 90°.",
+      "Empurre de volta até estender os braços. Tronco reto foca mais no tríceps; inclinado, no peito."
+    ],
+    "sourceId": "Dips_-_Triceps_Version",
+    "images": ["Dips_-_Triceps_Version/0.jpg", "Dips_-_Triceps_Version/1.jpg"]
+  },
+  {
+    "id": "mergulho-banco",
+    "name": "Tríceps banco",
+    "aliases": ["mergulho no banco", "tríceps no banco", "tríceps mergulho no banco", "bench dips"],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": ["ombros", "peito"],
+    "equipment": "banco",
+    "instructions": [
+      "Sente na ponta do banco, apoie as mãos ao lado do quadril e estenda as pernas à frente.",
+      "Tire o quadril do banco e dobre os cotovelos descendo o corpo.",
+      "Empurre de volta até estender os braços."
+    ],
+    "sourceId": "Bench_Dips",
+    "images": ["Bench_Dips/0.jpg", "Bench_Dips/1.jpg"]
+  },
+  {
+    "id": "flexao-diamante",
+    "name": "Flexão fechada (diamante)",
+    "aliases": [
+      "flexão diamante",
+      "flexão fechada",
+      "flexão de braço fechada",
+      "diamond push-up",
+      "close grip push-up"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": ["peito", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Apoie as mãos juntas sob o peito e estenda as pernas.",
+      "Desça o peito até as mãos, com os cotovelos junto ao corpo.",
+      "Empurre de volta até estender os braços."
+    ],
+    "sourceId": "Push-Ups_-_Close_Triceps_Position",
+    "images": ["Push-Ups_-_Close_Triceps_Position/0.jpg", "Push-Ups_-_Close_Triceps_Position/1.jpg"]
+  },
+  {
+    "id": "rosca-punho",
+    "name": "Rosca punho",
+    "aliases": ["rosca de punho", "rosca punho com barra", "flexão de punho", "rosca punho supinada", "wrist curl"],
+    "modality": "strength",
+    "primaryMuscles": ["antebraço"],
+    "secondaryMuscles": [],
+    "equipment": "barra",
+    "instructions": [
+      "Sente e apoie os antebraços nas coxas, com os punhos para fora e as palmas para cima.",
+      "Deixe a barra descer só com o movimento do punho.",
+      "Flexione os punhos subindo a barra o máximo possível."
+    ],
+    "sourceId": "Seated_Palm-Up_Barbell_Wrist_Curl",
+    "images": ["Seated_Palm-Up_Barbell_Wrist_Curl/0.jpg", "Seated_Palm-Up_Barbell_Wrist_Curl/1.jpg"]
+  },
+  {
+    "id": "rosca-punho-inversa",
+    "name": "Rosca punho inversa",
+    "aliases": ["rosca de punho inversa", "rosca punho pronada", "extensão de punho", "reverse wrist curl"],
+    "modality": "strength",
+    "primaryMuscles": ["antebraço"],
+    "secondaryMuscles": [],
+    "equipment": "barra",
+    "instructions": [
+      "Sente e apoie os antebraços nas coxas, com as palmas para baixo.",
+      "Deixe a barra descer só com o movimento do punho.",
+      "Estenda os punhos subindo a barra."
+    ],
+    "sourceId": "Seated_Palms-Down_Barbell_Wrist_Curl",
+    "images": ["Seated_Palms-Down_Barbell_Wrist_Curl/0.jpg", "Seated_Palms-Down_Barbell_Wrist_Curl/1.jpg"]
+  },
+  {
+    "id": "caminhada-fazendeiro",
+    "name": "Caminhada do fazendeiro",
+    "aliases": ["farmer walk", "farmers walk", "carregada do fazendeiro", "caminhada com halteres"],
+    "modality": "strength",
+    "primaryMuscles": ["antebraço", "trapézio"],
+    "secondaryMuscles": ["abdômen", "glúteos", "quadríceps"],
+    "equipment": "halteres",
+    "instructions": [
+      "Segure um peso pesado em cada mão ao lado do corpo.",
+      "Com o peito aberto e o abdômen firme, caminhe com passos curtos e rápidos.",
+      "Percorra a distância ou o tempo combinado e apoie os pesos no chão com cuidado."
+    ],
+    "sourceId": "Farmers_Walk",
+    "images": ["Farmers_Walk/0.jpg", "Farmers_Walk/1.jpg"]
+  },
+  {
+    "id": "isometria-pescoco",
+    "name": "Isometria de pescoço",
+    "aliases": ["pescoço isométrico", "fortalecimento de pescoço", "neck isometrics", "isometric neck exercise"],
+    "modality": "strength",
+    "primaryMuscles": ["pescoço"],
+    "secondaryMuscles": ["trapézio"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Sentado com a coluna ereta, apoie as mãos na testa.",
+      "Empurre a cabeça contra as mãos sem deixá-la se mover, por 10 a 20 segundos.",
+      "Repita com as mãos atrás da cabeça."
+    ],
+    "sourceId": "Isometric_Neck_Exercise_-_Front_And_Back",
+    "images": ["Isometric_Neck_Exercise_-_Front_And_Back/0.jpg", "Isometric_Neck_Exercise_-_Front_And_Back/1.jpg"]
+  },
+  {
+    "id": "agachamento-livre",
+    "name": "Agachamento livre",
+    "aliases": [
+      "agachamento com barra",
+      "agachamento barra",
+      "agachamento livre com barra",
+      "agachamento costas",
+      "back squat",
+      "barbell squat",
+      "squat"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa", "lombar", "abdômen"],
+    "equipment": "barra",
+    "instructions": [
+      "Apoie a barra no trapézio e afaste os pés na largura dos ombros.",
+      "Com o peito aberto e o abdômen firme, desça levando o quadril para trás e para baixo.",
+      "Desça até as coxas ficarem pelo menos paralelas ao chão, joelhos na direção dos pés.",
+      "Suba empurrando o chão."
+    ],
+    "sourceId": "Barbell_Squat",
+    "images": ["Barbell_Squat/0.jpg", "Barbell_Squat/1.jpg"]
+  },
+  {
+    "id": "agachamento-frontal",
+    "name": "Agachamento frontal",
+    "aliases": ["agachamento frente", "agachamento frontal com barra", "front squat"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": ["glúteos", "abdômen"],
+    "equipment": "barra",
+    "instructions": [
+      "Apoie a barra na frente dos ombros com os cotovelos altos.",
+      "Com o tronco bem ereto, agache até as coxas passarem da paralela.",
+      "Suba empurrando o chão sem deixar os cotovelos caírem."
+    ],
+    "sourceId": "Front_Barbell_Squat",
+    "images": ["Front_Barbell_Squat/0.jpg", "Front_Barbell_Squat/1.jpg"]
+  },
+  {
+    "id": "agachamento-smith",
+    "name": "Agachamento no smith",
+    "aliases": ["agachamento smith", "agachamento guiado", "smith squat"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "smith",
+    "instructions": [
+      "Apoie a barra do smith no trapézio, com os pés um pouco à frente do corpo.",
+      "Destrave a barra e agache até as coxas ficarem paralelas ao chão.",
+      "Suba empurrando o chão e trave a barra ao terminar."
+    ],
+    "sourceId": "Smith_Machine_Squat",
+    "images": ["Smith_Machine_Squat/0.jpg", "Smith_Machine_Squat/1.jpg"]
+  },
+  {
+    "id": "agachamento-goblet",
+    "name": "Agachamento goblet",
+    "aliases": ["goblet squat", "goblet", "agachamento taça", "agachamento com kettlebell"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["abdômen"],
+    "equipment": "kettlebell",
+    "instructions": [
+      "Segure um kettlebell (ou halter) junto ao peito com as duas mãos.",
+      "Agache com o tronco ereto até os cotovelos passarem por dentro dos joelhos.",
+      "Suba empurrando o chão."
+    ],
+    "sourceId": "Goblet_Squat",
+    "images": ["Goblet_Squat/0.jpg", "Goblet_Squat/1.jpg"]
+  },
+  {
+    "id": "agachamento-sumo",
+    "name": "Agachamento sumô",
+    "aliases": ["agachamento sumô com halter", "agachamento plié", "plié", "sumô com halter", "sumo squat"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos", "adutores"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "halteres",
+    "instructions": [
+      "Afaste bem os pés com as pontas para fora e segure um halter entre as pernas.",
+      "Agache com o tronco ereto, abrindo os joelhos na direção dos pés.",
+      "Suba apertando os glúteos."
+    ],
+    "sourceId": "Plie_Dumbbell_Squat",
+    "images": ["Plie_Dumbbell_Squat/0.jpg", "Plie_Dumbbell_Squat/1.jpg"]
+  },
+  {
+    "id": "agachamento-sem-peso",
+    "name": "Agachamento sem peso",
+    "aliases": [
+      "agachamento livre sem peso",
+      "agachamento peso corporal",
+      "agachamento sem carga",
+      "air squat",
+      "bodyweight squat"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, afaste os pés na largura dos ombros e estenda os braços à frente.",
+      "Agache levando o quadril para trás até as coxas ficarem paralelas ao chão.",
+      "Suba empurrando o chão."
+    ],
+    "sourceId": "Bodyweight_Squat",
+    "images": ["Bodyweight_Squat/0.jpg", "Bodyweight_Squat/1.jpg"]
+  },
+  {
+    "id": "agachamento-bulgaro",
+    "name": "Agachamento búlgaro",
+    "aliases": [
+      "búlgaro",
+      "búlgaro com halteres",
+      "agachamento búlgaro com halteres",
+      "afundo búlgaro",
+      "bulgarian split squat"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "halteres",
+    "instructions": [
+      "Apoie o peito de um pé num banco atrás de você e segure um halter em cada mão.",
+      "Desça dobrando o joelho da frente até a coxa ficar quase paralela ao chão.",
+      "Suba empurrando com o calcanhar da frente e troque de perna ao fim da série."
+    ],
+    "sourceId": "Split_Squat_with_Dumbbells",
+    "images": ["Split_Squat_with_Dumbbells/0.jpg", "Split_Squat_with_Dumbbells/1.jpg"]
+  },
+  {
+    "id": "afundo-halteres",
+    "name": "Afundo com halteres",
+    "aliases": ["afundo", "afundo halter", "avanço", "avanço com halteres", "lunge", "dumbbell lunge"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão ao lado do corpo.",
+      "Dê um passo largo à frente e desça até os dois joelhos formarem 90°.",
+      "Empurre com o pé da frente para voltar e alterne as pernas."
+    ],
+    "sourceId": "Dumbbell_Lunges",
+    "images": ["Dumbbell_Lunges/0.jpg", "Dumbbell_Lunges/1.jpg"]
+  },
+  {
+    "id": "passada",
+    "name": "Passada",
+    "aliases": ["passada com halteres", "avanço caminhando", "afundo caminhando", "walking lunge"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, com ou sem halteres nas mãos, dê um passo largo à frente.",
+      "Desça até o joelho de trás quase tocar o chão.",
+      "Suba e já dê o próximo passo com a outra perna, avançando pelo espaço."
+    ],
+    "sourceId": "Bodyweight_Walking_Lunge",
+    "images": ["Bodyweight_Walking_Lunge/0.jpg", "Bodyweight_Walking_Lunge/1.jpg"]
+  },
+  {
+    "id": "afundo-reverso",
+    "name": "Afundo reverso",
+    "aliases": ["recuo", "afundo para trás", "avanço reverso", "passo atrás", "reverse lunge"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão.",
+      "Dê um passo largo para trás e desça até os dois joelhos formarem 90°.",
+      "Volte empurrando com o pé da frente e alterne as pernas."
+    ],
+    "sourceId": "Dumbbell_Rear_Lunge",
+    "images": ["Dumbbell_Rear_Lunge/0.jpg", "Dumbbell_Rear_Lunge/1.jpg"]
+  },
+  {
+    "id": "subida-no-banco",
+    "name": "Subida no banco",
+    "aliases": ["subida no banco com halteres", "subida no step", "subida no caixote", "step up", "step-up"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "halteres",
+    "instructions": [
+      "Fique de frente para um banco firme segurando um halter em cada mão.",
+      "Apoie um pé inteiro no banco e suba empurrando com essa perna.",
+      "Desça controlando e alterne as pernas."
+    ],
+    "sourceId": "Dumbbell_Step_Ups",
+    "images": ["Dumbbell_Step_Ups/0.jpg", "Dumbbell_Step_Ups/1.jpg"]
+  },
+  {
+    "id": "hack",
+    "name": "Agachamento hack",
+    "aliases": ["hack", "hack squat", "hack machine", "agachamento no hack"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": ["glúteos", "posterior de coxa"],
+    "equipment": "máquina",
+    "instructions": [
+      "Encoste as costas no apoio, ombros sob as almofadas, e pés na largura dos ombros.",
+      "Destrave o aparelho e desça dobrando os joelhos até cerca de 90°.",
+      "Suba empurrando a plataforma sem travar os joelhos."
+    ],
+    "sourceId": "Hack_Squat",
+    "images": ["Hack_Squat/0.jpg", "Hack_Squat/1.jpg"]
+  },
+  {
+    "id": "leg-press-45",
+    "name": "Leg press 45°",
+    "aliases": ["leg press", "leg 45", "leg press 45", "leg press inclinado", "legpress"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente no aparelho e apoie os pés na plataforma na largura dos ombros.",
+      "Destrave a plataforma e desça dobrando os joelhos até cerca de 90°.",
+      "Empurre com os calcanhares até quase estender as pernas, sem travar os joelhos.",
+      "Trave a plataforma ao terminar a série."
+    ],
+    "sourceId": "Leg_Press",
+    "images": ["Leg_Press/0.jpg", "Leg_Press/1.jpg"]
+  },
+  {
+    "id": "leg-press-horizontal",
+    "name": "Leg press horizontal",
+    "aliases": ["leg horizontal", "leg press sentado", "seated leg press"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente no aparelho com as costas apoiadas e os pés na plataforma.",
+      "Empurre a plataforma até quase estender as pernas.",
+      "Volte devagar até os joelhos formarem cerca de 90°."
+    ],
+    "sourceId": null,
+    "images": []
+  },
+  {
+    "id": "cadeira-extensora",
+    "name": "Cadeira extensora",
+    "aliases": ["extensora", "cadeira extensora bilateral", "extensão de joelhos", "leg extension"],
+    "modality": "strength",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": [],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente com as costas apoiadas e o rolo sobre a parte baixa da canela.",
+      "Estenda os joelhos até as pernas ficarem retas e segure 1 segundo.",
+      "Desça devagar sem deixar o peso encostar."
+    ],
+    "sourceId": "Leg_Extensions",
+    "images": ["Leg_Extensions/0.jpg", "Leg_Extensions/1.jpg"]
+  },
+  {
+    "id": "mesa-flexora",
+    "name": "Mesa flexora",
+    "aliases": [
+      "flexora deitada",
+      "flexora deitado",
+      "mesa flexora bilateral",
+      "flexão de joelhos deitado",
+      "lying leg curl"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa"],
+    "secondaryMuscles": ["panturrilha"],
+    "equipment": "máquina",
+    "instructions": [
+      "Deite de bruços com o rolo logo acima dos calcanhares.",
+      "Flexione os joelhos trazendo o rolo em direção aos glúteos.",
+      "Desça devagar sem tirar o quadril do banco."
+    ],
+    "sourceId": "Lying_Leg_Curls",
+    "images": ["Lying_Leg_Curls/0.jpg", "Lying_Leg_Curls/1.jpg"]
+  },
+  {
+    "id": "cadeira-flexora",
+    "name": "Cadeira flexora",
+    "aliases": ["flexora sentada", "flexora sentado", "flexão de joelhos sentado", "seated leg curl"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa"],
+    "secondaryMuscles": ["panturrilha"],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente com as costas apoiadas, o rolo atrás dos calcanhares e a trava sobre as coxas.",
+      "Flexione os joelhos puxando o rolo para baixo.",
+      "Volte devagar até quase estender as pernas."
+    ],
+    "sourceId": "Seated_Leg_Curl",
+    "images": ["Seated_Leg_Curl/0.jpg", "Seated_Leg_Curl/1.jpg"]
+  },
+  {
+    "id": "flexora-em-pe",
+    "name": "Flexora em pé",
+    "aliases": ["flexora em pé unilateral", "flexora vertical", "standing leg curl"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa"],
+    "secondaryMuscles": ["panturrilha"],
+    "equipment": "máquina",
+    "instructions": [
+      "Apoie o tronco no aparelho com o rolo atrás do calcanhar de uma perna.",
+      "Flexione o joelho levando o calcanhar em direção ao glúteo.",
+      "Desça devagar e troque de perna ao fim da série."
+    ],
+    "sourceId": "Standing_Leg_Curl",
+    "images": ["Standing_Leg_Curl/0.jpg", "Standing_Leg_Curl/1.jpg"]
+  },
+  {
+    "id": "flexao-nordica",
+    "name": "Flexão nórdica",
+    "aliases": ["nórdico", "flexão nórdica de joelhos", "nordic curl", "nordic hamstring curl"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa"],
+    "secondaryMuscles": ["glúteos"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Ajoelhe com os calcanhares presos (por um apoio ou parceiro).",
+      "Com o corpo reto dos joelhos à cabeça, desça o tronco à frente o mais devagar possível.",
+      "Amorteça com as mãos no chão e volte, se precisar com ajuda dos braços."
+    ],
+    "sourceId": "Natural_Glute_Ham_Raise",
+    "images": ["Natural_Glute_Ham_Raise/0.jpg", "Natural_Glute_Ham_Raise/1.jpg"]
+  },
+  {
+    "id": "stiff",
+    "name": "Stiff",
+    "aliases": ["stiff com barra", "stiff barra", "levantamento terra stiff", "stiff legged deadlift"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa", "glúteos"],
+    "secondaryMuscles": ["lombar"],
+    "equipment": "barra",
+    "instructions": [
+      "Em pé, segure a barra à frente das coxas com as pernas quase estendidas.",
+      "Leve o quadril para trás e desça a barra rente às pernas, com a coluna neutra.",
+      "Desça até sentir o posterior da coxa alongar e suba contraindo os glúteos."
+    ],
+    "sourceId": "Stiff-Legged_Barbell_Deadlift",
+    "images": ["Stiff-Legged_Barbell_Deadlift/0.jpg", "Stiff-Legged_Barbell_Deadlift/1.jpg"]
+  },
+  {
+    "id": "stiff-halteres",
+    "name": "Stiff com halteres",
+    "aliases": ["stiff halter", "stiff com halter", "stiff halteres", "dumbbell stiff legged deadlift"],
+    "modality": "strength",
+    "primaryMuscles": ["posterior de coxa", "glúteos"],
+    "secondaryMuscles": ["lombar"],
+    "equipment": "halteres",
+    "instructions": [
+      "Segure um halter em cada mão à frente das coxas, pernas quase estendidas.",
+      "Leve o quadril para trás e desça os halteres rente às pernas.",
+      "Suba contraindo os glúteos, com a coluna neutra o tempo todo."
+    ],
+    "sourceId": "Stiff-Legged_Dumbbell_Deadlift",
+    "images": ["Stiff-Legged_Dumbbell_Deadlift/0.jpg", "Stiff-Legged_Dumbbell_Deadlift/1.jpg"]
+  },
+  {
+    "id": "elevacao-pelvica",
+    "name": "Elevação pélvica",
+    "aliases": [
+      "elevação pélvica com barra",
+      "elevação pélvica no banco",
+      "elevação de quadril",
+      "hip thrust",
+      "barbell hip thrust"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "barra",
+    "instructions": [
+      "Apoie as escápulas num banco e a barra (com proteção) sobre o quadril.",
+      "Com os pés firmes no chão, suba o quadril até o tronco ficar alinhado com as coxas.",
+      "Aperte os glúteos no alto e desça devagar."
+    ],
+    "sourceId": "Barbell_Hip_Thrust",
+    "images": ["Barbell_Hip_Thrust/0.jpg", "Barbell_Hip_Thrust/1.jpg"]
+  },
+  {
+    "id": "ponte-gluteo",
+    "name": "Ponte de glúteo",
+    "aliases": ["ponte", "ponte glútea", "elevação pélvica no solo", "glute bridge"],
+    "modality": "strength",
+    "primaryMuscles": ["glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de barriga para cima com os joelhos dobrados e os pés no chão.",
+      "Suba o quadril apertando os glúteos até alinhar ombros, quadril e joelhos.",
+      "Desça devagar."
+    ],
+    "sourceId": "Butt_Lift_Bridge",
+    "images": ["Butt_Lift_Bridge/0.jpg", "Butt_Lift_Bridge/1.jpg"]
+  },
+  {
+    "id": "gluteo-4-apoios",
+    "name": "Glúteo 4 apoios",
+    "aliases": [
+      "glúteo quatro apoios",
+      "coice glúteo",
+      "glúteo coice",
+      "coice no solo",
+      "donkey kick",
+      "glute kickback"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Fique de quatro com as mãos sob os ombros e os joelhos sob o quadril.",
+      "Com o joelho dobrado, eleve uma perna até a coxa ficar alinhada com o tronco.",
+      "Desça devagar e troque de lado ao fim da série."
+    ],
+    "sourceId": "Glute_Kickback",
+    "images": ["Glute_Kickback/0.jpg", "Glute_Kickback/1.jpg"]
+  },
+  {
+    "id": "gluteo-polia",
+    "name": "Glúteo na polia",
+    "aliases": [
+      "glúteo polia",
+      "coice na polia",
+      "glúteo coice na polia",
+      "extensão de quadril na polia",
+      "cable kickback"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["glúteos"],
+    "secondaryMuscles": ["posterior de coxa"],
+    "equipment": "polia",
+    "instructions": [
+      "Prenda a caneleira da polia baixa no tornozelo e segure-se no aparelho.",
+      "Leve a perna estendida para trás contraindo o glúteo, sem arquear a lombar.",
+      "Volte devagar e troque de perna ao fim da série."
+    ],
+    "sourceId": "One-Legged_Cable_Kickback",
+    "images": ["One-Legged_Cable_Kickback/0.jpg", "One-Legged_Cable_Kickback/1.jpg"]
+  },
+  {
+    "id": "cadeira-abdutora",
+    "name": "Cadeira abdutora",
+    "aliases": ["abdutora", "abdutor", "máquina abdutora", "abdução de quadril na máquina", "hip abduction machine"],
+    "modality": "strength",
+    "primaryMuscles": ["abdutores", "glúteos"],
+    "secondaryMuscles": [],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente com as costas apoiadas e as almofadas por fora dos joelhos.",
+      "Abra as pernas o máximo que conseguir, sem tirar o quadril do banco.",
+      "Volte devagar sem deixar o peso encostar."
+    ],
+    "sourceId": "Thigh_Abductor",
+    "images": ["Thigh_Abductor/0.jpg", "Thigh_Abductor/1.jpg"]
+  },
+  {
+    "id": "cadeira-adutora",
+    "name": "Cadeira adutora",
+    "aliases": ["adutora", "adutor", "máquina adutora", "adução de quadril na máquina", "hip adduction machine"],
+    "modality": "strength",
+    "primaryMuscles": ["adutores"],
+    "secondaryMuscles": [],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente com as costas apoiadas e as almofadas por dentro dos joelhos.",
+      "Feche as pernas até as almofadas se encontrarem.",
+      "Abra devagar até sentir a parte interna da coxa alongar."
+    ],
+    "sourceId": "Thigh_Adductor",
+    "images": ["Thigh_Adductor/0.jpg", "Thigh_Adductor/1.jpg"]
+  },
+  {
+    "id": "monster-walk",
+    "name": "Monster walk",
+    "aliases": ["caminhada com elástico", "caminhada com mini band", "monster walk com elástico"],
+    "modality": "strength",
+    "primaryMuscles": ["abdutores", "glúteos"],
+    "secondaryMuscles": [],
+    "equipment": "elástico",
+    "instructions": [
+      "Coloque um elástico em volta dos tornozelos ou joelhos.",
+      "Em semiagachamento, dê passos curtos à frente mantendo a tensão no elástico.",
+      "Depois de alguns passos, volte andando para trás."
+    ],
+    "sourceId": "Monster_Walk",
+    "images": ["Monster_Walk/0.jpg", "Monster_Walk/1.jpg"]
+  },
+  {
+    "id": "panturrilha-em-pe",
+    "name": "Panturrilha em pé",
+    "aliases": ["panturrilha em pé na máquina", "gêmeos em pé", "elevação de panturrilha em pé", "standing calf raise"],
+    "modality": "strength",
+    "primaryMuscles": ["panturrilha"],
+    "secondaryMuscles": [],
+    "equipment": "máquina",
+    "instructions": [
+      "Apoie os ombros sob as almofadas e a ponta dos pés na plataforma.",
+      "Suba nas pontas dos pés o máximo que conseguir e segure 1 segundo.",
+      "Desça devagar até alongar bem a panturrilha."
+    ],
+    "sourceId": "Standing_Calf_Raises",
+    "images": ["Standing_Calf_Raises/0.jpg", "Standing_Calf_Raises/1.jpg"]
+  },
+  {
+    "id": "panturrilha-sentado",
+    "name": "Panturrilha sentado",
+    "aliases": ["panturrilha sentada", "gêmeos sentado", "sóleo sentado", "seated calf raise"],
+    "modality": "strength",
+    "primaryMuscles": ["panturrilha"],
+    "secondaryMuscles": [],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente com a almofada sobre as coxas e a ponta dos pés na plataforma.",
+      "Suba os calcanhares o máximo que conseguir.",
+      "Desça devagar até alongar bem a panturrilha."
+    ],
+    "sourceId": "Seated_Calf_Raise",
+    "images": ["Seated_Calf_Raise/0.jpg", "Seated_Calf_Raise/1.jpg"]
+  },
+  {
+    "id": "panturrilha-leg-press",
+    "name": "Panturrilha no leg press",
+    "aliases": ["panturrilha leg press", "gêmeos no leg press", "leg press panturrilha", "calf press"],
+    "modality": "strength",
+    "primaryMuscles": ["panturrilha"],
+    "secondaryMuscles": [],
+    "equipment": "máquina",
+    "instructions": [
+      "Sente no leg press e apoie só a ponta dos pés na borda da plataforma.",
+      "Com as pernas estendidas, empurre a plataforma esticando os tornozelos.",
+      "Volte devagar até alongar a panturrilha."
+    ],
+    "sourceId": "Calf_Press_On_The_Leg_Press_Machine",
+    "images": ["Calf_Press_On_The_Leg_Press_Machine/0.jpg", "Calf_Press_On_The_Leg_Press_Machine/1.jpg"]
+  },
+  {
+    "id": "panturrilha-halteres",
+    "name": "Panturrilha com halteres",
+    "aliases": ["panturrilha em pé com halteres", "panturrilha halter", "dumbbell calf raise"],
+    "modality": "strength",
+    "primaryMuscles": ["panturrilha"],
+    "secondaryMuscles": [],
+    "equipment": "halteres",
+    "instructions": [
+      "Em pé, segure um halter em cada mão, com a ponta dos pés num degrau.",
+      "Suba nas pontas dos pés o máximo que conseguir.",
+      "Desça devagar até alongar a panturrilha."
+    ],
+    "sourceId": "Standing_Dumbbell_Calf_Raise",
+    "images": ["Standing_Dumbbell_Calf_Raise/0.jpg", "Standing_Dumbbell_Calf_Raise/1.jpg"]
+  },
+  {
+    "id": "abdominal-supra",
+    "name": "Abdominal supra",
+    "aliases": ["supra", "abdominal supra no solo", "abdominal curto", "crunch", "crunches"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de barriga para cima com os joelhos dobrados e os pés no chão.",
+      "Com as mãos atrás da cabeça, sem puxar o pescoço, tire os ombros do chão contraindo o abdômen.",
+      "Desça devagar sem relaxar totalmente."
+    ],
+    "sourceId": "Crunches",
+    "images": ["Crunches/0.jpg", "Crunches/1.jpg"]
+  },
+  {
+    "id": "abdominal-infra",
+    "name": "Abdominal infra",
+    "aliases": ["infra", "abdominal infra no solo", "abdominal reverso", "reverse crunch"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de barriga para cima com as coxas na vertical e os joelhos dobrados.",
+      "Com os braços no chão, traga os joelhos ao peito tirando o quadril do chão.",
+      "Desça devagar até a posição inicial."
+    ],
+    "sourceId": "Reverse_Crunch",
+    "images": ["Reverse_Crunch/0.jpg", "Reverse_Crunch/1.jpg"]
+  },
+  {
+    "id": "elevacao-de-pernas",
+    "name": "Elevação de pernas",
+    "aliases": [
+      "elevação de pernas deitado",
+      "elevação de pernas no banco",
+      "abdominal infra com pernas estendidas",
+      "leg raise",
+      "lying leg raise"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite no banco ou no chão com as pernas estendidas e as mãos sob o quadril.",
+      "Suba as pernas estendidas até formarem 90° com o tronco.",
+      "Desça devagar sem encostar os pés no chão."
+    ],
+    "sourceId": "Flat_Bench_Lying_Leg_Raise",
+    "images": ["Flat_Bench_Lying_Leg_Raise/0.jpg", "Flat_Bench_Lying_Leg_Raise/1.jpg"]
+  },
+  {
+    "id": "elevacao-de-pernas-barra",
+    "name": "Elevação de pernas na barra",
+    "aliases": [
+      "abdominal infra na barra",
+      "abdominal na barra fixa",
+      "elevação de pernas suspenso",
+      "hanging leg raise"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": ["antebraço"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Pendure-se na barra fixa com os braços estendidos.",
+      "Sem balançar, suba as pernas até a altura do quadril ou mais.",
+      "Desça devagar."
+    ],
+    "sourceId": "Hanging_Leg_Raise",
+    "images": ["Hanging_Leg_Raise/0.jpg", "Hanging_Leg_Raise/1.jpg"]
+  },
+  {
+    "id": "abdominal-obliquo",
+    "name": "Abdominal oblíquo",
+    "aliases": ["oblíquo", "oblíquos", "abdominal oblíquo no solo", "abdominal lateral", "oblique crunch"],
+    "modality": "strength",
+    "primaryMuscles": ["oblíquos"],
+    "secondaryMuscles": ["abdômen"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de lado com os joelhos dobrados e a mão de cima atrás da cabeça.",
+      "Contraia a lateral do abdômen tirando o ombro do chão.",
+      "Desça devagar e troque de lado ao fim da série."
+    ],
+    "sourceId": "Oblique_Crunches_-_On_The_Floor",
+    "images": ["Oblique_Crunches_-_On_The_Floor/0.jpg", "Oblique_Crunches_-_On_The_Floor/1.jpg"]
+  },
+  {
+    "id": "abdominal-bicicleta",
+    "name": "Abdominal bicicleta",
+    "aliases": ["bicicleta no solo", "abdominal bike", "abdominal pedalada", "bicycle crunch"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen", "oblíquos"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite com as mãos atrás da cabeça e as pernas no ar, joelhos a 90°.",
+      "Estenda uma perna e traga o joelho oposto em direção ao cotovelo do outro lado.",
+      "Alterne os lados num movimento contínuo de pedalada."
+    ],
+    "sourceId": "Air_Bike",
+    "images": ["Air_Bike/0.jpg", "Air_Bike/1.jpg"]
+  },
+  {
+    "id": "abdominal-polia",
+    "name": "Abdominal na polia",
+    "aliases": [
+      "abdominal na corda",
+      "abdominal com corda",
+      "abdominal polia alta",
+      "abdominal ajoelhado na polia",
+      "cable crunch"
+    ],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "polia",
+    "instructions": [
+      "Ajoelhe de frente para a polia alta segurando a corda ao lado da cabeça.",
+      "Enrole o tronco para baixo contraindo o abdômen, sem mexer o quadril.",
+      "Volte devagar à posição inicial."
+    ],
+    "sourceId": "Cable_Crunch",
+    "images": ["Cable_Crunch/0.jpg", "Cable_Crunch/1.jpg"]
+  },
+  {
+    "id": "abdominal-canivete",
+    "name": "Abdominal canivete",
+    "aliases": ["canivete", "abdominal v", "v-up", "jackknife"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite com as pernas estendidas e os braços estendidos acima da cabeça.",
+      "Suba tronco e pernas ao mesmo tempo, tentando tocar as mãos nos pés.",
+      "Desça devagar à posição inicial."
+    ],
+    "sourceId": "Jackknife_Sit-Up",
+    "images": ["Jackknife_Sit-Up/0.jpg", "Jackknife_Sit-Up/1.jpg"]
+  },
+  {
+    "id": "abdominal-remador",
+    "name": "Abdominal remador",
+    "aliases": ["remador", "abdominal remador sentado", "seated leg tuck"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Sente com as mãos apoiadas atrás do quadril, tronco inclinado e pernas estendidas no ar.",
+      "Traga os joelhos ao peito aproximando o tronco das pernas.",
+      "Volte estendendo as pernas sem apoiar os pés."
+    ],
+    "sourceId": "Seated_Leg_Tucks",
+    "images": ["Seated_Leg_Tucks/0.jpg", "Seated_Leg_Tucks/1.jpg"]
+  },
+  {
+    "id": "abdominal-completo",
+    "name": "Abdominal completo",
+    "aliases": ["abdominal tradicional", "sit-up", "situp"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite com os joelhos dobrados e os pés presos ou apoiados no chão.",
+      "Suba o tronco inteiro até ficar sentado.",
+      "Desça devagar, vértebra por vértebra."
+    ],
+    "sourceId": "Sit-Up",
+    "images": ["Sit-Up/0.jpg", "Sit-Up/1.jpg"]
+  },
+  {
+    "id": "abdominal-russo",
+    "name": "Abdominal russo",
+    "aliases": ["giro russo", "rotação russa", "twist russo", "russian twist"],
+    "modality": "strength",
+    "primaryMuscles": ["oblíquos"],
+    "secondaryMuscles": ["abdômen"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Sente com os joelhos dobrados e incline o tronco para trás, com os pés no chão ou no ar.",
+      "Gire o tronco de um lado para o outro levando as mãos (ou um peso) até o chão.",
+      "Mantenha o abdômen firme o tempo todo."
+    ],
+    "sourceId": "Russian_Twist",
+    "images": ["Russian_Twist/0.jpg", "Russian_Twist/1.jpg"]
+  },
+  {
+    "id": "abdominal-tesoura",
+    "name": "Abdominal tesoura",
+    "aliases": ["tesoura", "tesourinha", "scissor kick", "flutter kick"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de barriga para cima com as mãos sob o quadril e as pernas estendidas.",
+      "Tire os calcanhares do chão e alterne as pernas para cima e para baixo.",
+      "Mantenha a lombar colada no chão durante todo o tempo."
+    ],
+    "sourceId": "Scissor_Kick",
+    "images": ["Scissor_Kick/0.jpg", "Scissor_Kick/1.jpg"]
+  },
+  {
+    "id": "roda-abdominal",
+    "name": "Roda abdominal",
+    "aliases": ["rodinha", "rodinha abdominal", "abdominal com rodinha", "rolinho abdominal", "ab wheel", "ab roller"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": ["ombros", "costas"],
+    "equipment": "outro",
+    "instructions": [
+      "Ajoelhe segurando a roda à frente, no chão.",
+      "Role a roda para a frente estendendo o corpo, sem deixar a lombar afundar.",
+      "Volte puxando com o abdômen."
+    ],
+    "sourceId": "Ab_Roller",
+    "images": ["Ab_Roller/0.jpg", "Ab_Roller/1.jpg"]
+  },
+  {
+    "id": "prancha",
+    "name": "Prancha",
+    "aliases": ["prancha frontal", "prancha isométrica", "prancha abdominal", "prancha no cotovelo", "plank"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": ["oblíquos", "lombar", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Apoie os antebraços no chão com os cotovelos sob os ombros.",
+      "Estenda as pernas e alinhe cabeça, quadril e calcanhares.",
+      "Contraia abdômen e glúteos e segure a posição pelo tempo combinado."
+    ],
+    "sourceId": "Plank",
+    "images": ["Plank/0.jpg", "Plank/1.jpg"]
+  },
+  {
+    "id": "prancha-lateral",
+    "name": "Prancha lateral",
+    "aliases": ["prancha de lado", "prancha lateral isométrica", "side plank"],
+    "modality": "strength",
+    "primaryMuscles": ["oblíquos"],
+    "secondaryMuscles": ["abdômen", "glúteos"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de lado apoiado no antebraço, cotovelo sob o ombro.",
+      "Suba o quadril até alinhar o corpo da cabeça aos pés.",
+      "Segure pelo tempo combinado e troque de lado."
+    ],
+    "sourceId": "Side_Bridge",
+    "images": ["Side_Bridge/0.jpg", "Side_Bridge/1.jpg"]
+  },
+  {
+    "id": "dead-bug",
+    "name": "Dead bug",
+    "aliases": ["deadbug", "inseto morto"],
+    "modality": "strength",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite com os braços estendidos para o teto e os joelhos a 90° no ar.",
+      "Estenda um braço para trás e a perna oposta à frente, sem tirar a lombar do chão.",
+      "Volte e alterne os lados."
+    ],
+    "sourceId": "Dead_Bug",
+    "images": ["Dead_Bug/0.jpg", "Dead_Bug/1.jpg"]
+  },
+  {
+    "id": "lenhador",
+    "name": "Lenhador na polia",
+    "aliases": ["lenhador", "rotação de tronco na polia", "wood chop", "woodchopper"],
+    "modality": "strength",
+    "primaryMuscles": ["oblíquos"],
+    "secondaryMuscles": ["abdômen", "ombros"],
+    "equipment": "polia",
+    "instructions": [
+      "De lado para a polia alta, segure a pegada com as duas mãos acima do ombro.",
+      "Puxe o cabo na diagonal até o quadril oposto, girando o tronco.",
+      "Volte devagar e troque de lado ao fim da série."
+    ],
+    "sourceId": "Standing_Cable_Wood_Chop",
+    "images": ["Standing_Cable_Wood_Chop/0.jpg", "Standing_Cable_Wood_Chop/1.jpg"]
+  },
+  {
+    "id": "burpee",
+    "name": "Burpee",
+    "aliases": ["burpees", "burpee completo", "burpee com salto"],
+    "modality": "hiit",
+    "primaryMuscles": ["corpo inteiro"],
+    "secondaryMuscles": ["peito", "quadríceps", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, agache e apoie as mãos no chão.",
+      "Jogue os pés para trás até a posição de prancha e faça uma flexão.",
+      "Traga os pés de volta para perto das mãos.",
+      "Suba saltando com os braços acima da cabeça."
+    ],
+    "sourceId": null,
+    "images": []
+  },
+  {
+    "id": "polichinelo",
+    "name": "Polichinelo",
+    "aliases": ["polichinelos", "jumping jack", "jumping jacks"],
+    "modality": "hiit",
+    "primaryMuscles": ["corpo inteiro"],
+    "secondaryMuscles": ["panturrilha", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, com os pés juntos e os braços ao lado do corpo.",
+      "Salte abrindo as pernas e levando os braços acima da cabeça.",
+      "Salte de volta à posição inicial e repita em ritmo constante."
+    ],
+    "sourceId": null,
+    "images": []
+  },
+  {
+    "id": "mountain-climber",
+    "name": "Mountain climber",
+    "aliases": ["escalador", "alpinista", "mountain climbers"],
+    "modality": "hiit",
+    "primaryMuscles": ["abdômen"],
+    "secondaryMuscles": ["ombros", "quadríceps"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Fique em posição de prancha alta, com as mãos sob os ombros.",
+      "Traga um joelho em direção ao peito e volte.",
+      "Alterne as pernas rapidamente, mantendo o quadril baixo."
+    ],
+    "sourceId": "Mountain_Climbers",
+    "images": ["Mountain_Climbers/0.jpg", "Mountain_Climbers/1.jpg"]
+  },
+  {
+    "id": "agachamento-com-salto",
+    "name": "Agachamento com salto",
+    "aliases": ["agachamento saltado", "salto agachado", "agachamento pliométrico", "jump squat", "squat jump"],
+    "modality": "hiit",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["panturrilha"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, afaste os pés na largura dos ombros.",
+      "Agache até as coxas ficarem paralelas ao chão.",
+      "Salte o mais alto que conseguir e aterrisse suave, já descendo para o próximo."
+    ],
+    "sourceId": "Freehand_Jump_Squat",
+    "images": ["Freehand_Jump_Squat/0.jpg", "Freehand_Jump_Squat/1.jpg"]
+  },
+  {
+    "id": "salto-na-caixa",
+    "name": "Salto na caixa",
+    "aliases": ["salto no caixote", "pulo na caixa", "box jump"],
+    "modality": "hiit",
+    "primaryMuscles": ["quadríceps", "glúteos"],
+    "secondaryMuscles": ["panturrilha", "posterior de coxa"],
+    "equipment": "outro",
+    "instructions": [
+      "Fique de frente para uma caixa firme, a um passo de distância.",
+      "Agache um pouco balançando os braços para trás.",
+      "Salte e aterrisse sobre a caixa com os joelhos levemente dobrados.",
+      "Desça da caixa com um pé de cada vez."
+    ],
+    "sourceId": "Front_Box_Jump",
+    "images": ["Front_Box_Jump/0.jpg", "Front_Box_Jump/1.jpg"]
+  },
+  {
+    "id": "skipping",
+    "name": "Skipping",
+    "aliases": ["skipping alto", "corrida estacionária", "joelho alto", "high knees"],
+    "modality": "hiit",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": ["abdômen", "panturrilha"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Corra no lugar subindo bem os joelhos, até a altura do quadril.",
+      "Apoie só a ponta dos pés e acompanhe com os braços.",
+      "Mantenha o tronco ereto e o ritmo rápido."
+    ],
+    "sourceId": null,
+    "images": []
+  },
+  {
+    "id": "kettlebell-swing",
+    "name": "Kettlebell swing",
+    "aliases": ["swing", "swing com kettlebell", "balanço com kettlebell", "kb swing", "russian swing"],
+    "modality": "hiit",
+    "primaryMuscles": ["glúteos", "posterior de coxa"],
+    "secondaryMuscles": ["lombar", "ombros", "abdômen"],
+    "equipment": "kettlebell",
+    "instructions": [
+      "Com os pés afastados, segure o kettlebell com as duas mãos entre as pernas.",
+      "Leve o quadril para trás, como no stiff, com a coluna neutra.",
+      "Estenda o quadril com força e deixe o kettlebell subir até a altura do peito.",
+      "Deixe-o descer entre as pernas e emende a próxima repetição."
+    ],
+    "sourceId": "One-Arm_Kettlebell_Swings",
+    "images": ["One-Arm_Kettlebell_Swings/0.jpg", "One-Arm_Kettlebell_Swings/1.jpg"]
+  },
+  {
+    "id": "corda-naval",
+    "name": "Corda naval",
+    "aliases": ["cordas navais", "battle rope", "battling ropes"],
+    "modality": "hiit",
+    "primaryMuscles": ["corpo inteiro"],
+    "secondaryMuscles": ["ombros", "abdômen"],
+    "equipment": "corda",
+    "instructions": [
+      "Segure uma ponta da corda em cada mão, em meio agachamento.",
+      "Mova os braços para cima e para baixo rapidamente, criando ondas na corda.",
+      "Mantenha o abdômen firme e o ritmo pelo tempo combinado."
+    ],
+    "sourceId": "Battling_Ropes",
+    "images": ["Battling_Ropes/0.jpg", "Battling_Ropes/1.jpg"]
+  },
+  {
+    "id": "corrida-esteira",
+    "name": "Corrida na esteira",
+    "aliases": ["esteira corrida", "correr na esteira", "treadmill run", "running treadmill"],
+    "modality": "cardio",
+    "primaryMuscles": ["quadríceps", "panturrilha"],
+    "secondaryMuscles": ["posterior de coxa", "glúteos"],
+    "equipment": "esteira",
+    "instructions": [
+      "Suba na esteira parada e prenda a chave de segurança na roupa.",
+      "Comece caminhando por alguns minutos para aquecer.",
+      "Aumente a velocidade até o ritmo de corrida combinado.",
+      "Reduza aos poucos para desacelerar antes de parar."
+    ],
+    "sourceId": "Running_Treadmill",
+    "images": ["Running_Treadmill/0.jpg", "Running_Treadmill/1.jpg"]
+  },
+  {
+    "id": "caminhada-esteira",
+    "name": "Caminhada na esteira",
+    "aliases": [
+      "esteira caminhada",
+      "caminhar na esteira",
+      "caminhada inclinada",
+      "esteira inclinada",
+      "treadmill walk"
+    ],
+    "modality": "cardio",
+    "primaryMuscles": ["quadríceps", "panturrilha"],
+    "secondaryMuscles": ["glúteos"],
+    "equipment": "esteira",
+    "instructions": [
+      "Suba na esteira parada e prenda a chave de segurança na roupa.",
+      "Ajuste a velocidade e a inclinação combinadas.",
+      "Caminhe com o tronco ereto, sem se apoiar nas barras laterais."
+    ],
+    "sourceId": "Walking_Treadmill",
+    "images": ["Walking_Treadmill/0.jpg", "Walking_Treadmill/1.jpg"]
+  },
+  {
+    "id": "corrida",
+    "name": "Corrida ao ar livre",
+    "aliases": ["corrida", "correr", "corrida de rua", "corrida na rua", "trote", "running", "jogging"],
+    "modality": "cardio",
+    "primaryMuscles": ["quadríceps", "panturrilha"],
+    "secondaryMuscles": ["posterior de coxa", "glúteos"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Aqueça com 5 minutos de caminhada ou trote leve.",
+      "Corra no ritmo combinado, com passadas curtas e o tronco levemente inclinado.",
+      "Desacelere aos poucos no final e caminhe alguns minutos."
+    ],
+    "sourceId": "Trail_Running_Walking",
+    "images": ["Trail_Running_Walking/0.jpg", "Trail_Running_Walking/1.jpg"]
+  },
+  {
+    "id": "caminhada",
+    "name": "Caminhada ao ar livre",
+    "aliases": ["caminhada", "caminhar", "caminhada na rua", "caminhada rápida", "walking"],
+    "modality": "cardio",
+    "primaryMuscles": ["quadríceps", "panturrilha"],
+    "secondaryMuscles": ["glúteos"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Use um tênis confortável e comece num ritmo leve.",
+      "Aumente para um ritmo em que ainda dá para conversar, mas com esforço.",
+      "Balance os braços e mantenha a postura ereta."
+    ],
+    "sourceId": "Trail_Running_Walking",
+    "images": ["Trail_Running_Walking/0.jpg", "Trail_Running_Walking/1.jpg"]
+  },
+  {
+    "id": "bicicleta-ergometrica",
+    "name": "Bicicleta ergométrica",
+    "aliases": [
+      "bicicleta",
+      "bike",
+      "bike ergométrica",
+      "ergométrica",
+      "bicicleta estacionária",
+      "stationary bike",
+      "exercise bike"
+    ],
+    "modality": "cardio",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": ["glúteos", "panturrilha", "posterior de coxa"],
+    "equipment": "bicicleta",
+    "instructions": [
+      "Ajuste o banco para o joelho ficar levemente dobrado com o pedal embaixo.",
+      "Comece com carga leve por alguns minutos.",
+      "Pedale na intensidade combinada, com o tronco estável."
+    ],
+    "sourceId": "Bicycling_Stationary",
+    "images": ["Bicycling_Stationary/0.jpg", "Bicycling_Stationary/1.jpg"]
+  },
+  {
+    "id": "remo-ergometro",
+    "name": "Remo ergômetro",
+    "aliases": ["remo", "remo seco", "remo indoor", "remoergômetro", "rowing machine"],
+    "modality": "cardio",
+    "primaryMuscles": ["corpo inteiro"],
+    "secondaryMuscles": ["costas", "quadríceps", "bíceps"],
+    "equipment": "remo",
+    "instructions": [
+      "Prenda os pés no apoio e segure a pegada com os braços estendidos.",
+      "Empurre com as pernas, depois incline o tronco levemente para trás e puxe a pegada até o abdômen.",
+      "Volte na ordem inversa: braços, tronco e por fim as pernas."
+    ],
+    "sourceId": "Rowing_Stationary",
+    "images": ["Rowing_Stationary/0.jpg", "Rowing_Stationary/1.jpg"]
+  },
+  {
+    "id": "eliptico",
+    "name": "Elíptico",
+    "aliases": ["elíptica", "transport", "elliptical"],
+    "modality": "cardio",
+    "primaryMuscles": ["corpo inteiro"],
+    "secondaryMuscles": ["quadríceps", "glúteos"],
+    "equipment": "outro",
+    "instructions": [
+      "Suba nos pedais segurando as alças móveis.",
+      "Movimente pernas e braços ao mesmo tempo, num ritmo contínuo.",
+      "Ajuste a carga para a intensidade combinada."
+    ],
+    "sourceId": "Elliptical_Trainer",
+    "images": ["Elliptical_Trainer/0.jpg", "Elliptical_Trainer/1.jpg"]
+  },
+  {
+    "id": "pular-corda",
+    "name": "Pular corda",
+    "aliases": ["pulo de corda", "jump rope", "rope jumping"],
+    "modality": "cardio",
+    "primaryMuscles": ["panturrilha"],
+    "secondaryMuscles": ["corpo inteiro", "ombros"],
+    "equipment": "corda",
+    "instructions": [
+      "Segure as pontas da corda com os cotovelos junto ao corpo.",
+      "Gire a corda com os punhos e salte baixo, na ponta dos pés.",
+      "Mantenha um ritmo constante e aterrisse suave."
+    ],
+    "sourceId": "Rope_Jumping",
+    "images": ["Rope_Jumping/0.jpg", "Rope_Jumping/1.jpg"]
+  },
+  {
+    "id": "alongamento-posterior",
+    "name": "Alongamento de posterior de coxa",
+    "aliases": [
+      "alongamento posterior",
+      "alongamento de posterior sentado",
+      "alongamento isquiotibiais",
+      "hamstring stretch"
+    ],
+    "modality": "mobility",
+    "primaryMuscles": ["posterior de coxa"],
+    "secondaryMuscles": ["panturrilha"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Sente com uma perna estendida e a sola do outro pé na parte interna da coxa.",
+      "Incline o tronco à frente a partir do quadril e alcance o tornozelo.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Seated_Floor_Hamstring_Stretch",
+    "images": ["Seated_Floor_Hamstring_Stretch/0.jpg", "Seated_Floor_Hamstring_Stretch/1.jpg"]
+  },
+  {
+    "id": "alongamento-quadriceps",
+    "name": "Alongamento de quadríceps",
+    "aliases": ["alongamento anterior de coxa", "alongamento de coxa", "quad stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de lado e segure o pé de cima com a mão do mesmo lado.",
+      "Puxe o calcanhar em direção ao glúteo, levando o quadril à frente.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "On_Your_Side_Quad_Stretch",
+    "images": ["On_Your_Side_Quad_Stretch/0.jpg", "On_Your_Side_Quad_Stretch/1.jpg"]
+  },
+  {
+    "id": "alongamento-panturrilha",
+    "name": "Alongamento de panturrilha",
+    "aliases": ["alongamento de gêmeos", "alongamento de panturrilha na parede", "calf stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["panturrilha"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Apoie as mãos na parede com uma perna à frente e a outra estendida atrás.",
+      "Incline o corpo à frente mantendo o calcanhar de trás no chão.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Calf_Stretch_Hands_Against_Wall",
+    "images": ["Calf_Stretch_Hands_Against_Wall/0.jpg", "Calf_Stretch_Hands_Against_Wall/1.jpg"]
+  },
+  {
+    "id": "alongamento-peitoral",
+    "name": "Alongamento de peitoral",
+    "aliases": ["alongamento de peito", "abertura de braços", "alongamento dinâmico de peitoral", "chest stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["peito"],
+    "secondaryMuscles": ["ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, estenda os braços à frente com as mãos juntas.",
+      "Abra os braços para trás o máximo possível, abrindo o peito.",
+      "Volte à frente e repita de 10 a 15 vezes, ampliando o movimento aos poucos."
+    ],
+    "sourceId": "Dynamic_Chest_Stretch",
+    "images": ["Dynamic_Chest_Stretch/0.jpg", "Dynamic_Chest_Stretch/1.jpg"]
+  },
+  {
+    "id": "alongamento-ombro",
+    "name": "Alongamento de ombro",
+    "aliases": ["alongamento de ombro cruzado", "braço cruzado", "alongamento de deltoide", "shoulder stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": [],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Leve um braço estendido à frente do peito, na direção do ombro oposto.",
+      "Com a outra mão, puxe o braço para perto do corpo.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Shoulder_Stretch",
+    "images": ["Shoulder_Stretch/0.jpg", "Shoulder_Stretch/1.jpg"]
+  },
+  {
+    "id": "alongamento-triceps",
+    "name": "Alongamento de tríceps",
+    "aliases": ["alongamento de tríceps atrás da cabeça", "triceps stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["tríceps"],
+    "secondaryMuscles": ["costas"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Leve uma mão atrás da cabeça, com o cotovelo apontando para cima.",
+      "Com a outra mão, puxe o cotovelo suavemente.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Triceps_Stretch",
+    "images": ["Triceps_Stretch/0.jpg", "Triceps_Stretch/1.jpg"]
+  },
+  {
+    "id": "alongamento-flexor-quadril",
+    "name": "Alongamento de flexor do quadril",
+    "aliases": [
+      "alongamento de iliopsoas",
+      "alongamento de psoas",
+      "alongamento de quadril ajoelhado",
+      "hip flexor stretch"
+    ],
+    "modality": "mobility",
+    "primaryMuscles": ["quadríceps"],
+    "secondaryMuscles": ["abdômen"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Ajoelhe com uma perna à frente, pé no chão, e a outra atrás.",
+      "Leve o quadril à frente, contraindo o glúteo da perna de trás.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Kneeling_Hip_Flexor",
+    "images": ["Kneeling_Hip_Flexor/0.jpg", "Kneeling_Hip_Flexor/1.jpg"]
+  },
+  {
+    "id": "alongamento-gluteo",
+    "name": "Alongamento de glúteo",
+    "aliases": [
+      "alongamento de piriforme",
+      "figura 4",
+      "alongamento de glúteo deitado",
+      "figure 4 stretch",
+      "glute stretch"
+    ],
+    "modality": "mobility",
+    "primaryMuscles": ["glúteos"],
+    "secondaryMuscles": ["lombar"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de barriga para cima com os joelhos dobrados.",
+      "Cruze um tornozelo sobre o joelho oposto.",
+      "Puxe a coxa de baixo em direção ao peito, segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Ankle_On_The_Knee",
+    "images": ["Ankle_On_The_Knee/0.jpg", "Ankle_On_The_Knee/1.jpg"]
+  },
+  {
+    "id": "alongamento-borboleta",
+    "name": "Alongamento borboleta",
+    "aliases": ["borboleta", "alongamento de adutores", "alongamento de virilha", "butterfly stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["adutores"],
+    "secondaryMuscles": ["lombar"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Sente com as solas dos pés juntas e os joelhos abertos.",
+      "Segure os pés e incline o tronco à frente com a coluna longa.",
+      "Segure 20 a 30 segundos respirando fundo."
+    ],
+    "sourceId": "Groin_and_Back_Stretch",
+    "images": ["Groin_and_Back_Stretch/0.jpg", "Groin_and_Back_Stretch/1.jpg"]
+  },
+  {
+    "id": "postura-da-crianca",
+    "name": "Postura da criança",
+    "aliases": ["posição da criança", "alongamento da criança", "balasana", "childs pose"],
+    "modality": "mobility",
+    "primaryMuscles": ["lombar"],
+    "secondaryMuscles": ["costas", "glúteos"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Fique de quatro e sente sobre os calcanhares.",
+      "Leve os braços estendidos à frente e apoie a testa no chão.",
+      "Relaxe e respire fundo por 30 segundos ou mais."
+    ],
+    "sourceId": "Childs_Pose",
+    "images": ["Childs_Pose/0.jpg", "Childs_Pose/1.jpg"]
+  },
+  {
+    "id": "gato-vaca",
+    "name": "Gato-vaca",
+    "aliases": ["gato e vaca", "gato camelo", "cat cow"],
+    "modality": "mobility",
+    "primaryMuscles": ["lombar"],
+    "secondaryMuscles": ["costas", "abdômen"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Fique de quatro com as mãos sob os ombros e os joelhos sob o quadril.",
+      "Arredonde as costas puxando o umbigo para dentro e soltando a cabeça.",
+      "Depois afunde as costas olhando para a frente. Alterne devagar."
+    ],
+    "sourceId": "Cat_Stretch",
+    "images": ["Cat_Stretch/0.jpg", "Cat_Stretch/1.jpg"]
+  },
+  {
+    "id": "rotacao-de-tronco-deitado",
+    "name": "Rotação de tronco deitado",
+    "aliases": ["torção deitada", "torção de coluna deitado", "rotação lombar deitado", "lying spinal twist"],
+    "modality": "mobility",
+    "primaryMuscles": ["lombar"],
+    "secondaryMuscles": ["glúteos", "oblíquos"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Deite de barriga para cima com os braços abertos.",
+      "Dobre uma perna e cruze o joelho por cima do corpo em direção ao chão.",
+      "Mantenha os ombros no chão, segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Knee_Across_The_Body",
+    "images": ["Knee_Across_The_Body/0.jpg", "Knee_Across_The_Body/1.jpg"]
+  },
+  {
+    "id": "alongamento-pescoco",
+    "name": "Alongamento de pescoço",
+    "aliases": ["alongamento cervical", "alongamento lateral de pescoço", "neck stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["pescoço"],
+    "secondaryMuscles": ["trapézio"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Com os ombros relaxados, incline a cabeça em direção a um ombro.",
+      "Ajude com uma leve pressão da mão do mesmo lado.",
+      "Segure 20 a 30 segundos e troque de lado."
+    ],
+    "sourceId": "Side_Neck_Stretch",
+    "images": ["Side_Neck_Stretch/0.jpg", "Side_Neck_Stretch/1.jpg"]
+  },
+  {
+    "id": "circulos-com-os-bracos",
+    "name": "Círculos com os braços",
+    "aliases": ["círculos de braço", "rotação de braços", "circundução de ombros", "arm circles"],
+    "modality": "mobility",
+    "primaryMuscles": ["ombros"],
+    "secondaryMuscles": ["trapézio"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, estenda os braços para os lados na altura dos ombros.",
+      "Faça círculos pequenos para a frente por uns 10 a 15 segundos.",
+      "Inverta o sentido e aumente os círculos aos poucos."
+    ],
+    "sourceId": "Arm_Circles",
+    "images": ["Arm_Circles/0.jpg", "Arm_Circles/1.jpg"]
+  },
+  {
+    "id": "maior-alongamento-do-mundo",
+    "name": "Alongamento do maior do mundo",
+    "aliases": ["maior alongamento do mundo", "worlds greatest stretch", "greatest stretch"],
+    "modality": "mobility",
+    "primaryMuscles": ["glúteos", "posterior de coxa"],
+    "secondaryMuscles": ["quadríceps", "costas"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Dê um passo largo à frente e apoie as duas mãos no chão, por dentro do pé da frente.",
+      "Leve o cotovelo do lado da perna da frente em direção ao chão.",
+      "Gire o tronco abrindo esse braço para o teto.",
+      "Volte, estenda a perna da frente para alongar o posterior e troque de lado."
+    ],
+    "sourceId": "Worlds_Greatest_Stretch",
+    "images": ["Worlds_Greatest_Stretch/0.jpg", "Worlds_Greatest_Stretch/1.jpg"]
+  },
+  {
+    "id": "inchworm",
+    "name": "Inchworm (minhoca)",
+    "aliases": ["minhoca", "lagarta", "walkout"],
+    "modality": "mobility",
+    "primaryMuscles": ["posterior de coxa"],
+    "secondaryMuscles": ["abdômen", "ombros"],
+    "equipment": "peso corporal",
+    "instructions": [
+      "Em pé, flexione o tronco e apoie as mãos no chão com as pernas estendidas.",
+      "Caminhe com as mãos à frente até a posição de prancha.",
+      "Caminhe com os pés até perto das mãos e repita."
+    ],
+    "sourceId": "Inchworm",
+    "images": ["Inchworm/0.jpg", "Inchworm/1.jpg"]
+  }
+]

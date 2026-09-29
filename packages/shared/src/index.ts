@@ -2,3 +2,8 @@ export * from './workout';
 export * from './csv';
 export * from './calories';
 export * from './duration';
+export * from './session';
+export * from './profile';
+export * from './import-prompt';
+export * from './text';
+export * from './catalog';

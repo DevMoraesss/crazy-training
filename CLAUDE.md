@@ -20,7 +20,7 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 | Dados no aparelho | expo-sqlite + Drizzle ORM. **Offline-first**: o app funciona 100% sem internet. |
 | API (`apps/api`) | NestJS 12 (ESM) + PostgreSQL + Drizzle, testes com Vitest, lint com oxlint. Deploy via `apps/api/Dockerfile` na Railway (`railway.json`). |
 | Local | `docker-compose.yml` sobe o Postgres |
-| Compartilhado (`packages/shared`) | Schemas zod do formato de treino, import/export CSV, duração estimada e calorias (MET) |
+| Compartilhado (`packages/shared`) | Schemas zod do formato de treino e do perfil, import/export CSV, prompt da importação manual, catálogo de exercícios pt-BR (busca e reconhecimento de nomes), progresso da sessão, duração estimada e calorias (MET) |
 | IA | API do Claude, **somente no backend**. A chave nunca vai para o app. |
 | Exercícios | [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (domínio público) traduzido para pt-BR, com link opcional de YouTube por exercício |
 
@@ -71,10 +71,18 @@ npm run lint -w @crazy-training/api && npm run lint -w @crazy-training/mobile
 
 Antes de dar uma tarefa como pronta: typecheck, testes e lint do pacote que mudou.
 
+## App mobile: onde fica cada coisa
+
+- `src/app/` (expo-router): `_layout.tsx` é a pilha raiz (abas por baixo, modais por cima). `(tabs)/` tem as 4 abas, cada uma com a própria pilha (`TabStack`). Modais: `session/[id]` (execução do treino, tela cheia), `import/` (importar CSV), `editor/` (programa → treino → exercício → busca na base).
+- `src/db/`: banco no aparelho. `schema.ts` (Drizzle), `queries.ts` (hooks `use*` com `useLiveQuery`, que re-renderizam sozinhos, e funções de escrita). Mudou o schema? `npm run db:generate -w @crazy-training/mobile` gera a migração em `apps/mobile/drizzle/`; o `DatabaseGate` aplica ao abrir o app.
+- **Transações do Drizzle no expo-sqlite são síncronas:** dentro de `db.transaction`, use `.run()` e nunca `async`/`await`.
+- Programas ficam inteiros como JSON no formato portátil (`Program` do shared). Cada sessão guarda uma cópia do treino (`plan`), então editar ou apagar o programa não muda o histórico. A posição do treino (exercício e série atuais) é calculada das séries registradas (`sessionPosition`), e por isso sobrevive ao app fechar.
+- Web: `output: "single"` (sem renderização no servidor) e cabeçalhos COOP/COEP no Metro e no `app.json`, que o expo-sqlite exige na web. `Alert` não funciona na web: use `lib/dialogs.ts`.
+
 ## Roadmap
 
 - **Fase 0 — Fundação:** monorepo; app rodando no iPhone via Expo Go; tokens de design e componentes base; API + Postgres local (Docker) e na Railway. *Feita, exceto o primeiro deploy na Railway, que depende da conta do dono do projeto (passo a passo no README).*
-- **Fase 1 — Musculação offline (uso pessoal):** perfil; base de exercícios pt-BR; editor manual; execução com timer e registro; histórico; import manual (prompt + CSV) e export.
+- **Fase 1 — Musculação offline (uso pessoal):** perfil; base de exercícios pt-BR; editor manual; execução com timer e registro; histórico; import manual (prompt + CSV) e export. *Feita.*
 - **Fase 2 — IA + conta:** import integrado; geração pelo perfil; biblioteca de modelos; login Apple/Google e sync; editor desktop (web); compartilhamento por link.
 - **Fase 3 — Outras modalidades:** timers de HIIT/funcional; mobilidade; calorias (MET); corrida/caminhada com GPS em primeiro plano.
 - **Fase 4 — Nativo (exige conta Apple):** development build; GPS em segundo plano; Apple Saúde/Watch; TestFlight e App Store; Play Store.

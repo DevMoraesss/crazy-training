@@ -1,9 +1,6 @@
-import '../global.css';
-
 import { Tabs } from 'expo-router/js-tabs';
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
 
-import { ThemeRoot } from '@/components/theme-root';
 import { useColors } from '@/theme';
 
 // A web não tem tab bar do sistema: abas em JS por enquanto. O editor desktop (Fase 2)
@@ -15,15 +12,7 @@ const TABS: { name: string; title: string; icon: SymbolViewProps['name'] }[] = [
   { name: 'profile', title: 'Perfil', icon: { web: 'account_circle' } },
 ];
 
-export default function WebLayout() {
-  return (
-    <ThemeRoot>
-      <WebTabs />
-    </ThemeRoot>
-  );
-}
-
-function WebTabs() {
+export default function WebTabsLayout() {
   const colors = useColors();
 
   return (
@@ -32,7 +21,13 @@ function WebTabs() {
         headerShown: false,
         tabBarActiveTintColor: colors.tint,
         tabBarInactiveTintColor: colors['icon-secondary'],
-        tabBarStyle: { height: 64, paddingTop: 6, paddingBottom: 8, backgroundColor: colors.surface, borderTopColor: colors.separator },
+        tabBarStyle: {
+          height: 64,
+          paddingTop: 6,
+          paddingBottom: 8,
+          backgroundColor: colors.surface,
+          borderTopColor: colors.separator,
+        },
       }}>
       {TABS.map((tab) => (
         <Tabs.Screen

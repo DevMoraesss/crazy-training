@@ -4,6 +4,15 @@ App de treino: você abre o app na academia ou na rua e vê o treino do dia, com
 
 Decisões de produto, stack e roadmap ficam no [CLAUDE.md](CLAUDE.md).
 
+## O que já funciona (Fase 1, tudo offline no aparelho)
+
+- **Hoje:** o próximo treino do rodízio (A → B → C → A), com os exercícios e o tempo estimado. Um treino interrompido aparece para continuar.
+- **Execução:** foto do movimento (as duas posições se alternando), "Como fazer" e link para vídeo; repetições e carga pré-preenchidas com o que você fez na última vez; timer de descanso com aviso mesmo com a tela bloqueada; desfazer série, pular exercício e resumo no fim (duração, volume e calorias).
+- **Treinos:** vários programas, um ativo. Editor completo (treinos, exercícios, séries, repetições, carga, descanso e ordem) com busca na base de exercícios em português. Exporta CSV.
+- **Importar:** o app dá um prompt pronto. Você cola no ChatGPT, Gemini ou Claude junto com o seu treino (PDF, foto ou planilha) e cola de volta o CSV da resposta, ou abre o arquivo. Antes de salvar, você revisa o que foi reconhecido.
+- **Histórico:** resumo da semana e cada treino com todas as séries.
+- **Perfil:** peso, altura, objetivo, nível, onde treina e dias por semana. O peso alimenta a estimativa de calorias.
+
 ## Estrutura
 
 ```

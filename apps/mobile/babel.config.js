@@ -2,5 +2,7 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: [['babel-preset-expo', { jsxImportSource: 'nativewind' }], 'nativewind/babel'],
+    // As migrações do Drizzle (drizzle/*.sql) entram no bundle como texto.
+    plugins: [['inline-import', { extensions: ['.sql'] }]],
   };
 };

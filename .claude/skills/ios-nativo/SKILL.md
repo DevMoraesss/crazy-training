@@ -43,9 +43,16 @@ Números de treino (repetições, carga, timer) usam `font-rounded text-metric` 
 
 ## Componentes (`src/components`)
 
-- `ui/Section` + `ui/ListRow`: lista agrupada (inset grouped), com cartão arredondado e divisórias recuadas.
-- `ui/Button`: cápsula. `filled` para a ação principal (uma por tela), `gray` para secundária, `plain` para texto em destaque.
-- `ui/EmptyState`: tela vazia no padrão ContentUnavailableView, com símbolo, título e o que fazer.
+- `ui/Section` + `ui/ListRow`: lista agrupada (inset grouped), com cartão arredondado e divisórias recuadas. A `ListRow` com `onPress` ganha seta; `tone="tint"` é ação, `tone="destructive"` apaga, `checked` é escolha única, `icon` põe um símbolo à esquerda (use `separatorInset={56}` na Section).
+- `ui/Card`: bloco solto (resumo, destaque "Próximo treino").
+- `ui/FieldRow`: campo de formulário (rótulo à esquerda, valor à direita). Salva ao sair do campo.
+- `ui/SegmentedRow`: controle segmentado nativo, para 2 a 4 opções curtas.
+- `ui/StepperRow` e `ui/RoundButton`: − e + circulares. `RoundButton size={76}` são os botões grandes do timer.
+- `ui/RestRing`: anel do timer de descanso.
+- `ui/HeaderButton`: botão de texto no cabeçalho ("Editar", "OK").
+- `ui/Button`: cápsula. `filled` para a ação principal (uma por tela), `gray` para secundária, `plain` para texto em destaque. `size="xlarge"` (56) na execução do treino.
+- `ui/EmptyState`: tela vazia no padrão ContentUnavailableView, com símbolo, título e botões do que fazer.
+- `SessionStats` e `SessionExercises` (`session-report.tsx`): resumo de uma sessão, usados no fim do treino e no Histórico.
 - `TabStack`: pilha de uma aba com título grande.
 - `ThemeRoot`: aplica claro ou escuro. Já está nos layouts raiz.
 

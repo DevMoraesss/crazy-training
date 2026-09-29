@@ -9,6 +9,7 @@
     "node": ">=22.12"
   },
   "scripts": {
+    "postinstall": "patch-package",
     "dev:mobile": "npm run start -w @crazy-training/mobile",
     "dev:mobile:tunnel": "npm run start -w @crazy-training/mobile -- --tunnel",
     "dev:api": "npm run build -w @crazy-training/shared && npm run start:dev -w @crazy-training/api",
@@ -17,5 +18,8 @@
     "build:shared": "npm run build -w @crazy-training/shared",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "patch-package": "^8.0.1"
   }
 }

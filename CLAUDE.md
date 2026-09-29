@@ -16,7 +16,7 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 | Camada | Escolha |
 |---|---|
 | Monorepo | npm workspaces (o Expo configura o Metro para o monorepo sozinho) |
-| App (`apps/mobile`) | Expo SDK 57 + React Native + TypeScript, expo-router (abas em `expo-router/js-tabs`), NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop. |
+| App (`apps/mobile`) | Expo SDK 57 + React Native + TypeScript, expo-router (tab bar nativa `expo-router/unstable-native-tabs`, abas em JS só na web), expo-symbols, NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop. |
 | Dados no aparelho | expo-sqlite + Drizzle ORM. **Offline-first**: o app funciona 100% sem internet. |
 | API (`apps/api`) | NestJS 12 (ESM) + PostgreSQL + Drizzle, testes com Vitest, lint com oxlint. Deploy via `apps/api/Dockerfile` na Railway (`railway.json`). |
 | Local | `docker-compose.yml` sobe o Postgres |
@@ -43,9 +43,9 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 
 ## Design
 
-- Direção **"lambe-lambe"** (zine de rua): cada treino é um cartaz de papel fluorescente colado num muro de concreto, com tinta preta e letra condensada gigante.
-- Ao criar ou mudar UI, use a skill `lambe-lambe` (`.claude/skills/lambe-lambe`), que tem tokens, componentes e regras, junto com a `frontend-design`.
-- Tokens em `apps/mobile/src/theme/tokens.json`, lidos pelo Tailwind e pelo código. Componentes base em `apps/mobile/src/components`.
+- Direção **iOS nativo e minimalista**: o app deve parecer feito pela Apple (iOS 26). Tab bar nativa com Liquid Glass, títulos grandes, listas agrupadas, botões em cápsula, SF Symbols, modo claro e escuro. A única cor nossa é a de destaque. (A primeira direção, "lambe-lambe", foi descartada pelo dono do projeto por parecer jogo.)
+- Ao criar ou mudar UI, use a skill `ios-nativo` (`.claude/skills/ios-nativo`), que tem tokens, componentes e regras. A `frontend-design` vale para o processo, mas o visual é o do iOS.
+- Tokens em `apps/mobile/src/theme/tokens.json` (claro e escuro), lidos pelo Tailwind e pelo código. Componentes base em `apps/mobile/src/components`.
 - A **tela de execução do treino** precisa ser legível a um braço de distância, com alvos de toque grandes (mão suada, luva) e a ação principal ao alcance do polegar.
 
 ## Convenções

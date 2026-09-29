@@ -1,39 +1,41 @@
 import '../global.css';
 
-// Import por peso (e não pelo índice do pacote) para não embutir todos os pesos no app.
-import { Archivo_400Regular } from '@expo-google-fonts/archivo/400Regular';
-import { Archivo_600SemiBold } from '@expo-google-fonts/archivo/600SemiBold';
-import { Archivo_800ExtraBold } from '@expo-google-fonts/archivo/800ExtraBold';
-import { LeagueGothic_400Regular } from '@expo-google-fonts/league-gothic/400Regular';
-import { PermanentMarker_400Regular } from '@expo-google-fonts/permanent-marker/400Regular';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { NativeTabs } from 'expo-router/unstable-native-tabs';
 
-void SplashScreen.preventAutoHideAsync();
+import { ThemeRoot } from '@/components/theme-root';
+import { useColors } from '@/theme';
 
+/**
+ * Tab bar nativa do sistema: no iOS 26 ela já vem com o vidro (Liquid Glass) e encolhe ao rolar.
+ * Cada aba é uma pasta com a própria pilha (TabStack), para ter o título grande do iOS.
+ * Na web, quem vale é o _layout.web.tsx.
+ */
 export default function RootLayout() {
-  // As chaves viram os nomes das famílias usados em src/theme/tokens.json.
-  const [loaded, error] = useFonts({
-    LeagueGothic_400Regular,
-    Archivo_400Regular,
-    Archivo_600SemiBold,
-    Archivo_800ExtraBold,
-    PermanentMarker_400Regular,
-  });
-
-  useEffect(() => {
-    if (loaded || error) void SplashScreen.hideAsync();
-  }, [loaded, error]);
-
-  if (!loaded && !error) return null;
+  const colors = useColors();
 
   return (
-    <>
-      <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false }} />
-    </>
+    <ThemeRoot>
+      <NativeTabs tintColor={colors.tint} minimizeBehavior="onScrollDown">
+        <NativeTabs.Trigger name="(today)">
+          <NativeTabs.Trigger.Label>Hoje</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf={{ default: 'sun.max', selected: 'sun.max.fill' }} md="today" />
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="workouts">
+          <NativeTabs.Trigger.Label>Treinos</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf="dumbbell.fill" md="fitness_center" />
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="history">
+          <NativeTabs.Trigger.Label>Histórico</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf={{ default: 'chart.bar', selected: 'chart.bar.fill' }} md="bar_chart" />
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="profile">
+          <NativeTabs.Trigger.Label>Perfil</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon
+            sf={{ default: 'person.crop.circle', selected: 'person.crop.circle.fill' }}
+            md="account_circle"
+          />
+        </NativeTabs.Trigger>
+      </NativeTabs>
+    </ThemeRoot>
   );
 }

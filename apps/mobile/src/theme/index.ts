@@ -1,33 +1,34 @@
-import type { TextStyle } from 'react-native';
+import { vars } from 'nativewind';
+import { useColorScheme } from 'react-native';
 
 import tokens from './tokens.json';
 
-/** Mesmos valores das classes do Tailwind. Use quando precisar da cor em JS (SVG, sombras). */
-export const colors = tokens.colors;
-export const fonts = tokens.fonts;
+/**
+ * Cores do sistema do iOS (as mesmas dos apps da Apple), em claro e escuro.
+ * O Tailwind usa estas cores como variáveis CSS (`bg-surface`, `text-label`), e o
+ * ThemeRoot troca os valores conforme o ajuste do iPhone. Em JS, use useColors().
+ */
+export type ColorName = keyof typeof tokens.light;
+export type Palette = Record<ColorName, string>;
+export type Scheme = 'light' | 'dark';
 
-export type Paper = { paper: string; ink: string };
+export const palettes: Record<Scheme, Palette> = tokens;
 
-/** Papel de cada treino, na ordem A, B, C, D (e recomeça). */
-const PAPERS: readonly Paper[] = [
-  { paper: colors['paper-yellow'], ink: colors.ink },
-  { paper: colors['paper-pink'], ink: colors.ink },
-  { paper: colors['paper-orange'], ink: colors.ink },
-  // Azul pede tinta branca: preto sobre ele não passa de 4,5:1 em texto pequeno.
-  { paper: colors['paper-blue'], ink: '#FFFFFF' },
-];
+/** Variáveis CSS de cada modo, aplicadas na raiz do app. */
+export const themeVars = {
+  light: vars(toCssVars(tokens.light)),
+  dark: vars(toCssVars(tokens.dark)),
+};
 
-export function paperFor(index: number): Paper {
-  return PAPERS[((index % PAPERS.length) + PAPERS.length) % PAPERS.length]!;
+export function useScheme(): Scheme {
+  return useColorScheme() === 'dark' ? 'dark' : 'light';
 }
 
-/**
- * "Offset de impressão": a cópia rosa deslocada atrás do texto, como uma risografia
- * fora de registro. Só em texto de cartaz grande (títulos e números).
- * Raio mínimo maior que zero porque o Android não desenha sombra com raio 0.
- */
-export const risoOffset: TextStyle = {
-  textShadowColor: colors['paper-pink'],
-  textShadowOffset: { width: 4, height: 3 },
-  textShadowRadius: 0.01,
-};
+/** Cores do modo atual, para onde classe não chega (navegação nativa, ícones). */
+export function useColors(): Palette {
+  return palettes[useScheme()];
+}
+
+function toCssVars(palette: Palette) {
+  return Object.fromEntries(Object.entries(palette).map(([name, value]) => [`--color-${name}`, value]));
+}

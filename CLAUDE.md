@@ -15,12 +15,12 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 
 | Camada | Escolha |
 |---|---|
-| Monorepo | pnpm workspaces |
-| App (`apps/mobile`) | Expo + React Native + TypeScript, expo-router, NativeWind (Tailwind). O mesmo código gera a versão web do editor desktop. |
+| Monorepo | npm workspaces (o Expo configura o Metro para o monorepo sozinho) |
+| App (`apps/mobile`) | Expo SDK 57 + React Native + TypeScript, expo-router (abas em `expo-router/js-tabs`), NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop. |
 | Dados no aparelho | expo-sqlite + Drizzle ORM. **Offline-first**: o app funciona 100% sem internet. |
-| API (`apps/api`) | NestJS + PostgreSQL + Drizzle. Deploy via Dockerfile na Railway. |
+| API (`apps/api`) | NestJS 12 (ESM) + PostgreSQL + Drizzle, testes com Vitest, lint com oxlint. Deploy via `apps/api/Dockerfile` na Railway (`railway.json`). |
 | Local | `docker-compose.yml` sobe o Postgres |
-| Compartilhado (`packages/shared`) | Schemas zod (Treino, Exercício, Sessão), formato de import/export (JSON e CSV), cálculos (MET/calorias) |
+| Compartilhado (`packages/shared`) | Schemas zod do formato de treino, import/export CSV, duração estimada e calorias (MET) |
 | IA | API do Claude, **somente no backend**. A chave nunca vai para o app. |
 | Exercícios | [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (domínio público) traduzido para pt-BR, com link opcional de YouTube por exercício |
 
@@ -43,20 +43,37 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 
 ## Design
 
-- Direção: **"Crazy / zine de rua"**: energético e ousado, com choque de cores, tipografia pesada, cara de adesivo e de cultura de rua. Assume o "Crazy" do nome.
-- Use a skill `frontend-design` (`.claude/skills/frontend-design`) ao criar ou mudar UI. Evite o "kit SaaS": cards idênticos com o mesmo arredondamento, sombra cinza genérica, gradiente decorativo e rótulos em CAPS em cima de tudo.
-- A ousadia fica na identidade (cores, tipografia, momentos de destaque). A **tela de execução do treino** precisa ser legível a um braço de distância, com alvos de toque grandes (mão suada, luva) e a ação principal ao alcance do polegar.
-- Tokens de design (cores, tipografia, espaçamento): a definir na Fase 0.
+- Direção **"lambe-lambe"** (zine de rua): cada treino é um cartaz de papel fluorescente colado num muro de concreto, com tinta preta e letra condensada gigante.
+- Ao criar ou mudar UI, use a skill `lambe-lambe` (`.claude/skills/lambe-lambe`), que tem tokens, componentes e regras, junto com a `frontend-design`.
+- Tokens em `apps/mobile/src/theme/tokens.json`, lidos pelo Tailwind e pelo código. Componentes base em `apps/mobile/src/components`.
+- A **tela de execução do treino** precisa ser legível a um braço de distância, com alvos de toque grandes (mão suada, luva) e a ação principal ao alcance do polegar.
 
 ## Convenções
 
 - Código, nomes de arquivos e identificadores em inglês. Textos da interface em pt-BR, centralizados para permitir i18n depois.
 - Unidades: kg, km, minutos.
 - O schema zod em `packages/shared` é a fonte da verdade do formato de treino: app, API, CSV e saída da IA validam contra ele.
+- `packages/shared` sem extensão nos imports relativos. O app lê o código-fonte direto (condição `react-native`/`browser` no `exports`); a API usa o build (`dist/`, gerado com tsdown). Mudou o shared? `npm run dev:api` já refaz o build.
+- API em ESM: imports relativos com `.js` (`./health.controller.js`), como o Nest 12 gera.
+- No app, siga também `apps/mobile/AGENTS.md` (regras do Expo): instale pacotes com `npx expo install`, consulte a doc da versão do SDK e só use módulos que existem no Expo Go.
+
+## Comandos (na raiz)
+
+```bash
+npm run dev:mobile        # Expo; QR code para o Expo Go no iPhone (dev:mobile:tunnel se a rede bloquear)
+npm run db:up             # Postgres local no Docker
+npm run dev:api           # build do shared + API em watch (precisa de apps/api/.env)
+npm test                  # unitários (shared e api)
+npm run typecheck         # todos os pacotes
+npm run test:e2e -w @crazy-training/api
+npm run lint -w @crazy-training/api && npm run lint -w @crazy-training/mobile
+```
+
+Antes de dar uma tarefa como pronta: typecheck, testes e lint do pacote que mudou.
 
 ## Roadmap
 
-- **Fase 0 — Fundação:** monorepo; app rodando no iPhone via Expo Go; tokens de design e componentes base; API + Postgres local (Docker) e na Railway.
+- **Fase 0 — Fundação:** monorepo; app rodando no iPhone via Expo Go; tokens de design e componentes base; API + Postgres local (Docker) e na Railway. *Feita, exceto o primeiro deploy na Railway, que depende da conta do dono do projeto (passo a passo no README).*
 - **Fase 1 — Musculação offline (uso pessoal):** perfil; base de exercícios pt-BR; editor manual; execução com timer e registro; histórico; import manual (prompt + CSV) e export.
 - **Fase 2 — IA + conta:** import integrado; geração pelo perfil; biblioteca de modelos; login Apple/Google e sync; editor desktop (web); compartilhamento por link.
 - **Fase 3 — Outras modalidades:** timers de HIIT/funcional; mobilidade; calorias (MET); corrida/caminhada com GPS em primeiro plano.

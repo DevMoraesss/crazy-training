@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+*.log
+
+# variáveis de ambiente (use os .env.example como modelo)
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,21 @@
+{
+  "name": "crazy-training",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev:mobile": "npm run start -w @crazy-training/mobile",
+    "dev:mobile:tunnel": "npm run start -w @crazy-training/mobile -- --tunnel",
+    "dev:api": "npm run build -w @crazy-training/shared && npm run start:dev -w @crazy-training/api",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "build:shared": "npm run build -w @crazy-training/shared",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  }
+}

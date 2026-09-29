@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/.env
+**/.env.*
+.git
+.claude
+.vscode
+
+# Do app mobile a imagem da API só precisa do package.json (o npm ci confere o lockfile inteiro).
+apps/mobile/*
+!apps/mobile/package.json

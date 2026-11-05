@@ -63,6 +63,7 @@ export default function NutritionScreen() {
     setSaving(id);
     try {
       await logMeal(date, data);
+      notify('Refeição registrada', data.name, { tone: 'success' });
     } catch {
       notify('Não foi possível registrar', 'Tente novamente.');
     } finally {
@@ -163,6 +164,7 @@ export default function NutritionScreen() {
                     if (await confirm('Remover registro?', 'A refeição sai apenas deste dia.', 'Remover', true)) {
                       try {
                         await deleteMealEntry(entry.id);
+                        notify('Registro removido', undefined, { tone: 'success' });
                       } catch {
                         notify('Não foi possível remover', 'Tente novamente.');
                       }
@@ -213,6 +215,9 @@ export default function NutritionScreen() {
                   ) {
                     try {
                       await deleteMealTemplate(template.id);
+                      notify('Refeição removida do plano', 'Os registros no diário foram mantidos.', {
+                        tone: 'success',
+                      });
                     } catch {
                       notify('Não foi possível excluir', 'Tente novamente.');
                     }

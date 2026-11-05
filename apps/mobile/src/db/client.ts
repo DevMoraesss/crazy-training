@@ -21,8 +21,13 @@ const connection = (runtime.__crazyTrainingSQLite ??= { sqlite: null, opening: n
 async function acquireWebLock() {
   if (Platform.OS !== 'web') return;
   if (typeof SharedArrayBuffer === 'undefined' || !globalThis.crossOriginIsolated) {
+    const origin = globalThis.location?.origin ?? 'este endereço';
+    const port = globalThis.location?.port || '8083';
+    const local = ['localhost', '127.0.0.1', '[::1]'].includes(globalThis.location?.hostname ?? '');
     throw new Error(
-      'O banco local precisa de uma conexão segura e dos cabeçalhos de isolamento. No computador, use a prévia na porta 8081 ou o acesso de desenvolvimento na porta 8083.',
+      local
+        ? `O servidor em ${origin} não ativou o isolamento necessário. Abra o site diretamente em uma aba. Se estiver usando Expo nesta porta, encerre-o com Ctrl+C e execute WEB_PORT=${port} npm run dev:web na raiz do projeto. Depois recarregue esta página.`
+        : `O navegador não permite abrir o banco local em ${origin}. No celular, abra o site diretamente em uma aba com HTTPS confiável; HTTP pelo IP do computador não é suficiente. O servidor também precisa enviar os cabeçalhos de isolamento. Isso não depende da senha do PostgreSQL.`,
     );
   }
   if (!navigator.locks) return;

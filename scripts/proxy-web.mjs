@@ -25,6 +25,7 @@ const server = createServer((req, res) => {
         ...response.headers,
         'cross-origin-opener-policy': 'same-origin',
         'cross-origin-embedder-policy': 'credentialless',
+        'cache-control': 'no-store',
       });
       response.on('error', () => res.destroy());
       response.pipe(res);

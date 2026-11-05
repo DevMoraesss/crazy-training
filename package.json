@@ -10,7 +10,7 @@
   },
   "scripts": {
     "postinstall": "patch-package",
-    "dev:web": "npm run build:web && npm run preview:web",
+    "dev:web": "node scripts/check-web-port.mjs && npm run build:web && npm run preview:web",
     "build:web": "npm run build:web -w @crazy-training/mobile",
     "preview:web": "node scripts/serve-web.mjs",
     "dev:mobile": "npm run start -w @crazy-training/mobile",
@@ -20,10 +20,12 @@
     "dev:api": "npm run build -w @crazy-training/shared && npm run start:dev -w @crazy-training/api",
     "build:shared": "npm run build -w @crazy-training/shared",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present && npm run test:sqlite-web",
+    "test": "npm run test --workspaces --if-present && npm run test:sqlite-web && npm run test:feedback && npm run test:web-server",
     "test:sqlite-web": "node --test scripts/sqlite-web-timeout.test.cjs",
     "db:status": "pg_isready -h localhost -p 5432",
-    "db:migrate": "npm run db:migrate -w @crazy-training/api"
+    "db:migrate": "npm run db:migrate -w @crazy-training/api",
+    "test:feedback": "node --test scripts/feedback.test.cjs",
+    "test:web-server": "node --test scripts/web-server.test.mjs"
   },
   "devDependencies": {
     "patch-package": "^8.0.1"

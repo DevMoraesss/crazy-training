@@ -87,6 +87,9 @@ const server = createServer(async (req, res) => {
 
 server.on('error', (error) => {
   console.error(`Não foi possível iniciar o servidor web: ${error.message}`);
+  if (error.code === 'EADDRINUSE') {
+    console.error(`Encerre o processo que ocupa a porta ${port} com Ctrl+C e tente novamente. O Expo Go deve usar a porta 8082 (npm run dev:expo).`);
+  }
   process.exitCode = 1;
 });
 server.listen(port, '0.0.0.0', () => {

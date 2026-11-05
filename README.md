@@ -50,7 +50,13 @@ npm run dev:web
 
 O comando gera o build e serve uma prévia em **http://localhost:8081** no computador, com os cabeçalhos exigidos pelo SQLite. O servidor precisa continuar rodando durante o teste local. Editor, perfil, importação CSV, execução e histórico usam o banco do navegador: não é necessário subir API ou Postgres para esses fluxos.
 
-Essa prévia não tem atualização automática ao editar o código. Depois de alterar o app, execute `npm run build:web` e recarregue a página. Para servir um build já gerado, use `npm run preview:web`. Se a porta estiver ocupada, use `WEB_PORT=8082 npm run preview:web` (Bash).
+Essa prévia não tem atualização automática ao editar o código. Depois de alterar o app, execute `npm run build:web` e recarregue a página. Para servir um build já gerado, use `npm run preview:web`. O comando `dev:web` verifica a porta antes do build e interrompe se ela estiver ocupada. Encerre o processo que ocupa a porta com `Ctrl+C` antes de iniciar a prévia. Para manter seus dados existentes na origem `http://localhost:8083`, use:
+
+```bash
+WEB_PORT=8083 npm run dev:web
+```
+
+Abra **http://localhost:8083** diretamente em uma aba. Não execute `expo start --port 8083` nesse fluxo: o HTML servido diretamente pelo Expo pode não enviar os cabeçalhos de isolamento, mesmo que a URL seja a mesma. Se a página já estava aberta com esse erro, use **Recarregar página** depois de iniciar a prévia. Os cabeçalhos só passam a valer numa nova navegação; repetir a abertura do banco na página antiga não resolve. Não é preciso apagar dados nem alterar a senha do PostgreSQL.
 
 ### Web com atualização automática
 
@@ -66,7 +72,7 @@ npm run dev:web:proxy
 
 Abra **http://localhost:8083** no navegador. O proxy preserva os arquivos e WebSockets do Metro e adiciona COOP/COEP também à resposta HTML. No modo SPA, o Expo pode responder ao HTML antes do `enhanceMiddleware` do Metro: abrir diretamente `http://localhost:8082` pode causar `SharedArrayBuffer is not defined`, encapsulado pelo Drizzle como falha ao criar `__drizzle_migrations`.
 
-Não é necessário apagar o banco para resolver esse problema. O proxy atende somente o computador local; acesso por celular via rede continua exigindo HTTPS confiável. Cada porta é uma origem diferente e tem seus próprios dados locais: a 8083 não compartilha automaticamente o banco da 8081/8082. O servidor web de prévia não precisa ser encerrado.
+Não é necessário apagar o banco para resolver esse problema. O proxy atende somente o computador local; acesso por celular via rede continua exigindo HTTPS confiável. Cada porta é uma origem diferente e tem seus próprios dados locais: a 8083 não compartilha automaticamente o banco da 8081/8082. Encerre os processos de prévia, Metro e proxy que iniciou ao terminar os testes.
 
 Os dados ficam separados por navegador e endereço. Sem entrar na conta, PC e celular não sincronizam; limpar os dados do site pode apagar os registros. Exportar CSV preserva apenas o programa, não o histórico ou perfil.
 
@@ -205,3 +211,15 @@ sudo -u postgres psql -X -d postgres -f scripts/setup-native-postgres.sql
 ```
 
 Depois ajuste as URLs privadas em `apps/api/.env` com essa senha e execute `npm run db:migrate`. A senha de `ACCOUNT_PASSWORD` é do app e não precisa ser igual à senha do PostgreSQL. Para testar a conexão sem colocar a senha no comando, use `psql -h localhost -U crazy -d crazy_training -W`.
+
+## Encerrar os servidores após testar
+
+Encerre com `Ctrl+C` os processos iniciados para validação. Não deixe instâncias temporárias de Metro, prévia ou proxy em segundo plano. Essa preferência está registrada no `AGENTS.md`.
+
+Para usar a web local na porta 8083 sem iniciar Expo/Metro em outra porta, execute `WEB_PORT=8083 npm run dev:web` e abra `http://localhost:8083` diretamente em uma aba. O comando gera o build e serve os cabeçalhos necessários ao SQLite. A porta 8082 do Expo não é o acesso web adequado para esse banco. Mantenha o mesmo hostname e porta que já usava para acessar os mesmos dados locais do navegador.
+
+## Confirmações e avisos no app
+
+Na web, `lib/dialogs.ts` usa `FeedbackHost` e `feedback-store`, sem `window.alert` ou `window.confirm`. Confirmações são diálogos com cancelar, ação explícita e destaque destrutivo; escolhas múltiplas aparecem juntas. Escape cancela, o foco fica no diálogo e retorna ao botão de origem. Mensagens longas de exercícios usam `showInfo` com conteúdo rolável.
+
+Avisos de erro permanecem até serem dispensados. Sucessos aparecem sem bloquear e somem após seis segundos; o tempo pausa ao passar o mouse, focar a notificação ou abrir um diálogo. Avisos iguais são deduplicados e no máximo três ficam visíveis por vez. Isso é feedback dentro do app, sem solicitar permissão de notificações do navegador e sem notificações de sistema em segundo plano. iOS/Android mantêm os alertas nativos.

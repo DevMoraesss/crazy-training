@@ -37,6 +37,7 @@ export default function HistoryScreen() {
       return;
     try {
       await deleteActivity(id);
+      notify('Atividade removida', undefined, { tone: 'success' });
     } catch {
       notify('Não foi possível remover', 'Tente novamente.');
     }

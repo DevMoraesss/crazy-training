@@ -10,7 +10,7 @@ import { Section } from '@/components/ui/section';
 import { applyCoachProposal, saveCoachProposal, useCoachSetup } from '@/db/coach-queries';
 import { useProfile } from '@/db/queries';
 import { requestCoachPlan } from '@/lib/coach-api';
-import { confirm, notify } from '@/lib/dialogs';
+import { confirm, notify, showInfo } from '@/lib/dialogs';
 import { GOAL_OPTIONS } from '@/lib/labels';
 
 export default function CoachScreen() {
@@ -27,7 +27,7 @@ export default function CoachScreen() {
   const generate = async () => {
     if (busyRef.current) return;
     if (setup.intake.needsProfessional) {
-      notify(
+      showInfo(
         'Orientação individual',
         'Use as metas e o plano orientados por um profissional. Você pode cadastrá-los em Alimentação e Treinos.',
       );

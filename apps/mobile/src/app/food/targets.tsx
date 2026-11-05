@@ -39,6 +39,7 @@ function TargetsForm({ initial }: { initial: ReturnType<typeof useNutritionSetti
     try {
       await saveNutritionTargets(parsed.data);
       router.back();
+      notify('Metas atualizadas', undefined, { tone: 'success' });
     } catch {
       notify('Não foi possível salvar', 'Tente novamente.');
     } finally {

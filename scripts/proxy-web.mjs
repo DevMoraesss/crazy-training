@@ -1,5 +1,6 @@
 import { createServer, request } from 'node:http';
 import { connect } from 'node:net';
+import apiProxy from './api-proxy.cjs';
 
 // O HTML da SPA é respondido pelo Expo antes do enhanceMiddleware do Metro.
 // Este acesso adiciona isolamento também ao HTML, sem mudar o servidor nativo.
@@ -8,6 +9,15 @@ const metroPort = Number(process.env.METRO_PORT ?? 8082);
 const hostname = '127.0.0.1';
 
 const server = createServer((req, res) => {
+  if (req.url?.startsWith('/api/')) {
+    apiProxy.proxyApi(
+      req,
+      res,
+      `http://127.0.0.1:${process.env.API_PORT ?? 3000}`,
+      new URL(req.url, 'http://localhost').pathname.slice(4),
+    );
+    return;
+  }
   const upstream = request(
     { hostname, port: metroPort, method: req.method, path: req.url, headers: req.headers },
     (response) => {

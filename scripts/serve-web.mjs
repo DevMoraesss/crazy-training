@@ -3,6 +3,7 @@ import { stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import apiProxy from './api-proxy.cjs';
 
 const root = fileURLToPath(new URL('../apps/mobile/dist/', import.meta.url));
 const port = Number(process.env.WEB_PORT ?? 8081);
@@ -30,6 +31,15 @@ try {
 }
 
 const server = createServer(async (req, res) => {
+  if (req.url?.startsWith('/api/')) {
+    apiProxy.proxyApi(
+      req,
+      res,
+      `http://127.0.0.1:${process.env.API_PORT ?? 3000}`,
+      new URL(req.url, 'http://localhost').pathname.slice(4),
+    );
+    return;
+  }
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
   res.setHeader('Cache-Control', 'no-store');
@@ -66,7 +76,10 @@ const server = createServer(async (req, res) => {
       'Content-Length': info.size,
     });
     if (req.method === 'HEAD') res.end();
-    else createReadStream(file).on('error', () => res.destroy()).pipe(res);
+    else
+      createReadStream(file)
+        .on('error', () => res.destroy())
+        .pipe(res);
   } catch {
     res.writeHead(400).end();
   }

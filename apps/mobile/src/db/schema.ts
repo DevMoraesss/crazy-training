@@ -121,3 +121,18 @@ export const coachSetup = sqliteTable('coach_setup', {
   appliedAt: integer('applied_at', { mode: 'timestamp_ms' }),
   updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
 });
+
+/** Metadados locais, nunca enviadas como parte dos dados pessoais. */
+export const cloudState = sqliteTable('cloud_state', {
+  id: integer('id').primaryKey(),
+  ownerId: text('owner_id').notNull(),
+  revision: integer('revision').notNull(),
+  fingerprint: text('fingerprint').notNull(),
+  syncedAt: integer('synced_at', { mode: 'timestamp_ms' }).notNull(),
+});
+export const cloudBackups = sqliteTable('cloud_backups', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  ownerId: text('owner_id').notNull(),
+  data: text('data', { mode: 'json' }).$type<import('@crazy-training/shared').CloudSnapshot>().notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+});

@@ -8,6 +8,27 @@
       "when": 1790642697441,
       "tag": "0000_inicial",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793819983573,
+      "tag": "0001_wakeful_venus",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793822690551,
+      "tag": "0002_late_spacker_dave",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1793873746738,
+      "tag": "0003_equal_microbe",
+      "breakpoints": true
     }
   ]
 }

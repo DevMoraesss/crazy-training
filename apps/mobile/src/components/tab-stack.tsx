@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 
 import { useColors } from '@/theme';
 
@@ -15,7 +15,7 @@ export function TabStack({ title }: { title: string }) {
   return (
     <Stack
       screenOptions={{
-        headerLargeTitleEnabled: true,
+        headerLargeTitleEnabled: IS_IOS,
         headerTransparent: IS_IOS,
         headerBlurEffect: IS_IOS && !IS_IOS_26 ? 'systemChromeMaterial' : undefined,
         headerLargeStyle: { backgroundColor: 'transparent' },
@@ -25,8 +25,27 @@ export function TabStack({ title }: { title: string }) {
         headerTitleStyle: { color: colors.label },
         headerLargeTitleStyle: { color: colors.label },
         contentStyle: { backgroundColor: colors.background },
-      }}>
-      <Stack.Screen name="index" options={{ title }} />
+      }}
+    >
+      <Stack.Screen
+        name="index"
+        options={{
+          title,
+          headerShadowVisible: Platform.OS === 'web' ? false : undefined,
+          headerTitleAlign: Platform.OS === 'web' ? 'left' : undefined,
+          headerTitle:
+            Platform.OS === 'web'
+              ? () => (
+                  <Text
+                    accessibilityRole="header"
+                    style={{ color: colors.label, fontSize: 34, fontWeight: '700', letterSpacing: -0.8 }}
+                  >
+                    {title}
+                  </Text>
+                )
+              : undefined,
+        }}
+      />
     </Stack>
   );
 }

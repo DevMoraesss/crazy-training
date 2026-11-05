@@ -50,7 +50,8 @@ export default function TodayScreen() {
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       className="flex-1 bg-background"
-      contentContainerClassName="gap-7 pb-10">
+      contentContainerClassName="gap-7 pb-10"
+    >
       <View>
         <Text className="mx-5 text-subhead text-label-secondary">{formatDayHeading(new Date())}</Text>
         {unfinished ? (
@@ -60,6 +61,13 @@ export default function TodayScreen() {
         ) : null}
       </View>
 
+      <Section title="Sua atividade">
+        <ListRow
+          title="Calendário de atividades"
+          subtitle="Corrida, caminhada e musculação contam no seu dia"
+          onPress={() => router.push('/history')}
+        />
+      </Section>
       {next && !unfinished ? (
         <Section title="Exercícios">
           {next.exercises.map((exercise, index) => (
@@ -136,7 +144,12 @@ function ResumeCard({ session }: { session: SessionRow }) {
           title="Descartar"
           variant="plain"
           onPress={async () => {
-            const ok = await confirm('Descartar este treino?', 'As séries registradas nele serão apagadas.', 'Descartar', true);
+            const ok = await confirm(
+              'Descartar este treino?',
+              'As séries registradas nele serão apagadas.',
+              'Descartar',
+              true,
+            );
             if (ok) await deleteSession(session.id);
           }}
         />
@@ -151,9 +164,12 @@ function NoProgram() {
     <EmptyState
       symbol={{ ios: 'figure.strengthtraining.traditional', android: 'fitness_center', web: 'fitness_center' }}
       title="Monte seu treino"
-      description="Importe o treino que você já tem, crie um do zero ou comece com um programa de exemplo.">
+      description="Configure seu perfil para planejar treino e alimentação, ou importe o treino que você já tem."
+    >
+      <Button title="Configurar meu plano" onPress={() => router.push('/coach')} />
       <Button
         title="Importar treino"
+        variant="gray"
         icon={{ ios: 'square.and.arrow.down', android: 'download', web: 'download' }}
         onPress={() => router.push('/import')}
       />

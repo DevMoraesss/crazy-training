@@ -21,6 +21,9 @@ export default function RootLayout() {
           <Stack.Screen name="session/[id]" options={{ presentation: 'fullScreenModal', gestureEnabled: false }} />
           <Stack.Screen name="import" options={{ presentation: 'modal' }} />
           <Stack.Screen name="editor" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="food" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="activity" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="coach" options={{ presentation: 'modal' }} />
         </Stack>
       </DatabaseGate>
     </ThemeRoot>

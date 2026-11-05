@@ -1,5 +1,19 @@
 # Crazy Training
 
+## Direção atual (novembro de 2026)
+
+- Plataforma principal: web responsiva para navegador no iPhone, Android e PC; instalação nativa e Expo Go não são requisitos.
+- Validar localmente antes de qualquer deploy. `npm run dev:web` abre o fluxo web; `npm run build:web` exporta a interface.
+- Hospedagem planejada: interface na Vercel; API e Postgres na Railway.
+- Visão do produto: treinos, alimentação e acompanhamento por IA no mesmo lugar. Alimentação tem uma primeira versão local (plano de refeições, diário por data, macros opcionais e metas manuais); há questionário e conector opcional de IA para teste local, ainda sem validação com credenciais reais.
+- O roadmap nativo abaixo é histórico e secundário a esta direção. Preservar a base Expo/React Native Web existente enquanto for adequada.
+- O banco web atual é local ao navegador, sem sincronização. Testes no celular via LAN exigem HTTPS confiável e cabeçalhos COOP/COEP para SQLite; HTTP por IP não basta.
+- A conexão SQLite é compartilhada entre montagens e Fast Refresh. Na web, um Web Lock mantém uma aba por origem; não apague o banco para contornar bloqueios. Migrações novas devem preservar os dados existentes.
+- Alimentação: `shared/src/nutrition.ts`, `db/nutrition-queries.ts`, aba `nutrition` e formulários `food`. Totais desconhecidos são `null`, nunca zero presumido. Metas podem ser informadas pelo usuário ou aplicadas após revisão da sugestão do assistente. O diário guarda cópias independentes das refeições do plano.
+- Calendário: `shared/src/activity.ts`, tabela `activities`, `db/activity-queries.ts` e aba `history` (rótulo Calendário). Conta datas locais únicas de atividades e sessões concluídas; semana começa segunda. Uma corrida não avança o rodízio de musculação. Não estimar calorias de check-ins como crédito alimentar.
+- Assistente: `shared/src/coach.ts`, tabela `coach_setup`, rotas `coach` do app e `apps/api/src/coach`. Questionário em carrossel em `components/plan-questionnaire.tsx`, com progresso, validação por etapa, rodapé fixo e revisão final; mantém respostas ao navegar e respeita movimento reduzido. Salva perfil; sugestão persiste antes de aplicar. Aplicação atômica de metas, refeições e programa, com `appliedAt` evitando duplicação. Geração depende da API e das variáveis privadas `COACH_PROVIDER`, `COACH_MODEL`, `OPENAI_API_KEY`. Nunca expor chave no app. API de IA restrita a loopback e origens locais até existir autenticação; preservar essa restrição antes do deploy. Testes usam respostas simuladas, sem chamadas pagas.
+- Teste nativo opcional: SDK 58, `npm run dev:expo` na porta 8082, separado da prévia web na 8081. NativeWind 4 ainda depende das interfaces de tipos legadas do React Native; `tsconfig.json` usa a condição oficial `react-native-legacy-deep-imports`, mantendo `strict: true`. Rever essa compatibilidade antes da próxima atualização de React Native. O patch antigo do SQLite 57 foi removido porque sua correção já existe no SQLite 58. O patch atual `patches/expo-sqlite+58.0.15.patch` corrige outro problema: o timeout web usa um prazo real de 15 segundos, em vez de um limite de iterações dependente do navegador. Mantenha o teste `npm run test:sqlite-web` ao atualizar a dependência.
+
 App de treino que funciona como um hub completo. A pessoa chega na academia (ou sai pra treinar na rua), abre o app e vê rápido o treino do dia: o exercício, a demonstração do movimento, séries, repetições, carga e descanso. Durante o treino ela registra o que realmente fez.
 
 Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o **editor** de treinos: no computador a pessoa monta, edita e importa; no celular ela executa.
@@ -16,7 +30,7 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 | Camada | Escolha |
 |---|---|
 | Monorepo | npm workspaces (o Expo configura o Metro para o monorepo sozinho) |
-| App (`apps/mobile`) | Expo SDK 57 + React Native + TypeScript, expo-router (tab bar nativa `expo-router/unstable-native-tabs`, abas em JS só na web), expo-symbols, NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop. |
+| App (`apps/mobile`) | Expo SDK 58 + React Native + TypeScript, expo-router (tab bar nativa `expo-router/native-tabs`, abas em JS só na web), expo-symbols, NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop. |
 | Dados no aparelho | expo-sqlite + Drizzle ORM. **Offline-first**: o app funciona 100% sem internet. |
 | API (`apps/api`) | NestJS 12 (ESM) + PostgreSQL + Drizzle, testes com Vitest, lint com oxlint. Deploy via `apps/api/Dockerfile` na Railway (`railway.json`). |
 | Local | `docker-compose.yml` sobe o Postgres |

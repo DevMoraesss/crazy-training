@@ -1,7 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import type { ReactNode } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { palettes, themeVars, useScheme } from '@/theme';
 
@@ -23,10 +23,16 @@ export function ThemeRoot({ children }: { children: ReactNode }) {
           text: colors.label,
           border: colors.separator,
         },
-      }}>
-      <View className="flex-1" style={themeVars[scheme]}>
-        <StatusBar style="auto" />
-        {children}
+      }}
+    >
+      <View className="flex-1 bg-background" style={themeVars[scheme]}>
+        <View
+          className="flex-1"
+          style={Platform.OS === 'web' ? { width: '100%', maxWidth: 760, alignSelf: 'center' } : undefined}
+        >
+          <StatusBar style="auto" />
+          {children}
+        </View>
       </View>
     </ThemeProvider>
   );

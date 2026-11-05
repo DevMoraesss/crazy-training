@@ -1,4 +1,4 @@
-import type { Equipment, Goal, Level, Program, Workout } from '@crazy-training/shared';
+import type { Equipment, Goal, Level, Meal, NutritionTargets, Program, Workout } from '@crazy-training/shared';
 import { index, integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 // Banco no aparelho (expo-sqlite). Depois de mudar este arquivo, gere a migração:
@@ -72,3 +72,52 @@ export const sessionSets = sqliteTable(
 export type ProgramRow = typeof programs.$inferSelect;
 export type SessionRow = typeof sessions.$inferSelect;
 export type SessionSetRow = typeof sessionSets.$inferSelect;
+
+/** Modelos reutilizáveis. O diário guarda uma cópia independente de cada refeição. */
+export const mealTemplates = sqliteTable('meal_templates', {
+  id: text('id').primaryKey(),
+  data: text('data', { mode: 'json' }).$type<Meal>().notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});
+
+export const mealEntries = sqliteTable(
+  'meal_entries',
+  {
+    id: text('id').primaryKey(),
+    date: text('date').notNull(),
+    data: text('data', { mode: 'json' }).$type<Meal>().notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  },
+  (table) => [index('meal_entries_date_idx').on(table.date)],
+);
+
+export const nutritionTargets = sqliteTable('nutrition_targets', {
+  id: integer('id').primaryKey(),
+  data: text('data', { mode: 'json' }).$type<NutritionTargets>().notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});
+
+export type MealTemplateRow = typeof mealTemplates.$inferSelect;
+export type MealEntryRow = typeof mealEntries.$inferSelect;
+
+/** Atividades feitas fora da execução de uma sessão, como corrida e caminhada. */
+export const activities = sqliteTable(
+  'activities',
+  {
+    id: text('id').primaryKey(),
+    date: text('date').notNull(),
+    data: text('data', { mode: 'json' }).$type<import('@crazy-training/shared').Activity>().notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  },
+  (table) => [index('activities_date_idx').on(table.date)],
+);
+
+/** Questionário e sugestão pendente sobrevivem a recarregamentos. */
+export const coachSetup = sqliteTable('coach_setup', {
+  id: integer('id').primaryKey(),
+  intake: text('intake', { mode: 'json' }).$type<import('@crazy-training/shared').CoachIntake>().notNull(),
+  proposal: text('proposal', { mode: 'json' }).$type<import('@crazy-training/shared').CoachPlan>(),
+  appliedAt: integer('applied_at', { mode: 'timestamp_ms' }),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});

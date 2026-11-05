@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build:web",
+  "outputDirectory": "apps/mobile/dist",
+  "framework": null,
+  "functions": { "api/proxy.js": { "maxDuration": 120 } },
+  "headers": [{ "source": "/(.*)", "headers": [
+    { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+    { "key": "Cross-Origin-Embedder-Policy", "value": "credentialless" }
+  ] }],
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/proxy?route=/:path*" },
+    { "source": "/((?!api/|_expo/|assets/|favicon.ico).*)", "destination": "/index.html" }
+  ]
+}

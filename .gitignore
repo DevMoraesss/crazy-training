@@ -17,6 +17,8 @@ Thumbs.db
 
 # Apenas os utilitários necessários para executar e verificar o projeto são públicos.
 /scripts/*
+!/scripts/setup-native-postgres.sql
+!/scripts/api-proxy.cjs
 !/scripts/serve-web.mjs
 !/scripts/proxy-web.mjs
 !/scripts/sqlite-web-timeout.test.cjs

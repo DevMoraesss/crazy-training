@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
 
+import { useCloud } from '@/components/cloud-provider';
 import { FieldRow } from '@/components/ui/field-row';
 import { ListRow } from '@/components/ui/list-row';
 import { Section } from '@/components/ui/section';
@@ -24,6 +25,7 @@ const LIMITS: Record<NumberField, { min: number; max: number; message: string }>
 export default function ProfileScreen() {
   const profile = useProfile();
   const router = useRouter();
+  const cloud = useCloud();
 
   const commitNumber = (field: NumberField) => (text: string) => {
     const value = parseDecimalInput(text);
@@ -49,6 +51,19 @@ export default function ProfileScreen() {
       className="flex-1 bg-background"
       contentContainerClassName="gap-7 pb-10 pt-2"
     >
+      <Section title="Conta">
+        <ListRow
+          title={cloud.user ? cloud.user.email : 'Entrar na minha conta'}
+          subtitle={
+            cloud.user
+              ? cloud.phase === 'ready'
+                ? 'Dados conectados à sua conta'
+                : 'Ver sincronização'
+              : 'Acesse seus dados em outros aparelhos'
+          }
+          onPress={() => router.push('/account')}
+        />
+      </Section>
       <Section title="Meu plano">
         <ListRow
           title="Configurar meu plano"

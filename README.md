@@ -26,14 +26,14 @@ O banco aplica migrações novas ao abrir, sem apagar treinos existentes. Na web
 apps/mobile/       App Expo (React Native + TypeScript + NativeWind): iOS, Android e web
 apps/api/          API NestJS + Drizzle + Postgres (deploy na Railway via Docker)
 packages/shared/   Schema do treino (zod), import/export CSV, duração e calorias
-docker-compose.yml Postgres local
+PostgreSQL nativo  Banco local (sem Docker)
 railway.json       Configuração do deploy da API
 ```
 
 ## Pré-requisitos
 
 - Node 24 (veja `.nvmrc`) e npm
-- Docker Desktop, para o Postgres local
+- PostgreSQL instalado diretamente na máquina, com usuário e banco próprios para o projeto (sem Docker)
 - Navegador atualizado para testar a versão web
 
 ## Primeiros passos
@@ -68,7 +68,7 @@ Abra **http://localhost:8083** no navegador. O proxy preserva os arquivos e WebS
 
 Não é necessário apagar o banco para resolver esse problema. O proxy atende somente o computador local; acesso por celular via rede continua exigindo HTTPS confiável. Cada porta é uma origem diferente e tem seus próprios dados locais: a 8083 não compartilha automaticamente o banco da 8081/8082. O servidor web de prévia não precisa ser encerrado.
 
-Os dados ficam separados por navegador e endereço. PC e celular ainda não sincronizam; limpar os dados do site pode apagar os registros. Exportar CSV preserva apenas o programa, não o histórico ou perfil.
+Os dados ficam separados por navegador e endereço. Sem entrar na conta, PC e celular não sincronizam; limpar os dados do site pode apagar os registros. Exportar CSV preserva apenas o programa, não o histórico ou perfil.
 
 Para verificar também a geração da versão de produção:
 
@@ -123,8 +123,9 @@ Para ver no navegador, aperte `w` no terminal do Expo.
 ### API + banco local
 
 ```bash
-npm run db:up                                # Postgres no Docker
-cp apps/api/.env.example apps/api/.env       # só na primeira vez
+npm run db:status                            # verifica o PostgreSQL nativo
+# Configure DATABASE_URL em apps/api/.env e aplique as migrações:
+npm run db:migrate
 npm run dev:api                              # http://localhost:3000/health
 ```
 
@@ -133,7 +134,7 @@ npm run dev:api                              # http://localhost:3000/health
 ```bash
 npm test                                     # testes unitários (shared e api)
 npm run typecheck                            # TypeScript em todos os pacotes
-npm run test:e2e -w @crazy-training/api      # API contra o Postgres local (precisa do db:up)
+npm run test:e2e -w @crazy-training/api      # API contra o Postgres local (banco nativo isolado, com migrações aplicadas)
 npm run lint -w @crazy-training/api
 npm run lint -w @crazy-training/mobile
 ```
@@ -156,7 +157,7 @@ Abra **Configurar meu plano** na tela inicial, em Perfil ou em Alimentação. O 
 
 A geração usa o servidor para manter credenciais fora do navegador. O primeiro conector implementado é OpenAI Responses API, com JSON mode, validação Zod e `store: false`. Não existe plano fictício de fallback. Sem serviço configurado, o app mantém suas respostas e explica que não conseguiu gerar a sugestão.
 
-1. Copie `apps/api/.env.example` para `apps/api/.env`, caso ainda não exista.
+1. Configure `apps/api/.env` com a conexão PostgreSQL nativa, sem publicar esse arquivo.
 2. Configure `COACH_PROVIDER=openai`, `COACH_MODEL` com um modelo disponível na sua conta que suporte JSON mode, e `OPENAI_API_KEY` **somente no servidor**. Não coloque a chave em variável `EXPO_PUBLIC`.
 3. Inicie a API com `npm run dev:api`. A configuração de Postgres continua sendo necessária para a API; o assistente não grava os questionários no Postgres.
 4. Mantenha `npm run dev:expo` (8082) e `npm run dev:web:proxy` (8083) abertos. Use `http://localhost:8083`. A URL padrão da API é `http://localhost:3000`; pode ser alterada com `EXPO_PUBLIC_API_URL` (reinicie o Expo após alterar).
@@ -164,4 +165,43 @@ A geração usa o servidor para manter credenciais fora do navegador. O primeiro
 
 As respostas incluem medidas e restrições e só são enviadas após confirmação. O fluxo automático é para adultos e direciona perfis que declaram necessidade de acompanhamento para um profissional. A IA pode errar e as metas são estimativas editáveis. Uma nova sugestão não altera registros de refeições ou treinos já realizados.
 
-**Limites atuais:** o conector foi testado com respostas simuladas; a resposta de um modelo real depende das credenciais e ainda precisa ser validada. Não há chat contínuo, análise de foto ou ajustes automáticos de metas. O calendário registra atividades realizadas; não planeja a semana futura. As rotas `/coach` aceitam somente clientes locais e origens web locais conhecidas. Antes de disponibilizar a IA na Railway/Vercel será necessário implementar autenticação e limites por usuário.
+**Limites atuais:** o conector foi testado com respostas simuladas; a resposta de um modelo real depende das credenciais e ainda precisa ser validada. Não há chat contínuo, análise de foto ou ajustes automáticos de metas. O calendário registra atividades realizadas; não planeja a semana futura. Em produção, as rotas `/coach` exigem sessão autenticada e origem permitida. Em desenvolvimento, o teste de IA sem conta continua limitado a loopback. A IA mantém o limite de uma geração por vez.
+
+## Conta, sincronização e acesso pelo celular
+
+A aba **Perfil → Entrar na minha conta** abre o login. A primeira versão é para uso pessoal: não há cadastro público. Configure, somente em `apps/api/.env`, `DATABASE_URL`, `ACCOUNT_EMAIL` e `ACCOUNT_PASSWORD` (mínimo de 12 caracteres). A conta é criada na primeira inicialização após aplicar as migrações; trocar a variável depois não altera automaticamente a senha já gravada.
+
+Use PostgreSQL **nativo da máquina**, sem Docker. Crie um banco dedicado ao projeto e outro terminado em `_test` para integração. Depois configure a URL local e execute `npm run db:migrate` antes de iniciar `npm run dev:api`. A preferência está registrada em `AGENTS.md`.
+
+- O servidor guarda somente hashes de senha e dos tokens de sessão. O cookie é HttpOnly, SameSite=Lax e Secure em produção; logout revoga a sessão.
+- Ao entrar com dados já existentes no navegador, confirme **Conectar dados deste aparelho**. Um aparelho vazio pode baixar os dados da conta automaticamente.
+- O app verifica alterações locais e remotas. Cada envio informa a revisão anterior; concorrência retorna conflito, sem sobrescrita automática.
+- Para resolver um conflito, **Guardar cópia e usar dados da conta** preserva uma cópia local antes de baixar. A opção de recuperação restaura a última cópia. As últimas três cópias por conta são mantidas neste navegador, fora do snapshot enviado ao servidor.
+- Sem rede, os dados continuam locais. A sincronização tenta novamente quando o navegador recupera conexão/foco e periodicamente. Sair da conta não apaga os dados deste navegador.
+- Esta primeira versão sincroniza o conjunto completo dos dados, sem mesclar campos de alterações simultâneas. Conflitos exigem uma escolha explícita. Contas diferentes devem usar perfis distintos do navegador.
+
+### Proxy na mesma origem
+
+A web usa `/api` por padrão. Reinicie `npm run dev:web:proxy` ou `npm run preview:web` após atualizar os scripts: eles encaminham `/api` para a API local na porta 3000 (`API_PORT` pode alterar a porta). Não é necessário configurar `EXPO_PUBLIC_API_URL` para a web normal. Isso evita depender de cookies de terceiros entre Vercel e Railway no Safari.
+
+Foi adicionado `vercel.json`, sem realizar deploy. Configure o projeto Vercel com a raiz do repositório e `API_PROXY_URL` com a URL HTTPS da API hospedada. Configure na API `WEB_ORIGINS` com as origens web permitidas, separadas por vírgula, e `NODE_ENV=production`. A chave da IA permanece somente na API. A API precisa estar com as migrações aplicadas e a conta provisionada antes do primeiro login. O proxy permite apenas as rotas conhecidas de conta, sincronização e assistente.
+
+### Testes contra PostgreSQL nativo
+
+Configure `TEST_DATABASE_URL` apontando para localhost e um banco de testes terminado em `_test`. Os testes recusam outros destinos antes de aplicar migrações e não usam `DATABASE_URL` como substituto. Sem `TEST_DATABASE_URL`, os testes de integração são explicitamente pulados. A suíte cria contas fictícias isoladas e remove apenas suas próprias contas ao terminar.
+
+```bash
+npm run test:e2e -w @crazy-training/api
+```
+
+Estado da validação: 133 testes unitários, regressão do SQLite e cenários de dois navegadores com servidor simulado passaram. Também passaram 6 testes de integração no PostgreSQL nativo isolado, incluindo persistência, isolamento entre contas, conflito de revisão, logout e expiração. As migrações foram aplicadas no banco nativo de desenvolvimento, sem apagar dados. Não foi usado Docker. A IA continua testada apenas com respostas simuladas.
+
+### Preparar PostgreSQL nativo manualmente
+
+O script abaixo cria o usuário `crazy` e os bancos `crazy_training` e `crazy_training_test` somente se ainda não existirem. Ele pede a senha de forma interativa, não contém credenciais e não apaga bancos ou registros. O comando exige a autenticação administrativa local do seu sistema:
+
+```bash
+sudo -u postgres psql -X -d postgres -f scripts/setup-native-postgres.sql
+```
+
+Depois ajuste as URLs privadas em `apps/api/.env` com essa senha e execute `npm run db:migrate`. A senha de `ACCOUNT_PASSWORD` é do app e não precisa ser igual à senha do PostgreSQL. Para testar a conexão sem colocar a senha no comando, use `psql -h localhost -U crazy -d crazy_training -W`.

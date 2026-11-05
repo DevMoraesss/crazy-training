@@ -4,6 +4,9 @@ import { z } from 'zod';
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(3000),
+  ACCOUNT_EMAIL: z.email().optional(),
+  ACCOUNT_PASSWORD: z.string().min(12).max(256).optional(),
+  WEB_ORIGINS: z.string().min(1).optional(),
   COACH_PROVIDER: z.enum(['openai']).optional(),
   COACH_MODEL: z.string().trim().min(1).optional(),
   OPENAI_API_KEY: z.string().trim().min(1).optional(),

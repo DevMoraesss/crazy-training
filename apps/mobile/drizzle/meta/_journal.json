@@ -29,6 +29,13 @@
       "when": 1793873746738,
       "tag": "0003_equal_microbe",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1793885115725,
+      "tag": "0004_parched_stone_men",
+      "breakpoints": true
     }
   ]
 }

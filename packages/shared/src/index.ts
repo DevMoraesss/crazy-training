@@ -7,3 +7,6 @@ export * from './profile';
 export * from './import-prompt';
 export * from './text';
 export * from './catalog';
+export * from './nutrition';
+export * from './activity';
+export * from './coach';

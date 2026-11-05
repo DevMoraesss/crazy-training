@@ -10,16 +10,27 @@
   },
   "scripts": {
     "postinstall": "patch-package",
+    "dev:web": "npm run build:web && npm run preview:web",
+    "build:web": "npm run build:web -w @crazy-training/mobile",
+    "preview:web": "node scripts/serve-web.mjs",
     "dev:mobile": "npm run start -w @crazy-training/mobile",
+    "dev:expo": "npm run start -w @crazy-training/mobile -- --port 8082",
+    "dev:web:proxy": "node scripts/proxy-web.mjs",
     "dev:mobile:tunnel": "npm run start -w @crazy-training/mobile -- --tunnel",
     "dev:api": "npm run build -w @crazy-training/shared && npm run start:dev -w @crazy-training/api",
     "db:up": "docker compose up -d db",
     "db:down": "docker compose down",
     "build:shared": "npm run build -w @crazy-training/shared",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present && npm run test:sqlite-web",
+    "test:sqlite-web": "node --test scripts/sqlite-web-timeout.test.cjs"
   },
   "devDependencies": {
     "patch-package": "^8.0.1"
+  },
+  "overrides": {
+    "expo-router": "~58.0.30",
+    "@expo/metro-runtime": "~58.0.17",
+    "react-native-worklets": "0.13.0"
   }
 }

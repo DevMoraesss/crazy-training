@@ -9,3 +9,6 @@
 *.otf binary
 *.woff binary
 *.woff2 binary
+
+# Espaços nas linhas de contexto fazem parte do formato dos patches.
+patches/*.patch -whitespace

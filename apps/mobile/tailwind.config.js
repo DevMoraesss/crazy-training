@@ -8,6 +8,9 @@ const tokens = require('./src/theme/tokens.json');
  */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // O NativeWind sincroniza o tema quando a folha CSS chega no modo web de desenvolvimento.
+  // Essa sincronização chama colorScheme.set(), que não é permitido com darkMode: 'media'.
+  darkMode: 'class',
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {

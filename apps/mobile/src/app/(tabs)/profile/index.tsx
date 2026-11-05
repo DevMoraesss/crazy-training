@@ -1,5 +1,6 @@
 import { bodyMassIndex, type Profile } from '@crazy-training/shared';
 import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
 
 import { FieldRow } from '@/components/ui/field-row';
@@ -22,6 +23,7 @@ const LIMITS: Record<NumberField, { min: number; max: number; message: string }>
 
 export default function ProfileScreen() {
   const profile = useProfile();
+  const router = useRouter();
 
   const commitNumber = (field: NumberField) => (text: string) => {
     const value = parseDecimalInput(text);
@@ -36,14 +38,25 @@ export default function ProfileScreen() {
 
   const show = (value: number | null) => (value === null ? '' : formatNumber(value));
   const bmi =
-    profile.weightKg && profile.heightCm ? `IMC ${formatNumber(bodyMassIndex(profile.weightKg, profile.heightCm))}. ` : '';
+    profile.weightKg && profile.heightCm
+      ? `IMC ${formatNumber(bodyMassIndex(profile.weightKg, profile.heightCm))}. `
+      : '';
 
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       keyboardDismissMode="interactive"
       className="flex-1 bg-background"
-      contentContainerClassName="gap-7 pb-10 pt-2">
+      contentContainerClassName="gap-7 pb-10 pt-2"
+    >
+      <Section title="Meu plano">
+        <ListRow
+          title="Configurar meu plano"
+          subtitle="Perfil, metas, alimentação e treino em um só fluxo"
+          tone="tint"
+          onPress={() => router.push('/coach')}
+        />
+      </Section>
       <Section title="Corpo" footer={`${bmi}O peso é usado para estimar as calorias de cada treino.`}>
         <FieldRow
           label="Peso"
@@ -82,8 +95,16 @@ export default function ProfileScreen() {
         ))}
       </Section>
 
-      <Section title="Treino" footer="Na próxima versão, é daqui que sai o treino montado pela IA para você.">
-        <SegmentedRow label="Nível" options={LEVEL_OPTIONS} value={profile.level} onChange={(level) => saveProfile({ level })} />
+      <Section
+        title="Treino"
+        footer="Use Configurar meu plano para preparar uma sugestão de treino e alimentação com IA."
+      >
+        <SegmentedRow
+          label="Nível"
+          options={LEVEL_OPTIONS}
+          value={profile.level}
+          onChange={(level) => saveProfile({ level })}
+        />
         <SegmentedRow
           label="Onde você treina"
           options={EQUIPMENT_OPTIONS}

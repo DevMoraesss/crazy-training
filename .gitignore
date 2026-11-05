@@ -11,3 +11,35 @@ coverage/
 
 .DS_Store
 Thumbs.db
+
+# Material pessoal de importação (PDFs, CSVs e referências extraídas)
+/imports/
+
+# Apenas os utilitários necessários para executar e verificar o projeto são públicos.
+/scripts/*
+!/scripts/serve-web.mjs
+!/scripts/proxy-web.mjs
+!/scripts/sqlite-web-timeout.test.cjs
+
+# Patches locais ficam fora; esta correção é necessária no npm install.
+/patches/*
+!/patches/expo-sqlite+58.0.15.patch
+
+# Dados locais, credenciais, relatórios e artefatos temporários
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.pem
+*.key
+*.p12
+*.pfx
+*.zip
+/artifacts/
+/playwright-report/
+/test-results/
+/.local/
+/tmp/
+.claude/settings.local.json

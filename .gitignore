@@ -22,6 +22,9 @@ Thumbs.db
 !/scripts/serve-web.mjs
 !/scripts/proxy-web.mjs
 !/scripts/sqlite-web-timeout.test.cjs
+!/scripts/feedback.test.cjs
+!/scripts/check-web-port.mjs
+!/scripts/web-server.test.mjs
 
 # Patches locais ficam fora; esta correção é necessária no npm install.
 /patches/*

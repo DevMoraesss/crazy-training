@@ -1,27 +1,44 @@
 import { Alert, Platform } from 'react-native';
 
-// Alert do React Native não faz nada na web; lá os diálogos usam os do navegador.
+import { openFeedbackDialog, pushNotice, type FeedbackTone } from './feedback-store';
 
-export function notify(title: string, message?: string) {
+/** Avisos no app. Erros ficam visíveis até serem dispensados; sucessos somem sozinhos. */
+export function notify(
+  title: string,
+  message?: string,
+  options: { tone?: FeedbackTone; duration?: number | null } = {},
+) {
   if (Platform.OS === 'web') {
-    window.alert(message ? `${title}\n\n${message}` : title);
+    pushNotice(title, message, options);
     return;
   }
   Alert.alert(title, message);
 }
 
+/** Conteúdo de leitura, como instruções de um exercício, não é uma notificação temporária. */
+export function showInfo(title: string, message: string) {
+  if (Platform.OS === 'web') {
+    void openFeedbackDialog(title, message, [{ label: 'Entendi' }], null);
+    return;
+  }
+  Alert.alert(title, message);
+}
 type Choice<T> = { label: string; value: T; style?: 'default' | 'destructive' };
 
-/**
- * Pergunta com uma ou mais ações e "Cancelar". Resolve com a ação escolhida, ou null.
- * Na web, pergunta uma ação de cada vez com confirm().
- */
-export function choose<T>(title: string, message: string, choices: Choice<T>[], cancelLabel = 'Cancelar'): Promise<T | null> {
+export async function choose<T>(
+  title: string,
+  message: string,
+  choices: Choice<T>[],
+  cancelLabel = 'Cancelar',
+): Promise<T | null> {
   if (Platform.OS === 'web') {
-    for (const choice of choices) {
-      if (window.confirm(`${title}\n\n${message}\n\n${choice.label}?`)) return Promise.resolve(choice.value);
-    }
-    return Promise.resolve(null);
+    const index = await openFeedbackDialog(
+      title,
+      message,
+      choices.map(({ label, style }) => ({ label, style })),
+      cancelLabel,
+    );
+    return index === null ? null : choices[index]!.value;
   }
   return new Promise((resolve) => {
     Alert.alert(
@@ -35,9 +52,15 @@ export function choose<T>(title: string, message: string, choices: Choice<T>[], 
     );
   });
 }
-
-/** Confirmação de uma ação só. */
-export async function confirm(title: string, message: string, actionLabel: string, destructive = false): Promise<boolean> {
-  const result = await choose(title, message, [{ label: actionLabel, value: true, style: destructive ? 'destructive' : 'default' }]);
-  return result === true;
+export async function confirm(
+  title: string,
+  message: string,
+  actionLabel: string,
+  destructive = false,
+): Promise<boolean> {
+  return (
+    (await choose(title, message, [
+      { label: actionLabel, value: true, style: destructive ? 'destructive' : 'default' },
+    ])) === true
+  );
 }

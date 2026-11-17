@@ -5,6 +5,7 @@ import '@/lib/rest-notification';
 import { Stack } from 'expo-router';
 
 import { CloudProvider } from '@/components/cloud-provider';
+import { FeedbackHost } from '@/components/feedback-host';
 import { DatabaseGate } from '@/components/database-gate';
 import { ThemeRoot } from '@/components/theme-root';
 import { useColors } from '@/theme';
@@ -30,6 +31,7 @@ export default function RootLayout() {
           </Stack>
         </CloudProvider>
       </DatabaseGate>
+      <FeedbackHost />
     </ThemeRoot>
   );
 }

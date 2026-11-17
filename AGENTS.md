@@ -17,3 +17,7 @@ Use o PostgreSQL instalado diretamente na máquina do usuário. Não execute Doc
 ## Direção da IA
 
 O assistente precisa funcionar na web, pelo celular diariamente, sem depender do PC do usuário ligado. Deve considerar perfil, metas e histórico, com conhecimento fundamentado e possibilidade futura de consultar fontes confiáveis na web. Não tratar um modelo local no PC como solução final de produção. O conector de modelo está preparado, mas a geração real ainda depende de definir/configurar um serviço hospedado; não apresentar respostas simuladas como validação de um modelo real.
+
+## Servidores de teste
+
+Ao concluir testes ou validações, encerre os servidores e processos temporários que iniciar. Não deixe instâncias de Expo, proxies ou prévias rodando em segundo plano após os testes. Identifique os processos deste projeto antes de encerrá-los, sem afetar outros projetos. Essa preferência foi explicitamente solicitada pelo usuário.

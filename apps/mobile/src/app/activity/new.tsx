@@ -42,6 +42,7 @@ export default function NewActivityScreen() {
     try {
       await logActivity(parsed.data);
       router.back();
+      notify('Atividade registrada', 'Ela já conta no seu calendário.', { tone: 'success' });
     } catch {
       notify('Não foi possível registrar', 'Tente novamente.');
     } finally {

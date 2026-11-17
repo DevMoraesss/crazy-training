@@ -83,6 +83,7 @@ function MealEditor({
       if (mode === 'template') await saveMealTemplate(parsed.data, id);
       else await logMeal(date ?? localDateKey(new Date()), parsed.data);
       router.back();
+      notify(mode === 'template' ? 'Refeição salva no plano' : 'Refeição registrada', undefined, { tone: 'success' });
     } catch {
       notify('Não foi possível salvar', 'Tente novamente.');
     } finally {

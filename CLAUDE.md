@@ -94,7 +94,7 @@ Antes de dar uma tarefa como pronta: typecheck, testes e lint do pacote que mudo
 - `src/db/`: banco no aparelho. `schema.ts` (Drizzle), `queries.ts` (hooks `use*` com `useLiveQuery`, que re-renderizam sozinhos, e funções de escrita). Mudou o schema? `npm run db:generate -w @crazy-training/mobile` gera a migração em `apps/mobile/drizzle/`; o `DatabaseGate` aplica ao abrir o app.
 - **Transações do Drizzle no expo-sqlite são síncronas:** dentro de `db.transaction`, use `.run()` e nunca `async`/`await`.
 - Programas ficam inteiros como JSON no formato portátil (`Program` do shared). Cada sessão guarda uma cópia do treino (`plan`), então editar ou apagar o programa não muda o histórico. A posição do treino (exercício e série atuais) é calculada das séries registradas (`sessionPosition`), e por isso sobrevive ao app fechar.
-- Web: `output: "single"` (sem renderização no servidor) e cabeçalhos COOP/COEP no Metro e no `app.json`, que o expo-sqlite exige na web. `Alert` não funciona na web: use `lib/dialogs.ts`.
+- Web: `output: "single"` (sem renderização no servidor) e cabeçalhos COOP/COEP no Metro e no `app.json`, que o expo-sqlite exige na web. `Alert` não funciona na web: use `lib/dialogs.ts` (`confirm`/`choose` para ações, `showInfo` para leitura e `notify` para avisos). `FeedbackHost.web.tsx` implementa os diálogos e notificações com tokens de tema, teclado e fila; nunca usar `window.alert`/`window.confirm`. Ao finalizar testes, encerrar os servidores temporários.
 
 ## Roadmap
 

@@ -1,6 +1,6 @@
 import { migrate } from 'drizzle-orm/expo-sqlite/migrator';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { openDatabase } from '@/db/client';
@@ -53,14 +53,22 @@ export function DatabaseGate({ children }: { children: ReactNode }) {
   }, [attempt]);
 
   if (status.error) {
+    // COOP/COEP é aplicado na navegação; repetir apenas a abertura do SQLite não basta.
+    const reload =
+      Platform.OS === 'web' &&
+      (typeof SharedArrayBuffer === 'undefined' || !globalThis.crossOriginIsolated);
     return (
       <View className="flex-1 items-center justify-center bg-background px-10">
         <Text className="text-center text-title3 font-semibold text-label">Não foi possível abrir seus dados</Text>
         <Text className="mt-2 text-center text-body text-label-secondary">{errorMessage(status.error)}</Text>
         <View className="mt-6">
           <Button
-            title="Tentar novamente"
+            title={reload ? 'Recarregar página' : 'Tentar novamente'}
             onPress={() => {
+              if (reload) {
+                globalThis.location.reload();
+                return;
+              }
               setStatus({ ready: false });
               setAttempt((value) => value + 1);
             }}

@@ -35,7 +35,7 @@ import {
   useSessionSets,
 } from '@/db/queries';
 import type { SessionRow, SessionSetRow } from '@/db/schema';
-import { choose, confirm, notify } from '@/lib/dialogs';
+import { choose, confirm, notify, showInfo } from '@/lib/dialogs';
 import { formatClock, formatElapsed, formatNumber, formatRelativeDay, parseDecimalInput } from '@/lib/format';
 import { cancelRestEnd, scheduleRestEnd } from '@/lib/rest-notification';
 import { useNow } from '@/lib/use-now';
@@ -55,7 +55,11 @@ export default function SessionScreen() {
   useKeepAwake();
 
   if (!session) return <View className="flex-1 bg-background" />;
-  return session.finishedAt ? <Summary session={session} sets={sets} /> : <ActiveSession session={session} sets={sets} />;
+  return session.finishedAt ? (
+    <Summary session={session} sets={sets} />
+  ) : (
+    <ActiveSession session={session} sets={sets} />
+  );
 }
 
 function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSetRow[] }) {
@@ -104,7 +108,10 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
     const endsAt = Date.now() + seconds * 1000;
     setRest({ endsAt, total, notificationId: null });
     const nextExercise = position ? plan.exercises[position.exerciseIndex] : undefined;
-    const notificationId = await scheduleRestEnd(seconds, nextExercise ? `Próxima série: ${nextExercise.name}.` : 'Hora da próxima série.');
+    const notificationId = await scheduleRestEnd(
+      seconds,
+      nextExercise ? `Próxima série: ${nextExercise.name}.` : 'Hora da próxima série.',
+    );
     setNotificationsOff(notificationId === null);
     setRest((value) => (value?.endsAt === endsAt ? { ...value, notificationId } : value));
   };
@@ -189,7 +196,11 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
 
   const skip = async () => {
     if (!position || !exercise) return;
-    const ok = await confirm(`Pular ${exercise.name}?`, 'As séries que faltam deste exercício não serão feitas hoje.', 'Pular');
+    const ok = await confirm(
+      `Pular ${exercise.name}?`,
+      'As séries que faltam deste exercício não serão feitas hoje.',
+      'Pular',
+    );
     if (!ok) return;
     await endRest();
     await skipExercise(session.id, position.exerciseIndex);
@@ -207,8 +218,14 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
           accessibilityRole="button"
           accessibilityLabel="Encerrar treino"
           onPress={close}
-          className="h-11 w-11 items-center justify-center rounded-full bg-surface active:opacity-60">
-          <SymbolView name={{ ios: 'xmark', android: 'close', web: 'close' }} size={17} tintColor={colors.label} weight="semibold" />
+          className="h-11 w-11 items-center justify-center rounded-full bg-surface active:opacity-60"
+        >
+          <SymbolView
+            name={{ ios: 'xmark', android: 'close', web: 'close' }}
+            size={17}
+            tintColor={colors.label}
+            weight="semibold"
+          />
         </Pressable>
         <View className="items-center">
           <Text className="text-headline font-semibold text-label">{plan.name}</Text>
@@ -220,7 +237,8 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
           <Text
             accessibilityLabel="Tempo de treino"
             className="text-headline font-semibold text-label"
-            style={{ fontVariant: ['tabular-nums'] }}>
+            style={{ fontVariant: ['tabular-nums'] }}
+          >
             {formatElapsed(now - session.startedAt.getTime())}
           </Text>
         </View>
@@ -280,7 +298,9 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
               tintColor={colors.success}
             />
             <Text className="mt-4 text-center text-title2 font-bold text-label">Todas as séries feitas</Text>
-            <Text className="mt-2 text-center text-body text-label-secondary">Finalize para salvar o treino no histórico.</Text>
+            <Text className="mt-2 text-center text-body text-label-secondary">
+              Finalize para salvar o treino no histórico.
+            </Text>
           </View>
         )}
       </ScrollView>
@@ -310,7 +330,11 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
 /** Uma barra por exercício, preenchida conforme as séries feitas. */
 function Progress({ plan, sets, skipped }: { plan: WorkoutExercise[]; sets: SessionSetRow[]; skipped: number[] }) {
   return (
-    <View className="mt-3 flex-row gap-1 px-5" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+    <View
+      className="mt-3 flex-row gap-1 px-5"
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+    >
       {plan.map((exercise, index) => {
         const done = sets.filter((set) => set.exerciseIndex === index).length;
         const fraction = skipped.includes(index) ? 1 : Math.min(1, done / exercise.sets);
@@ -337,14 +361,17 @@ function ExerciseMedia({ exercise }: { exercise: WorkoutExercise }) {
 
   const howTo = () => {
     if (!catalog) return;
-    notify(catalog.name, catalog.instructions.map((step, index) => `${index + 1}. ${step}`).join('\n\n'));
+    showInfo(catalog.name, catalog.instructions.map((step, index) => `${index + 1}. ${step}`).join('\n\n'));
   };
 
   const video = () =>
     Linking.openURL(`https://www.youtube.com/results?search_query=${encodeURIComponent(`${exercise.name} execução`)}`);
 
   return (
-    <View className="mx-4 h-[200px] overflow-hidden rounded-[22px] bg-surface-raised" style={{ borderCurve: 'continuous' }}>
+    <View
+      className="mx-4 h-[200px] overflow-hidden rounded-[22px] bg-surface-raised"
+      style={{ borderCurve: 'continuous' }}
+    >
       {frame ? (
         <Image
           source={{ uri: frame }}
@@ -365,9 +392,17 @@ function ExerciseMedia({ exercise }: { exercise: WorkoutExercise }) {
         </View>
       )}
       <View className="absolute bottom-3 left-3 flex-row gap-2">
-        <MediaChip title="Ver vídeo" icon={{ ios: 'play.fill', android: 'play_arrow', web: 'play_arrow' }} onPress={video} />
+        <MediaChip
+          title="Ver vídeo"
+          icon={{ ios: 'play.fill', android: 'play_arrow', web: 'play_arrow' }}
+          onPress={video}
+        />
         {catalog && catalog.instructions.length > 0 ? (
-          <MediaChip title="Como fazer" icon={{ ios: 'list.bullet', android: 'format_list_bulleted', web: 'format_list_bulleted' }} onPress={howTo} />
+          <MediaChip
+            title="Como fazer"
+            icon={{ ios: 'list.bullet', android: 'format_list_bulleted', web: 'format_list_bulleted' }}
+            onPress={howTo}
+          />
         ) : null}
       </View>
     </View>
@@ -380,7 +415,8 @@ function MediaChip({ title, icon, onPress }: { title: string; icon: SymbolViewPr
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
-      className="h-9 flex-row items-center gap-1.5 rounded-full bg-surface px-3.5 active:opacity-70">
+      className="h-9 flex-row items-center gap-1.5 rounded-full bg-surface px-3.5 active:opacity-70"
+    >
       <SymbolView name={icon} size={13} tintColor={colors.label} />
       <Text className="text-subhead font-semibold text-label">{title}</Text>
     </Pressable>
@@ -421,18 +457,18 @@ function MetricInput({ label, value, step, decimal, onChange }: MetricInputProps
     <View className="flex-1 px-5">
       <Text className="text-footnote font-semibold text-label-secondary">{label}</Text>
       <TextInput
-          accessibilityLabel={label}
-          className="h-[72px] min-w-[56px] font-rounded text-metric font-extrabold text-label"
-          style={{ fontVariant: ['tabular-nums'] }}
-          value={text}
-          onChangeText={setText}
-          onBlur={commit}
-          onSubmitEditing={commit}
-          keyboardType={decimal ? 'decimal-pad' : 'number-pad'}
-          placeholder="—"
-          placeholderTextColor={colors['label-tertiary']}
-          selectTextOnFocus
-        />
+        accessibilityLabel={label}
+        className="h-[72px] min-w-[56px] font-rounded text-metric font-extrabold text-label"
+        style={{ fontVariant: ['tabular-nums'] }}
+        value={text}
+        onChangeText={setText}
+        onBlur={commit}
+        onSubmitEditing={commit}
+        keyboardType={decimal ? 'decimal-pad' : 'number-pad'}
+        placeholder="—"
+        placeholderTextColor={colors['label-tertiary']}
+        selectTextOnFocus
+      />
       <View className="mt-1.5 flex-row gap-2.5">
         <RoundButton
           label="−"
@@ -440,7 +476,11 @@ function MetricInput({ label, value, step, decimal, onChange }: MetricInputProps
           onPress={() => onChange(Math.max(0, (value ?? 0) - step))}
           disabled={!value}
         />
-        <RoundButton label="+" accessibilityLabel={`Aumentar ${label.toLowerCase()}`} onPress={() => onChange((value ?? 0) + step)} />
+        <RoundButton
+          label="+"
+          accessibilityLabel={`Aumentar ${label.toLowerCase()}`}
+          onPress={() => onChange((value ?? 0) + step)}
+        />
       </View>
     </View>
   );
@@ -453,7 +493,12 @@ function SetDots({ total, done }: { total: number; done: number }) {
       {Array.from({ length: total }, (_, index) =>
         index < done ? (
           <View key={index} className="h-[26px] w-[26px] items-center justify-center rounded-full bg-tint">
-            <SymbolView name={{ ios: 'checkmark', android: 'check', web: 'check' }} size={12} tintColor={colors['on-tint']} weight="bold" />
+            <SymbolView
+              name={{ ios: 'checkmark', android: 'check', web: 'check' }}
+              size={12}
+              tintColor={colors['on-tint']}
+              weight="bold"
+            />
           </View>
         ) : index === done ? (
           <View key={index} className="h-[26px] w-[26px] rounded-full border-[2.5px] border-tint" />
@@ -482,7 +527,8 @@ function RestView({ rest, now, upcoming, notificationsOff, onAdjust }: RestViewP
         <Text
           accessibilityRole="timer"
           className="font-rounded text-metric font-extrabold text-label"
-          style={{ fontVariant: ['tabular-nums'] }}>
+          style={{ fontVariant: ['tabular-nums'] }}
+        >
           {formatClock(remaining)}
         </Text>
         <Text className="text-subhead text-label-secondary">de {formatClock(rest.total)}</Text>
@@ -544,4 +590,3 @@ function Summary({ session, sets }: { session: SessionRow; sets: SessionSetRow[]
     </View>
   );
 }
-

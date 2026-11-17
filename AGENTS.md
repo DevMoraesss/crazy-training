@@ -21,3 +21,7 @@ O assistente precisa funcionar na web, pelo celular diariamente, sem depender do
 ## Servidores de teste
 
 Ao concluir testes ou validações, encerre os servidores e processos temporários que iniciar. Não deixe instâncias de Expo, proxies ou prévias rodando em segundo plano após os testes. Identifique os processos deste projeto antes de encerrá-los, sem afetar outros projetos. Essa preferência foi explicitamente solicitada pelo usuário.
+
+## Assistente de alimentação
+
+As decisões acordadas com o usuário estão em `docs/food-assistant.md`. Priorizar análise de refeições, resumo diário sincero e escolha final do usuário. Não apresentar estimativas como medições nem saldo calórico como gordura perdida/ganha. Áudio é opcional e futuro, com interpretação em propostas revisáveis antes de alterar o diário.

@@ -10,10 +10,12 @@ import { CloudController } from './cloud/cloud.controller.js';
 import { EnvModule } from './config/env.js';
 import { DatabaseModule } from './database/database.module.js';
 import { HealthController } from './health/health.controller.js';
+import { FoodController } from './food/food.controller.js';
+import { FoodService } from './food/food.service.js';
 
 @Module({
   imports: [EnvModule, DatabaseModule],
-  controllers: [HealthController, CoachController, AuthController, CloudController],
-  providers: [CoachService, AuthService],
+  controllers: [HealthController, CoachController, AuthController, CloudController, FoodController],
+  providers: [CoachService, AuthService, FoodService],
 })
 export class AppModule {}

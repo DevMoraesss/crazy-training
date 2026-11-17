@@ -11,3 +11,4 @@ export * from './nutrition';
 export * from './activity';
 export * from './coach';
 export * from './cloud';
+export * from './food';

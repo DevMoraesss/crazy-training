@@ -11,6 +11,7 @@ import {
   mealEntries,
   mealTemplates,
   nutritionTargets,
+  nutritionDays,
   profile,
   programs,
   sessions,
@@ -27,12 +28,14 @@ export const CLOUD_TABLES = [
   'meal_templates',
   'nutrition_targets',
   'coach_setup',
+  'nutrition_days',
 ];
 export function exportCloudSnapshot(): CloudSnapshot {
   return cloudSnapshotSchema.parse(
     JSON.parse(
       JSON.stringify({
-        version: 1,
+        version: 2,
+        nutritionDays: db.select().from(nutritionDays).orderBy(asc(nutritionDays.date)).all(),
         profile: db.select().from(profile).where(eq(profile.id, 1)).get() ?? null,
         programs: db.select().from(programs).orderBy(asc(programs.id)).all(),
         sessions: db.select().from(sessions).orderBy(asc(sessions.id)).all(),
@@ -57,6 +60,7 @@ export function snapshotHasData(snapshot: CloudSnapshot) {
     snapshot.mealEntries.length ||
     snapshot.mealTemplates.length ||
     snapshot.nutritionTargets ||
+    snapshot.nutritionDays.length ||
     snapshot.coachSetup,
   );
 }
@@ -108,14 +112,22 @@ export function importCloudSnapshot(
     tx.delete(mealEntries).run();
     tx.delete(mealTemplates).run();
     tx.delete(nutritionTargets).run();
+    tx.delete(nutritionDays).run();
     tx.delete(coachSetup).run();
     if (snapshot.profile)
       tx.insert(profile)
-        .values({ ...snapshot.profile, updatedAt: new Date(snapshot.profile.updatedAt) })
+        .values({
+          ...snapshot.profile,
+          updatedAt: new Date(snapshot.profile.updatedAt),
+        })
         .run();
     for (const row of snapshot.programs)
       tx.insert(programs)
-        .values({ ...row, createdAt: new Date(row.createdAt), updatedAt: new Date(row.updatedAt) })
+        .values({
+          ...row,
+          createdAt: new Date(row.createdAt),
+          updatedAt: new Date(row.updatedAt),
+        })
         .run();
     for (const row of snapshot.sessions)
       tx.insert(sessions)
@@ -139,11 +151,22 @@ export function importCloudSnapshot(
         .run();
     for (const row of snapshot.mealTemplates)
       tx.insert(mealTemplates)
-        .values({ ...row, createdAt: new Date(row.createdAt), updatedAt: new Date(row.updatedAt) })
+        .values({
+          ...row,
+          createdAt: new Date(row.createdAt),
+          updatedAt: new Date(row.updatedAt),
+        })
         .run();
     if (snapshot.nutritionTargets)
       tx.insert(nutritionTargets)
-        .values({ ...snapshot.nutritionTargets, updatedAt: new Date(snapshot.nutritionTargets.updatedAt) })
+        .values({
+          ...snapshot.nutritionTargets,
+          updatedAt: new Date(snapshot.nutritionTargets.updatedAt),
+        })
+        .run();
+    for (const row of snapshot.nutritionDays)
+      tx.insert(nutritionDays)
+        .values({ ...row, updatedAt: new Date(row.updatedAt) })
         .run();
     if (snapshot.coachSetup)
       tx.insert(coachSetup)

@@ -25,13 +25,40 @@ describe.skipIf(!process.env.TEST_DATABASE_URL)('conta e sincronização — Pos
   const emailB = `integration-${randomUUID()}@example.test`;
   const password = 'senha-ficticia-exclusiva-dos-testes';
   const snapshot = {
-    version: 1,
+    version: 2,
+    nutritionDays: [
+      {
+        date: '2026-11-05',
+        data: { complete: true, expenditureCalories: 2500, weightKg: 85 },
+        updatedAt: '2026-11-05T12:00:00.000Z',
+      },
+    ],
     profile: null,
     programs: [],
     sessions: [],
     sessionSets: [],
     mealTemplates: [],
-    mealEntries: [],
+    mealEntries: [
+      {
+        id: 'meal-test',
+        date: '2026-11-05',
+        createdAt: '2026-11-05T12:00:00.000Z',
+        data: {
+          name: 'Almoço',
+          time: null,
+          description: 'Porção de teste',
+          calories: 500,
+          proteinG: 30,
+          carbsG: 60,
+          fatG: 15,
+          evidence: {
+            source: 'ai-estimate',
+            inputType: 'text',
+            note: 'Estimativa de teste revisada',
+          },
+        },
+      },
+    ],
     nutritionTargets: null,
     activities: [],
     coachSetup: null,
@@ -41,18 +68,34 @@ describe.skipIf(!process.env.TEST_DATABASE_URL)('conta e sincronização — Pos
     const url = nativeTestDatabaseUrl();
     pool = new pg.Pool({ connectionString: url });
     db = drizzle({ client: pool, schema });
-    await migrate(db, { migrationsFolder: fileURLToPath(new URL('../drizzle/', import.meta.url)) });
+    await migrate(db, {
+      migrationsFolder: fileURLToPath(new URL('../drizzle/', import.meta.url)),
+    });
     const fixture = await Test.createTestingModule({ imports: [AppModule] })
       .overrideProvider(ENV)
-      .useValue({ NODE_ENV: 'test', PORT: 3000, DATABASE_URL: url, ACCOUNT_EMAIL: emailA, ACCOUNT_PASSWORD: password })
+      .useValue({
+        NODE_ENV: 'test',
+        PORT: 3000,
+        DATABASE_URL: url,
+        ACCOUNT_EMAIL: emailA,
+        ACCOUNT_PASSWORD: password,
+      })
       .compile();
     app = fixture.createNestApplication();
     await app.init();
-    await db
-      .insert(schema.users)
-      .values({ id: randomUUID(), email: emailB, passwordHash: await hashPassword(password) });
-    const a = await request(app.getHttpServer()).post('/auth/login').send({ email: emailA, password }).expect(201);
-    const b = await request(app.getHttpServer()).post('/auth/login').send({ email: emailB, password }).expect(201);
+    await db.insert(schema.users).values({
+      id: randomUUID(),
+      email: emailB,
+      passwordHash: await hashPassword(password),
+    });
+    const a = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({ email: emailA, password })
+      .expect(201);
+    const b = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({ email: emailB, password })
+      .expect(201);
     cookieA = (a.headers['set-cookie'] as unknown as string[])[0]!.split(';')[0]!;
     cookieB = (b.headers['set-cookie'] as unknown as string[])[0]!.split(';')[0]!;
   });
@@ -87,12 +130,52 @@ describe.skipIf(!process.env.TEST_DATABASE_URL)('conta e sincronização — Pos
     const a = await request(app.getHttpServer()).get('/cloud/snapshot').set('Cookie', cookieA).expect(200);
     expect(a.body.revision).toBe(1);
   });
+  it('não permite que um cliente antigo sobrescreva os dados novos do resumo', async () => {
+    const { nutritionDays: _days, ...legacy } = snapshot;
+    await request(app.getHttpServer())
+      .put('/cloud/snapshot')
+      .set('Cookie', cookieA)
+      .send({ revision: 1, snapshot: { ...legacy, version: 1 } })
+      .expect(400);
+    const current = await request(app.getHttpServer())
+      .get('/cloud/snapshot')
+      .set('Cookie', cookieA)
+      .expect(200);
+    expect(current.body.snapshot).toEqual(snapshot);
+  });
+  it('exige conta para analisar comida e informa falta de provedor sem simular resultado', async () => {
+    await request(app.getHttpServer()).get('/food/status').expect(401);
+    await request(app.getHttpServer()).post('/food/analyze').send({}).expect(401);
+    const status = await request(app.getHttpServer()).get('/food/status').set('Cookie', cookieA).expect(200);
+    expect(status.body).toEqual({ configured: false });
+    await request(app.getHttpServer())
+      .post('/food/analyze')
+      .set('Cookie', cookieA)
+      .send({
+        description: '100 g de arroz',
+        image: null,
+        context: {
+          goal: 'fat-loss',
+          preferences: '',
+          allergies: '',
+          targets: {
+            calories: null,
+            proteinG: null,
+            carbsG: null,
+            fatG: null,
+          },
+        },
+      })
+      .expect(503);
+  });
   it('revoga a sessão no logout', async () => {
     await request(app.getHttpServer()).post('/auth/logout').set('Cookie', cookieB).expect(201);
     await request(app.getHttpServer()).get('/cloud/snapshot').set('Cookie', cookieB).expect(401);
   });
   it('não aceita sessão expirada', async () => {
-    const user = await db.query.users.findFirst({ where: eq(schema.users.email, emailA) });
+    const user = await db.query.users.findFirst({
+      where: eq(schema.users.email, emailA),
+    });
     await db
       .update(schema.authSessions)
       .set({ expiresAt: new Date(0) })

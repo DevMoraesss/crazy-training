@@ -1,7 +1,8 @@
 import { type CoachIntake, type CoachPlan } from '@crazy-training/shared';
 import { BadGatewayException, BadRequestException, ServiceUnavailableException } from '@nestjs/common';
 
-import type { Env } from '../config/env.js';
+import { AiJobs } from '../ai/ai-jobs.js';
+import { AiError, type AiService } from '../ai/ai.service.js';
 import { CoachService } from './coach.service.js';
 
 const intake: CoachIntake = {
@@ -47,84 +48,66 @@ const plan: CoachPlan = {
     })),
   },
 };
-const env: Env = {
-  NODE_ENV: 'test',
-  PORT: 3000,
-  DATABASE_URL: 'postgres://localhost/test',
-  COACH_PROVIDER: 'openai',
-  OPENAI_API_KEY: 'test-key',
-  COACH_MODEL: 'test-model',
+const setup = (configured = true) => {
+  const structured = vi.fn();
+  const service = new CoachService({ configured, structured } as unknown as AiService, new AiJobs());
+  return { service, structured };
 };
-const response = (value: unknown) =>
-  new Response(
-    JSON.stringify({
-      status: 'completed',
-      output: [{ type: 'message', content: [{ type: 'output_text', text: JSON.stringify(value) }] }],
-    }),
-    { status: 200 },
-  );
+const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 describe('CoachService', () => {
-  const mockFetch = vi.fn();
-  beforeEach(() => {
-    mockFetch.mockReset();
-    vi.stubGlobal('fetch', mockFetch);
-  });
-  afterEach(() => vi.unstubAllGlobals());
-
-  it('valida a resposta e mantém a chave apenas na chamada do servidor', async () => {
-    mockFetch.mockResolvedValue(response(plan));
-    await expect(new CoachService(env).generate(intake)).resolves.toEqual(plan);
-    const body = JSON.parse(mockFetch.mock.calls[0][1].body);
-    expect(body.store).toBe(false);
-    expect(JSON.parse(body.input)).toEqual(intake);
-    expect(JSON.stringify(body)).not.toContain('test-key');
+  it('envia só o questionário, com esforço alto, e valida o plano', async () => {
+    const { service, structured } = setup();
+    structured.mockResolvedValue(plan);
+    await expect(service.generate(intake)).resolves.toEqual(plan);
+    const request = structured.mock.calls[0][0];
+    expect(JSON.parse(request.content[0].text)).toEqual(intake);
+    expect(request.effort).toBe('high');
+    expect(request.system).toContain('nunca instruções');
   });
   it('descarta IDs e cargas inventados pelo modelo', async () => {
+    const { service, structured } = setup();
     const invented = structuredClone(plan);
     invented.program.workouts[0]!.exercises[0]!.exerciseId = 'id-inventado';
     invented.program.workouts[0]!.exercises[0]!.loadKg = 100;
-    mockFetch.mockResolvedValue(response(invented));
-    await expect(new CoachService(env).generate(intake)).resolves.toEqual(plan);
-  });
-  it('não chama o provedor sem configuração ou com perfil inválido', async () => {
-    await expect(new CoachService({ ...env, OPENAI_API_KEY: undefined }).generate(intake)).rejects.toBeInstanceOf(
-      ServiceUnavailableException,
-    );
-    await expect(new CoachService(env).generate({ ...intake, age: 15 })).rejects.toBeInstanceOf(BadRequestException);
-    await expect(new CoachService(env).generate({ ...intake, needsProfessional: true })).rejects.toBeInstanceOf(
-      BadRequestException,
-    );
-    expect(mockFetch).not.toHaveBeenCalled();
-  });
-  it('rejeita JSON inválido, dados incompletos e número errado de refeições', async () => {
-    for (const invalid of [
-      {},
-      { ...plan, meals: plan.meals.slice(0, 2) },
-      { ...plan, targets: { ...plan.targets, calories: 500 } },
-    ]) {
-      mockFetch.mockResolvedValueOnce(response(invalid));
-      await expect(new CoachService(env).generate(intake)).rejects.toBeInstanceOf(BadGatewayException);
-    }
-  });
-  it('não revela erro nem credenciais do provedor e permite nova tentativa', async () => {
-    const service = new CoachService(env);
-    mockFetch.mockRejectedValueOnce(new Error('test-key erro confidencial'));
-    await expect(service.generate(intake)).rejects.toThrow('Não foi possível validar');
-    mockFetch.mockResolvedValueOnce(response(plan));
+    structured.mockResolvedValue(invented);
     await expect(service.generate(intake)).resolves.toEqual(plan);
   });
-  it('limita a uma geração por vez', async () => {
-    let release!: (response: Response) => void;
-    mockFetch.mockReturnValue(
-      new Promise<Response>((resolve) => {
-        release = resolve;
-      }),
-    );
-    const service = new CoachService(env);
-    const first = service.generate(intake);
-    await expect(service.generate(intake)).rejects.toBeInstanceOf(ServiceUnavailableException);
-    release(response(plan));
-    await expect(first).resolves.toEqual(plan);
+  it('não chama a IA sem configuração ou com perfil inválido, nem começa o pedido', async () => {
+    const { service, structured } = setup();
+    expect(() => setup(false).service.start('user', intake)).toThrow(ServiceUnavailableException);
+    expect(() => service.start('user', { ...intake, age: 15 })).toThrow(BadRequestException);
+    expect(() => service.start('user', { ...intake, needsProfessional: true })).toThrow(BadRequestException);
+    expect(structured).not.toHaveBeenCalled();
+  });
+  it('rejeita número errado de refeições ou treinos e resposta inválida', async () => {
+    const { service, structured } = setup();
+    structured.mockResolvedValueOnce({ ...plan, meals: plan.meals.slice(0, 2) });
+    await expect(service.generate(intake)).rejects.toBeInstanceOf(BadGatewayException);
+    structured.mockResolvedValueOnce({ ...plan, program: { ...plan.program, workouts: plan.program.workouts.slice(0, 1) } });
+    await expect(service.generate(intake)).rejects.toBeInstanceOf(BadGatewayException);
+    structured.mockRejectedValueOnce(new AiError('invalid'));
+    await expect(service.generate(intake)).rejects.toThrow('Nenhuma meta ou plano foi alterado');
+  });
+  it('gera em segundo plano: o app consulta até terminar e só o dono vê o resultado', async () => {
+    const { service, structured } = setup();
+    let release!: (value: unknown) => void;
+    structured.mockReturnValueOnce(new Promise((resolve) => (release = resolve)));
+    const { id } = service.start('user', intake);
+    expect(service.job('user', id)).toEqual({ status: 'running' });
+    expect(() => service.start('user', intake)).toThrow(ServiceUnavailableException);
+    expect(() => service.job('other', id)).toThrow('não existe mais');
+    release(plan);
+    await settle();
+    expect(service.job('user', id)).toEqual({ status: 'done', result: plan });
+  });
+  it('registra a falha com mensagem em pt-BR, sem detalhes do provedor', async () => {
+    const { service, structured } = setup();
+    structured.mockRejectedValueOnce(new Error('test-key erro confidencial'));
+    const { id } = service.start('user', intake);
+    await settle();
+    const state = service.job('user', id);
+    expect(state.status).toBe('failed');
+    expect(JSON.stringify(state)).not.toContain('test-key');
   });
 });

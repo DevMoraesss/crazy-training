@@ -6,7 +6,7 @@ import type { Database } from '../database/database.module.js';
 import { AuthService } from './auth.service.js';
 import { hashPassword } from './password.js';
 
-const env: Env = { NODE_ENV: 'test', PORT: 3000, DATABASE_URL: 'postgres://localhost/test' };
+const env: Env = { NODE_ENV: 'test', PORT: 3000, DATABASE_URL: 'postgres://localhost/test', AI_MODEL: 'test-model' };
 function database() {
   const findFirst = vi.fn();
   const insertValues = vi.fn().mockResolvedValue(undefined);

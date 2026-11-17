@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post, Req, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Inject, Param, ParseUUIDPipe, Post, Req, UnauthorizedException } from '@nestjs/common';
 import type { Request } from 'express';
 
 import { AuthService } from '../auth/auth.service.js';
@@ -29,9 +29,16 @@ export class CoachController {
     await this.authorize(request);
     return { configured: this.coach.configured };
   }
+  /** Começa a gerar o plano. O app consulta o resultado em GET /coach/plan/:id. */
   @Post('plan')
-  async generate(@Req() request: Request, @Body() input: unknown) {
-    await this.authorize(request);
-    return this.coach.generate(input);
+  @HttpCode(202)
+  async start(@Req() request: Request, @Body() input: unknown) {
+    const user = await this.authorize(request);
+    return this.coach.start(user?.id ?? 'local', input);
+  }
+  @Get('plan/:id')
+  async job(@Req() request: Request, @Param('id', ParseUUIDPipe) id: string) {
+    const user = await this.authorize(request);
+    return this.coach.job(user?.id ?? 'local', id);
   }
 }

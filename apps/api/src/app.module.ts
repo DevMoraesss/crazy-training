@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
 
+import { AiJobs } from './ai/ai-jobs.js';
+import { AiModule } from './ai/ai.service.js';
+
 import { CoachController } from './coach/coach.controller.js';
 import { CoachService } from './coach/coach.service.js';
 
@@ -14,8 +17,8 @@ import { FoodController } from './food/food.controller.js';
 import { FoodService } from './food/food.service.js';
 
 @Module({
-  imports: [EnvModule, DatabaseModule],
+  imports: [EnvModule, DatabaseModule, AiModule],
   controllers: [HealthController, CoachController, AuthController, CloudController, FoodController],
-  providers: [CoachService, AuthService, FoodService],
+  providers: [AiJobs, CoachService, AuthService, FoodService],
 })
 export class AppModule {}

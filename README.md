@@ -9,7 +9,7 @@ Decisões de produto, stack e roadmap ficam no [CLAUDE.md](CLAUDE.md).
 ## O que já funciona
 
 - **Hoje:** o próximo treino do rodízio (A → B → C → A), com os exercícios e o tempo estimado. Um treino interrompido aparece para continuar.
-- **Execução:** foto do movimento (as duas posições se alternando), "Como fazer" e link para vídeo; repetições e carga pré-preenchidas com o que você fez na última vez; timer de descanso com aviso mesmo com a tela bloqueada; desfazer série, pular exercício e resumo no fim (duração, volume e calorias).
+- **Execução:** foto do movimento (as duas posições se alternando), "Como fazer" e link para vídeo; repetições e carga pré-preenchidas com o que você fez na última vez; timer de descanso (no app nativo, avisa também com a tela bloqueada; na web, o aviso só aparece com a página aberta); desfazer série, pular exercício e resumo no fim (duração, volume e calorias).
 - **Treinos:** vários programas, um ativo. Editor completo (treinos, exercícios, séries, repetições, carga, descanso e ordem) com busca na base de exercícios em português. Exporta CSV.
 - **Importar:** o app dá um prompt pronto. Você cola no ChatGPT, Gemini ou Claude junto com o seu treino (PDF, foto ou planilha) e cola de volta o CSV da resposta, ou abre o arquivo. Antes de salvar, você revisa o que foi reconhecido.
 - **Calendário:** atividades por data, frequência semanal por dias únicos e detalhes das sessões. Corrida, caminhada, ciclismo, natação e musculação manual contam como dia ativo. Duas atividades no mesmo dia contam uma vez. Registros manuais não avançam o rodízio do programa. Atividades concluídas podem ser registradas em datas anteriores; não há agendamento futuro ou sincronização com relógios.
@@ -88,7 +88,7 @@ O resultado fica em `apps/mobile/dist/`. O servidor `scripts/serve-web.mjs` incl
 
 O celular e o computador precisam estar na mesma rede, com a porta do servidor liberada no firewall. **Acessar somente `http://IP-DO-PC:8081` não é suficiente para o banco web atual**: o SQLite usa `SharedArrayBuffer`, que exige um contexto seguro e isolamento entre origens.
 
-Para esse teste, configure um proxy HTTPS local com certificado para o IP ou hostname do computador e confie na autoridade certificadora no aparelho. O proxy deve encaminhar para a porta 8081 e preservar os cabeçalhos `Cross-Origin-Opener-Policy: same-origin` e `Cross-Origin-Embedder-Policy: credentialless`. Não basta ignorar o aviso de certificado. Veja o [guia de HTTPS local do Expo](https://docs.expo.dev/guides/local-https-development/).
+Para esse teste, configure um proxy HTTPS local com certificado para o IP ou hostname do computador e confie na autoridade certificadora no aparelho. O proxy deve encaminhar para a porta 8081 e preservar os cabeçalhos `Cross-Origin-Opener-Policy: same-origin` e `Cross-Origin-Embedder-Policy: require-corp`. Não basta ignorar o aviso de certificado. Veja o [guia de HTTPS local do Expo](https://docs.expo.dev/guides/local-https-development/).
 
 PWA, abertura offline e notificações web ainda precisam ser implementadas e validadas; manter dados locais não garante que a página abra sem o servidor. No código atual, as notificações de descanso estão desativadas na web.
 
@@ -145,17 +145,38 @@ npm run lint -w @crazy-training/api
 npm run lint -w @crazy-training/mobile
 ```
 
-## Deploy da API na Railway
+## Publicar: API na Railway e interface na Vercel
 
-O `railway.json` já diz à Railway para construir `apps/api/Dockerfile` e usar `/health` como verificação de saúde. Só redeploya quando algo em `apps/api`, `packages/shared` ou no lockfile muda.
+As duas plataformas publicam sozinhas a partir da branch `main` do GitHub. A ordem importa: primeiro a API (a Vercel precisa da URL dela).
 
-1. Envie o repositório para o GitHub (`git push`).
-2. Na Railway: **New Project → Deploy from GitHub repo** e escolha este repositório.
-3. No mesmo projeto: **+ New → Database → PostgreSQL**.
-4. No serviço da API, em **Variables**, crie `DATABASE_URL` com o valor `${{Postgres.DATABASE_URL}}`. A `PORT` a Railway define sozinha.
-5. Em **Settings → Networking → Generate Domain**, gere uma URL pública e abra `https://<sua-url>/health`. A resposta esperada é `{"status":"ok","database":"up"}`.
+### 1. API e banco na Railway
 
-O app mobile não é hospedado: ele vai para o iPhone pelo Expo Go agora, e pela TestFlight/App Store quando houver a conta Apple Developer (Fase 4).
+O `railway.json` manda construir `apps/api/Dockerfile` e usar `/health` como verificação de saúde. Ao subir, o container aplica as migrações novas do banco (`dist/migrate.js`) e só então inicia a API; se a migração falhar, a versão anterior continua no ar.
+
+1. Na Railway: **New Project → Deploy from GitHub repo** e escolha este repositório (branch `main`).
+2. No mesmo projeto: **+ New → Database → PostgreSQL**.
+3. No serviço da API, em **Variables**:
+
+   | Variável            | Valor                                                                        |
+   | ------------------- | ---------------------------------------------------------------------------- |
+   | `DATABASE_URL`      | `${{Postgres.DATABASE_URL}}`                                                 |
+   | `ACCOUNT_EMAIL`     | seu e-mail de login no app                                                   |
+   | `ACCOUNT_PASSWORD`  | senha do app, com 12 caracteres ou mais                                      |
+   | `WEB_ORIGINS`       | a URL da Vercel, por exemplo `https://crazy-training.vercel.app` (sem `/` no fim) |
+
+   A `PORT` a Railway define sozinha, e o `NODE_ENV=production` vem do Dockerfile.
+4. Em **Settings → Networking → Generate Domain**, gere a URL pública e abra `https://<url-da-api>/health`. A resposta esperada é `{"status":"ok","database":"up"}`.
+
+### 2. Interface na Vercel
+
+O `vercel.json` já define o build (`npm run build:web`), a pasta publicada (`apps/mobile/dist`), os cabeçalhos que o banco do navegador exige e o proxy `/api`.
+
+1. Na Vercel: **Add New → Project**, importe este repositório e deixe **Root Directory** na raiz do repositório. Framework: **Other**.
+2. Em **Environment Variables**, crie `API_PROXY_URL` com a URL HTTPS da API na Railway (por exemplo `https://crazy-training-api.up.railway.app`).
+3. Faça o deploy e copie a URL final. Se ela for diferente do que você colocou em `WEB_ORIGINS` na Railway, corrija lá e reinicie a API.
+4. Abra a URL no Safari do iPhone, entre em **Perfil → Entrar na minha conta** e use **Compartilhar → Adicionar à Tela de Início**. Instalado na tela inicial, o Safari não apaga os dados locais por falta de uso.
+
+O banco do navegador exige `Cross-Origin-Embedder-Policy: require-corp`. O valor `credentialless` não funciona no Safari (nem no iPhone) e deixaria o app sem banco. As fotos dos exercícios vêm do GitHub, que já envia `Cross-Origin-Resource-Policy: cross-origin`.
 
 ## Assistente de planejamento (teste local)
 

@@ -24,7 +24,7 @@ const server = createServer((req, res) => {
       res.writeHead(response.statusCode ?? 502, {
         ...response.headers,
         'cross-origin-opener-policy': 'same-origin',
-        'cross-origin-embedder-policy': 'credentialless',
+        'cross-origin-embedder-policy': 'require-corp',
         'cache-control': 'no-store',
       });
       response.on('error', () => res.destroy());

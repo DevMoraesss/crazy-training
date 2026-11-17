@@ -7,9 +7,9 @@ const envSchema = z.object({
   ACCOUNT_EMAIL: z.email().optional(),
   ACCOUNT_PASSWORD: z.string().min(12).max(256).optional(),
   WEB_ORIGINS: z.string().min(1).optional(),
-  COACH_PROVIDER: z.enum(['openai']).optional(),
-  COACH_MODEL: z.string().trim().min(1).optional(),
-  OPENAI_API_KEY: z.string().trim().min(1).optional(),
+  /** Chave da API do Claude. Sem ela, o app funciona sem IA. */
+  ANTHROPIC_API_KEY: z.string().trim().min(1).optional(),
+  AI_MODEL: z.string().trim().min(1).default('claude-opus-5-5'),
   DATABASE_URL: z.url({ protocol: /^postgres(ql)?$/ }),
 });
 

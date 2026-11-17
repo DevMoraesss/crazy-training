@@ -163,6 +163,7 @@ O `railway.json` manda construir `apps/api/Dockerfile` e usar `/health` como ver
    | `ACCOUNT_EMAIL`     | seu e-mail de login no app                                                   |
    | `ACCOUNT_PASSWORD`  | senha do app, com 12 caracteres ou mais                                      |
    | `WEB_ORIGINS`       | a URL da Vercel, por exemplo `https://crazy-training.vercel.app` (sem `/` no fim) |
+   | `ANTHROPIC_API_KEY` | sua chave da API do Claude (opcional; sem ela o app funciona sem IA)         |
 
    A `PORT` a Railway define sozinha, e o `NODE_ENV=production` vem do Dockerfile.
 4. Em **Settings → Networking → Generate Domain**, gere a URL pública e abra `https://<url-da-api>/health`. A resposta esperada é `{"status":"ok","database":"up"}`.
@@ -182,17 +183,17 @@ O banco do navegador exige `Cross-Origin-Embedder-Policy: require-corp`. O valor
 
 Abra **Configurar meu plano** na tela inicial, em Perfil ou em Alimentação. O carrossel mantém as respostas ao voltar entre etapas, permite ajustar os campos pelo resumo final e respeita movimento reduzido. O questionário funciona sem API e salva as respostas e o perfil ao concluir. Corrida e outras atividades são registradas em **Calendário → Registrar atividade**.
 
-A geração usa o servidor para manter credenciais fora do navegador. O primeiro conector implementado é OpenAI Responses API, com JSON mode, validação Zod e `store: false`. Não existe plano fictício de fallback. Sem serviço configurado, o app mantém suas respostas e explica que não conseguiu gerar a sugestão.
+A geração usa a API do Claude pelo servidor, com saída estruturada e validação Zod; a chave nunca vai para o navegador. O plano é gerado em segundo plano (`POST /coach/plan` devolve um pedido e o app consulta `GET /coach/plan/:id`), porque leva alguns minutos e não pode depender da tela do celular ficar aberta. Não existe plano fictício de reserva: sem chave configurada, o app mantém suas respostas e explica que não conseguiu gerar a sugestão.
 
 1. Configure `apps/api/.env` com a conexão PostgreSQL nativa, sem publicar esse arquivo.
-2. Configure `COACH_PROVIDER=openai`, `COACH_MODEL` com um modelo disponível na sua conta que suporte JSON mode, e `OPENAI_API_KEY` **somente no servidor**. Não coloque a chave em variável `EXPO_PUBLIC`.
+2. Configure `ANTHROPIC_API_KEY` **somente no servidor** (o modelo padrão é `claude-opus-5-5`; `AI_MODEL` troca). Não coloque a chave em variável `EXPO_PUBLIC`.
 3. Inicie a API com `npm run dev:api`. A configuração de Postgres continua sendo necessária para a API; o assistente não grava os questionários no Postgres.
 4. Mantenha `npm run dev:expo` (8082) e `npm run dev:web:proxy` (8083) abertos. Use `http://localhost:8083`. A URL padrão da API é `http://localhost:3000`; pode ser alterada com `EXPO_PUBLIC_API_URL` (reinicie o Expo após alterar).
 5. Conclua o questionário, gere e revise a sugestão. Somente **Aplicar plano** atualiza as metas, adiciona as refeições ao plano e ativa o programa. Nenhuma refeição é lançada automaticamente no diário.
 
 As respostas incluem medidas e restrições e só são enviadas após confirmação. O fluxo automático é para adultos e direciona perfis que declaram necessidade de acompanhamento para um profissional. A IA pode errar e as metas são estimativas editáveis. Uma nova sugestão não altera registros de refeições ou treinos já realizados.
 
-**Limites atuais:** o conector foi testado com respostas simuladas; a resposta de um modelo real depende das credenciais e ainda precisa ser validada. Não há chat contínuo, análise de foto ou ajustes automáticos de metas. O calendário registra atividades realizadas; não planeja a semana futura. Em produção, as rotas `/coach` exigem sessão autenticada e origem permitida. Em desenvolvimento, o teste de IA sem conta continua limitado a loopback. A IA mantém o limite de uma geração por vez.
+**Limites atuais:** os testes automáticos usam respostas simuladas, sem chamadas pagas; a qualidade do modelo real só é conferida com a chave configurada. Não há chat contínuo, análise de foto ou ajustes automáticos de metas. O calendário registra atividades realizadas; não planeja a semana futura. Em produção, as rotas `/coach` exigem sessão autenticada e origem permitida. Em desenvolvimento, o teste de IA sem conta continua limitado a loopback. A IA mantém o limite de uma geração por vez por conta. Pedidos em segundo plano ficam na memória da API por 30 minutos; se ela reiniciar, o app pede para enviar de novo.
 
 ## Conta, sincronização e acesso pelo celular
 
@@ -249,7 +250,7 @@ Em **Revisar fechamento do dia**, informe opcionalmente o gasto total diário es
 
 O SQLite recebe uma migração aditiva para `nutrition_days`. A sincronização passa para o formato v2, que preserva fechamentos e metadados de estimativa. Cópias v1 continuam legíveis, mas clientes antigos não podem enviar dados e apagar os campos novos. Atualize a API e a interface juntas; se solicitado, recarregue a página antes de sincronizar.
 
-Configuração privada em `apps/api/.env`: `COACH_PROVIDER=openai`, `COACH_MODEL` com suporte a imagens e saída estruturada, e `OPENAI_API_KEY`. Não há modelo padrão ou resposta de demonstração em produção. A implementação usa [Responses e imagens](https://developers.openai.com/api/docs/guides/images-vision) e [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses). Chaves ficam no servidor; o envio ocorre após consentimento. O cadastro manual e o resumo local funcionam sem IA configurada.
+Configuração privada em `apps/api/.env` (ou nas variáveis da Railway): `ANTHROPIC_API_KEY` e, opcionalmente, `AI_MODEL` (padrão `claude-opus-5-5`). A chamada usa o SDK oficial `@anthropic-ai/sdk` com saída estruturada e, se o modelo recusar por engano, o reenvio automático para um modelo alternativo (`fallbacks: 'default'`). Não há resposta de demonstração em produção. Chaves ficam no servidor; o envio ocorre após consentimento. O cadastro manual e o resumo local funcionam sem IA configurada.
 
 Até a configuração e uma chamada real serem validadas, testes com respostas controladas verificam apenas a integração e os fluxos do aplicativo, sem comprovar a precisão nutricional de um modelo real.
 

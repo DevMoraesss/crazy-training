@@ -22,6 +22,7 @@ const env: Env = {
   NODE_ENV: 'test',
   PORT: 3000,
   DATABASE_URL: 'postgres://localhost/test',
+  AI_MODEL: 'test-model',
 };
 const req = {
   headers: { origin: 'http://localhost:8083', cookie: 'test' },

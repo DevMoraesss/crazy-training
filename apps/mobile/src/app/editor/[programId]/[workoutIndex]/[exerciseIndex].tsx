@@ -1,4 +1,4 @@
-import { formatReps, getExercise, parseReps } from '@crazy-training/shared';
+import { formatReps, getExercise, parseReps, repsFromValues, resizeRepsPerSet } from '@crazy-training/shared';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, TextInput, View } from 'react-native';
@@ -69,8 +69,12 @@ export default function ExerciseEditorScreen() {
           <StepperRow
             label="Séries"
             display={String(exercise.sets)}
-            onDecrement={() => update({ sets: exercise.sets - 1 })}
-            onIncrement={() => update({ sets: exercise.sets + 1 })}
+            onDecrement={() =>
+              update({ sets: exercise.sets - 1, repsPerSet: resizeRepsPerSet(exercise.repsPerSet, exercise.sets - 1) })
+            }
+            onIncrement={() =>
+              update({ sets: exercise.sets + 1, repsPerSet: resizeRepsPerSet(exercise.repsPerSet, exercise.sets + 1) })
+            }
             canDecrement={exercise.sets > 1}
             canIncrement={exercise.sets < 20}
           />
@@ -83,7 +87,31 @@ export default function ExerciseEditorScreen() {
                 notify('Repetições não reconhecidas', 'Use um número (10), uma faixa (8-12), "falha" ou um tempo (30s).');
                 return;
               }
-              void update({ reps });
+              if (formatReps(reps) === formatReps(exercise.reps)) return;
+              // Nova prescrição geral: as repetições por série da ficha deixam de valer.
+              void update({ reps, repsPerSet: undefined });
+            }}
+          />
+          <FieldRow
+            label="Por série"
+            value={exercise.repsPerSet?.join(', ') ?? ''}
+            placeholder="Opcional, ex.: 15, 15, 12, 12"
+            keyboardType="numbers-and-punctuation"
+            onCommit={(text) => {
+              if (!text.trim()) {
+                void update({ repsPerSet: undefined });
+                return;
+              }
+              const values = text.split(/[,;\s]+/).filter(Boolean).map(Number);
+              if (values.length !== exercise.sets || values.some((value) => !Number.isInteger(value) || value < 1)) {
+                notify(
+                  'Repetições por série',
+                  `Informe ${exercise.sets} números inteiros separados por vírgula, um para cada série.`,
+                );
+                return;
+              }
+              // A faixa geral acompanha os valores, como na importação da ficha.
+              void update({ repsPerSet: undefined, ...repsFromValues(values, exercise.reps.type === 'time') });
             }}
           />
           <FieldRow

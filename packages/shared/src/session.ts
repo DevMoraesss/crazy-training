@@ -66,6 +66,11 @@ export function summarizeSets(sets: readonly Omit<CompletedSet, 'setNumber'>[]):
   };
 }
 
+/** Meta da série: a da ficha quando ela varia por série, senão a sugestão geral. */
+export function targetReps(exercise: Pick<WorkoutExercise, 'reps' | 'repsPerSet'>, setNumber: number): number {
+  return exercise.repsPerSet?.[setNumber - 1] ?? suggestedReps(exercise.reps);
+}
+
 /** Repetições para preencher a série quando não há histórico do exercício. */
 export function suggestedReps(reps: Reps): number {
   switch (reps.type) {

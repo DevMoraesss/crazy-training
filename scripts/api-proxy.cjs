@@ -4,7 +4,7 @@ const { request: httpsRequest } = require('node:https');
 // O navegador usa /api na mesma origem: cookies funcionam também no Safari do iPhone.
 function proxyApi(req, res, upstreamUrl, pathname) {
   if (
-    !/^\/(?:auth\/(?:login|logout|me)|cloud\/snapshot|coach\/(?:status|plan(?:\/[0-9a-f-]{36})?)|food\/(?:analyze|status))$/.test(
+    !/^\/(?:auth\/(?:login|logout|me)|cloud\/snapshot|coach\/(?:status|plan(?:\/[0-9a-f-]{36})?)|food\/(?:analyze|status)|workouts\/import(?:\/[0-9a-f-]{36})?)$/.test(
       pathname,
     )
   ) {

@@ -11,7 +11,11 @@ import { notify } from '@/lib/dialogs';
 import { parseDecimalInput } from '@/lib/format';
 
 export default function MealScreen() {
-  const params = useLocalSearchParams<{ id?: string; mode?: string; date?: string }>();
+  const params = useLocalSearchParams<{
+    id?: string;
+    mode?: string;
+    date?: string;
+  }>();
   const { template, loaded } = useMealTemplate(params.id);
   if (params.id && !loaded) return <View className="flex-1 bg-background" />;
   if (params.id && !template)
@@ -48,7 +52,10 @@ function MealEditor({
   const [description, setDescription] = useState(initial?.description ?? '');
   const [numbers, setNumbers] = useState(() =>
     Object.fromEntries(
-      NUTRIENT_FIELDS.map(({ key }) => [key, initial?.[key] == null ? '' : String(initial[key]).replace('.', ',')]),
+      NUTRIENT_FIELDS.map(({ key }) => [
+        key,
+        initial?.[key] == null ? '' : String(initial[key]).replace('.', ','),
+      ]),
     ),
   );
   const [saving, setSaving] = useState(false);
@@ -65,7 +72,13 @@ function MealEditor({
       }
       nutrients[key] = value;
     }
-    const parsed = mealSchema.safeParse({ name, description, time: time.trim() || null, ...nutrients });
+    const parsed = mealSchema.safeParse({
+      name,
+      description,
+      time: time.trim() || null,
+      ...nutrients,
+      ...(initial?.evidence ? { evidence: initial.evidence } : {}),
+    });
     if (!parsed.success) {
       notify(
         'Confira a refeição',
@@ -83,7 +96,9 @@ function MealEditor({
       if (mode === 'template') await saveMealTemplate(parsed.data, id);
       else await logMeal(date ?? localDateKey(new Date()), parsed.data);
       router.back();
-      notify(mode === 'template' ? 'Refeição salva no plano' : 'Refeição registrada', undefined, { tone: 'success' });
+      notify(mode === 'template' ? 'Refeição salva no plano' : 'Refeição registrada', undefined, {
+        tone: 'success',
+      });
     } catch {
       notify('Não foi possível salvar', 'Tente novamente.');
     } finally {
@@ -96,7 +111,11 @@ function MealEditor({
     <>
       <Stack.Screen
         options={{
-          title: id ? 'Editar refeição' : mode === 'template' ? 'Nova refeição do plano' : 'Registrar refeição',
+          title: id
+            ? 'Editar refeição'
+            : mode === 'template'
+              ? 'Nova refeição do plano'
+              : 'Registrar refeição',
         }}
       />
       <ScrollView

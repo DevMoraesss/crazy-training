@@ -13,25 +13,48 @@ type ButtonProps = {
   size?: 'xlarge' | 'large' | 'medium';
   /** Símbolo por plataforma: SF Symbol no iOS, Material Symbol no Android e na web. */
   icon?: SymbolViewProps['name'];
+  disabled?: boolean;
 };
 
-const CONTAINER = { filled: 'bg-tint', gray: 'bg-fill-secondary', plain: '' } as const;
+const CONTAINER = {
+  filled: 'bg-tint',
+  gray: 'bg-fill-secondary',
+  plain: '',
+} as const;
 const HEIGHT = { xlarge: 'h-14', large: 'h-[52px]', medium: 'h-11' } as const;
-const LABEL = { filled: 'text-on-tint', gray: 'text-label', plain: 'text-tint' } as const;
+const LABEL = {
+  filled: 'text-on-tint',
+  gray: 'text-label',
+  plain: 'text-tint',
+} as const;
 
 /** Botão em cápsula, como os do iOS 26. */
-export function Button({ title, onPress, variant = 'filled', size = 'large', icon }: ButtonProps) {
+export function Button({
+  title,
+  onPress,
+  variant = 'filled',
+  size = 'large',
+  icon,
+  disabled = false,
+}: ButtonProps) {
   const colors = useColors();
-  const iconColor = { filled: colors['on-tint'], gray: colors.label, plain: colors.tint }[variant];
+  const iconColor = {
+    filled: colors['on-tint'],
+    gray: colors.label,
+    plain: colors.tint,
+  }[variant];
 
   return (
     <Pressable
       accessibilityRole="button"
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onPress={() => {
         void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         onPress?.();
       }}
-      className={`flex-row items-center justify-center gap-2 rounded-full px-6 active:opacity-70 ${HEIGHT[size]} ${CONTAINER[variant]}`}>
+      className={`flex-row items-center justify-center gap-2 rounded-full px-6 active:opacity-70 ${HEIGHT[size]} ${CONTAINER[variant]} ${disabled ? 'opacity-40' : ''}`}
+    >
       {icon ? <SymbolView name={icon} size={15} tintColor={iconColor} /> : null}
       <Text className={`text-headline font-semibold ${LABEL[variant]}`}>{title}</Text>
     </Pressable>

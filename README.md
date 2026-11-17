@@ -200,7 +200,7 @@ Configure `TEST_DATABASE_URL` apontando para localhost e um banco de testes term
 npm run test:e2e -w @crazy-training/api
 ```
 
-Estado da validação: 133 testes unitários, regressão do SQLite e cenários de dois navegadores com servidor simulado passaram. Também passaram 6 testes de integração no PostgreSQL nativo isolado, incluindo persistência, isolamento entre contas, conflito de revisão, logout e expiração. As migrações foram aplicadas no banco nativo de desenvolvimento, sem apagar dados. Não foi usado Docker. A IA continua testada apenas com respostas simuladas.
+Estado da validação: 152 testes unitários, 10 regressões de SQLite/feedback/servidores web e 8 testes de integração no PostgreSQL nativo isolado passaram. Cenários no Chromium cobrem revisão por texto e imagem, confirmação de registros, persistência e fechamento do dia. Não foi usado Docker. A IA continua testada apenas com respostas controladas; nenhuma chamada real foi validada.
 
 ### Preparar PostgreSQL nativo manualmente
 
@@ -218,7 +218,21 @@ Encerre com `Ctrl+C` os processos iniciados para validação. Não deixe instân
 
 Para usar a web local na porta 8083 sem iniciar Expo/Metro em outra porta, execute `WEB_PORT=8083 npm run dev:web` e abra `http://localhost:8083` diretamente em uma aba. O comando gera o build e serve os cabeçalhos necessários ao SQLite. A porta 8082 do Expo não é o acesso web adequado para esse banco. Mantenha o mesmo hostname e porta que já usava para acessar os mesmos dados locais do navegador.
 
-## Confirmações e avisos no app
+## Assistente de alimentação e balanço diário
+
+As decisões do produto estão em [docs/food-assistant.md](docs/food-assistant.md), incluindo áudio como evolução opcional. Em **Alimentação → Analisar refeição com IA**, envie uma descrição e/ou imagem JPEG, PNG ou WebP de até 2 MB. É necessário entrar na conta e configurar o provedor no servidor. O resultado identifica alimentos, porções, premissas e perguntas; o usuário pode corrigir todos os itens antes de confirmar o registro. Alterar alimento ou porção limpa os nutrientes anteriores para não reaproveitar uma estimativa incompatível. Campos desconhecidos permanecem em branco. Fotos não são guardadas no PostgreSQL nem no diário.
+
+O registro conserva a identificação de estimativa por IA e evita duplicação por reenvio da mesma proposta. Os totais e a projeção em relação à meta são calculados pelo aplicativo. A IA não grava registros diretamente nem afirma quanto de gordura foi perdido ou ganho.
+
+Em **Revisar fechamento do dia**, informe opcionalmente o gasto total diário estimado (incluindo atividades) e a pesagem. Confirme a alimentação completa somente após registrar tudo. O saldo só aparece com confirmação, calorias em todas as refeições e gasto informado; atividades não são somadas novamente. Adicionar ou remover refeições reabre a confirmação. Sem esses dados, o resumo informa o que falta em vez de inventar um déficit ou superávit.
+
+O SQLite recebe uma migração aditiva para `nutrition_days`. A sincronização passa para o formato v2, que preserva fechamentos e metadados de estimativa. Cópias v1 continuam legíveis, mas clientes antigos não podem enviar dados e apagar os campos novos. Atualize a API e a interface juntas; se solicitado, recarregue a página antes de sincronizar.
+
+Configuração privada em `apps/api/.env`: `COACH_PROVIDER=openai`, `COACH_MODEL` com suporte a imagens e saída estruturada, e `OPENAI_API_KEY`. Não há modelo padrão ou resposta de demonstração em produção. A implementação usa [Responses e imagens](https://developers.openai.com/api/docs/guides/images-vision) e [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses). Chaves ficam no servidor; o envio ocorre após consentimento. O cadastro manual e o resumo local funcionam sem IA configurada.
+
+Até a configuração e uma chamada real serem validadas, testes com respostas controladas verificam apenas a integração e os fluxos do aplicativo, sem comprovar a precisão nutricional de um modelo real.
+
+## Funcionamento dos avisos
 
 Na web, `lib/dialogs.ts` usa `FeedbackHost` e `feedback-store`, sem `window.alert` ou `window.confirm`. Confirmações são diálogos com cancelar, ação explícita e destaque destrutivo; escolhas múltiplas aparecem juntas. Escape cancela, o foco fica no diálogo e retorna ao botão de origem. Mensagens longas de exercícios usam `showInfo` com conteúdo rolável.
 

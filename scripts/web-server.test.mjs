@@ -19,19 +19,32 @@ async function freePort() {
   return port;
 }
 async function start(t, script, env) {
-  const child = spawn(process.execPath, [script], { env: { ...process.env, ...env } });
+  const child = spawn(process.execPath, [script], {
+    env: { ...process.env, ...env },
+  });
   const exited = once(child, 'exit');
   let output = '';
-  child.stderr.on('data', (chunk) => { output += chunk; });
+  child.stderr.on('data', (chunk) => {
+    output += chunk;
+  });
   t.after(async () => {
     child.kill('SIGTERM');
     await exited;
   });
   await new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error(`Servidor não iniciou: ${output}`)), 10000);
-    child.stdout.on('data', () => { clearTimeout(timer); resolve(); });
-    child.once('exit', () => { clearTimeout(timer); reject(new Error(output)); });
-    child.once('error', (error) => { clearTimeout(timer); reject(error); });
+    child.stdout.on('data', () => {
+      clearTimeout(timer);
+      resolve();
+    });
+    child.once('exit', () => {
+      clearTimeout(timer);
+      reject(new Error(output));
+    });
+    child.once('error', (error) => {
+      clearTimeout(timer);
+      reject(error);
+    });
   });
 }
 async function checkPort(port) {
@@ -39,7 +52,9 @@ async function checkPort(port) {
     env: { ...process.env, WEB_PORT: String(port) },
   });
   let message = '';
-  child.stderr.on('data', (chunk) => { message += chunk; });
+  child.stderr.on('data', (chunk) => {
+    message += chunk;
+  });
   const [code] = await once(child, 'exit');
   return { code, message };
 }
@@ -61,8 +76,25 @@ test('prévia envia isolamento no HTML, rotas e worker/WASM, sem cache antigo', 
   await writeFile(join(dist, 'index.html'), '<!doctype html><title>Teste isolado</title>');
   await writeFile(join(dist, 'worker.js'), 'self.onmessage = () => {};');
   await writeFile(join(dist, 'sqlite.wasm'), new Uint8Array([0, 97, 115, 109]));
+  const requests = [];
+  const api = createServer(async (req, res) => {
+    const chunks = [];
+    for await (const chunk of req) chunks.push(chunk);
+    requests.push({
+      path: req.url,
+      method: req.method,
+      body: Buffer.concat(chunks).toString(),
+    });
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ configured: false }));
+  });
+  const apiPort = await listen(api);
+  t.after(() => new Promise((resolve) => api.close(resolve)));
   const port = await freePort();
-  await start(t, join(fixture, 'scripts/serve-web.mjs'), { WEB_PORT: String(port) });
+  await start(t, join(fixture, 'scripts/serve-web.mjs'), {
+    WEB_PORT: String(port),
+    API_PORT: String(apiPort),
+  });
   const origin = `http://127.0.0.1:${port}`;
   for (const route of ['/', '/nutrition', '/session/test', '/worker.js', '/sqlite.wasm']) {
     const response = await fetch(`${origin}${route}`);
@@ -80,17 +112,39 @@ test('prévia envia isolamento no HTML, rotas e worker/WASM, sem cache antigo', 
   isolation(missing);
   const method = await fetch(origin, { method: 'POST' });
   assert.equal(method.status, 405);
+  const status = await fetch(`${origin}/api/food/status`);
+  assert.equal(status.status, 200);
+  await status.json();
+  const analyzed = await fetch(`${origin}/api/food/analyze`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ description: 'Teste' }),
+  });
+  assert.equal(analyzed.status, 200);
+  await analyzed.json();
+  assert.deepEqual(requests, [
+    { path: '/food/status', method: 'GET', body: '' },
+    { path: '/food/analyze', method: 'POST', body: '{"description":"Teste"}' },
+  ]);
+  const denied = await fetch(`${origin}/api/internal/private`);
+  assert.equal(denied.status, 404);
 });
 
 test('proxy adiciona isolamento ao HTML do Expo mesmo quando o upstream não envia', async (t) => {
   const upstream = createServer((_req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html', 'Cross-Origin-Embedder-Policy': 'unsafe-none' });
+    res.writeHead(200, {
+      'Content-Type': 'text/html',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none',
+    });
     res.end('<title>Expo sem isolamento</title>');
   });
   const metroPort = await listen(upstream);
   t.after(() => new Promise((resolve) => upstream.close(resolve)));
   const port = await freePort();
-  await start(t, 'scripts/proxy-web.mjs', { WEB_PROXY_PORT: String(port), METRO_PORT: String(metroPort) });
+  await start(t, 'scripts/proxy-web.mjs', {
+    WEB_PROXY_PORT: String(port),
+    METRO_PORT: String(metroPort),
+  });
   const response = await fetch(`http://127.0.0.1:${port}/nutrition`);
   assert.equal(response.status, 200);
   isolation(response);

@@ -15,6 +15,13 @@ export const mealSchema = z.object({
   proteinG: nutrient,
   carbsG: nutrient,
   fatG: nutrient,
+  evidence: z
+    .object({
+      source: z.literal('ai-estimate'),
+      inputType: z.enum(['text', 'image']),
+      note: z.string().max(1000),
+    })
+    .optional(),
 });
 export type Meal = z.infer<typeof mealSchema>;
 
@@ -47,4 +54,41 @@ export function summarizeNutrition(meals: readonly NutritionTargets[]) {
 
 export function localDateKey(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+export const nutritionDaySchema = z.object({
+  complete: z.boolean(),
+  expenditureCalories: z.number().finite().min(0).max(20000).nullable(),
+  weightKg: z.number().finite().min(20).max(400).nullable(),
+});
+export type NutritionDay = z.infer<typeof nutritionDaySchema>;
+export const EMPTY_NUTRITION_DAY: NutritionDay = {
+  complete: false,
+  expenditureCalories: null,
+  weightKg: null,
+};
+
+/** Consumo − gasto: positivo é superávit. Meta alimentar não é gasto total. */
+export function dailyNutritionReport(
+  meals: readonly NutritionTargets[],
+  targets: NutritionTargets,
+  day: NutritionDay,
+) {
+  const summary = summarizeNutrition(meals);
+  const caloriesKnown = summary.missing.calories === 0 && (meals.length > 0 || day.complete);
+  const calories = caloriesKnown ? summary.total.calories : null;
+  return {
+    ...summary,
+    calories,
+    targetDifference: calories === null || targets.calories === null ? null : calories - targets.calories,
+    energyBalance:
+      !day.complete || calories === null || !day.expenditureCalories
+        ? null
+        : calories - day.expenditureCalories,
+    status: !day.complete
+      ? ('open' as const)
+      : !caloriesKnown
+        ? ('incomplete' as const)
+        : ('complete' as const),
+  };
 }

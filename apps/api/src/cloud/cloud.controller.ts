@@ -1,6 +1,16 @@
-import { cloudUploadSchema } from '@crazy-training/shared';
+import { cloudSnapshotSchema, cloudUploadSchema } from '@crazy-training/shared';
 import { and, eq } from 'drizzle-orm';
-import { BadRequestException, Body, ConflictException, Controller, Get, Inject, Put, Req, Res } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  Inject,
+  Put,
+  Req,
+  Res,
+} from '@nestjs/common';
 import type { Request, Response } from 'express';
 
 import { AuthService } from '../auth/auth.service.js';
@@ -21,17 +31,35 @@ export class CloudController {
     assertOrigin(request, this.env);
     const user = await this.auth.current(request.headers.cookie);
     response.setHeader('Cache-Control', 'no-store');
-    const row = await this.db.query.cloudSnapshots.findFirst({ where: eq(cloudSnapshots.userId, user.id) });
+    const row = await this.db.query.cloudSnapshots.findFirst({
+      where: eq(cloudSnapshots.userId, user.id),
+    });
     return {
       revision: row?.revision ?? 0,
-      snapshot: row?.data ?? null,
+      snapshot: row ? cloudSnapshotSchema.parse(row.data) : null,
       updatedAt: row?.updatedAt.toISOString() ?? null,
     };
   }
   @Put('snapshot')
-  async write(@Req() request: Request, @Res({ passthrough: true }) response: Response, @Body() body: unknown) {
+  async write(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+    @Body() body: unknown,
+  ) {
     assertOrigin(request, this.env);
     const user = await this.auth.current(request.headers.cookie);
+    if (
+      body &&
+      typeof body === 'object' &&
+      'snapshot' in body &&
+      body.snapshot &&
+      typeof body.snapshot === 'object' &&
+      'version' in body.snapshot &&
+      body.snapshot.version === 1
+    )
+      throw new BadRequestException(
+        'Atualize a página ou o aplicativo antes de sincronizar. Esta versão não preserva os novos resumos alimentares. Nenhum dado foi alterado.',
+      );
     const parsed = cloudUploadSchema.safeParse(body);
     if (!parsed.success)
       throw new BadRequestException('Os dados não puderam ser validados. Nenhuma alteração foi salva.');
@@ -41,7 +69,12 @@ export class CloudController {
       revision === 0
         ? await this.db
             .insert(cloudSnapshots)
-            .values({ userId: user.id, revision: 1, data: snapshot, updatedAt: now })
+            .values({
+              userId: user.id,
+              revision: 1,
+              data: snapshot,
+              updatedAt: now,
+            })
             .onConflictDoNothing()
             .returning()
         : await this.db

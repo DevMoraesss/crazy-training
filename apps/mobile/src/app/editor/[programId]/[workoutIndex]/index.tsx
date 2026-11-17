@@ -1,4 +1,4 @@
-import { formatReps } from '@crazy-training/shared';
+import { formatPrescription } from '@crazy-training/shared';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ScrollView, View } from 'react-native';
 
@@ -50,7 +50,8 @@ export default function WorkoutEditorScreen() {
             <ListRow
               key={index}
               title={exercise.name}
-              value={`${exercise.sets} × ${formatReps(exercise.reps)}`}
+              subtitle={exercise.repsPerSet ? formatPrescription(exercise) : undefined}
+              value={exercise.repsPerSet ? `${exercise.sets} séries` : formatPrescription(exercise)}
               onPress={() =>
                 router.push({
                   pathname: '/editor/[programId]/[workoutIndex]/[exerciseIndex]',

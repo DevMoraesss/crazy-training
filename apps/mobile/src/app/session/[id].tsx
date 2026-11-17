@@ -6,7 +6,7 @@ import {
   exerciseKey,
   getExercise,
   sessionPosition,
-  suggestedReps,
+  targetReps,
   type WorkoutExercise,
 } from '@crazy-training/shared';
 import { Image } from 'expo-image';
@@ -81,12 +81,14 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
   const lastTime = position
     ? (history.find((set) => set.setNumber === position.setNumber) ?? history.at(-1))
     : undefined;
+  const setTarget = position && exercise ? targetReps(exercise, position.setNumber) : 0;
   const current: Draft =
     draft?.positionKey === positionKey
       ? draft
       : {
           positionKey,
-          reps: today?.reps ?? lastTime?.reps ?? (exercise ? suggestedReps(exercise.reps) : 0),
+          // Ficha com repetições diferentes por série: a meta da série vem antes da série anterior de hoje.
+          reps: (exercise?.repsPerSet ? setTarget : undefined) ?? today?.reps ?? lastTime?.reps ?? setTarget,
           loadKg: today ? today.loadKg : lastTime ? lastTime.loadKg : (exercise?.loadKg ?? null),
         };
 
@@ -283,6 +285,11 @@ function ActiveSession({ session, sets }: { session: SessionRow; sets: SessionSe
               </Text>
               <SetDots total={exercise.sets} done={position.setNumber - 1} />
             </View>
+            {exercise.repsPerSet ? (
+              <Text className="mx-5 text-headline text-tint">
+                {`Meta desta série: ${setTarget}${exercise.reps.type === 'time' ? ' s' : ' repetições'}`}
+              </Text>
+            ) : null}
             <Text className="mx-5 text-subhead text-label-secondary">
               {lastTime
                 ? `Na última vez: ${formatSet(lastTime.reps, lastTime.loadKg, exercise.reps.type === 'time')}`
@@ -364,8 +371,12 @@ function ExerciseMedia({ exercise }: { exercise: WorkoutExercise }) {
     showInfo(catalog.name, catalog.instructions.map((step, index) => `${index + 1}. ${step}`).join('\n\n'));
   };
 
+  // O vídeo indicado na ficha; sem ele, uma busca no YouTube pelo nome do exercício.
   const video = () =>
-    Linking.openURL(`https://www.youtube.com/results?search_query=${encodeURIComponent(`${exercise.name} execução`)}`);
+    Linking.openURL(
+      exercise.videoUrl ??
+        `https://www.youtube.com/results?search_query=${encodeURIComponent(`${exercise.name} execução`)}`,
+    );
 
   return (
     <View

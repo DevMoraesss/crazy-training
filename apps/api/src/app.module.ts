@@ -15,10 +15,12 @@ import { DatabaseModule } from './database/database.module.js';
 import { HealthController } from './health/health.controller.js';
 import { FoodController } from './food/food.controller.js';
 import { FoodService } from './food/food.service.js';
+import { WorkoutImportService } from './workouts/workout-import.service.js';
+import { WorkoutsController } from './workouts/workouts.controller.js';
 
 @Module({
   imports: [EnvModule, DatabaseModule, AiModule],
-  controllers: [HealthController, CoachController, AuthController, CloudController, FoodController],
-  providers: [AiJobs, CoachService, AuthService, FoodService],
+  controllers: [HealthController, CoachController, AuthController, CloudController, FoodController, WorkoutsController],
+  providers: [AiJobs, CoachService, AuthService, FoodService, WorkoutImportService],
 })
 export class AppModule {}

@@ -70,7 +70,9 @@ export function validateCoachPlanForIntake(plan: CoachPlan, intake: CoachIntake)
       source: 'ai-generated' as const,
       workouts: plan.program.workouts.map((workout) => ({
         ...workout,
-        exercises: workout.exercises.map(({ exerciseId: _exerciseId, loadKg: _loadKg, ...exercise }) => exercise),
+        exercises: workout.exercises.map(
+          ({ exerciseId: _exerciseId, loadKg: _loadKg, videoUrl: _videoUrl, ...exercise }) => exercise,
+        ),
       })),
     },
   };

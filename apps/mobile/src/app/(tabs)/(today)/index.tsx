@@ -1,4 +1,4 @@
-import { estimateWorkoutMinutes, formatReps, nextWorkoutIndex, type Workout } from '@crazy-training/shared';
+import { estimateWorkoutMinutes, formatPrescription, nextWorkoutIndex, type Workout } from '@crazy-training/shared';
 import { useRouter } from 'expo-router';
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
 import { ScrollView, Text, View } from 'react-native';
@@ -71,7 +71,12 @@ export default function TodayScreen() {
       {next && !unfinished ? (
         <Section title="Exercícios">
           {next.exercises.map((exercise, index) => (
-            <ListRow key={index} title={exercise.name} value={`${exercise.sets} × ${formatReps(exercise.reps)}`} />
+            <ListRow
+              key={index}
+              title={exercise.name}
+              subtitle={exercise.repsPerSet ? formatPrescription(exercise) : undefined}
+              value={exercise.repsPerSet ? `${exercise.sets} séries` : formatPrescription(exercise)}
+            />
           ))}
         </Section>
       ) : null}

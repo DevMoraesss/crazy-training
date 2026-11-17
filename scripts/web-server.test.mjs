@@ -60,7 +60,7 @@ async function checkPort(port) {
 }
 function isolation(response) {
   assert.equal(response.headers.get('cross-origin-opener-policy'), 'same-origin');
-  assert.equal(response.headers.get('cross-origin-embedder-policy'), 'credentialless');
+  assert.equal(response.headers.get('cross-origin-embedder-policy'), 'require-corp');
 }
 
 test('prévia envia isolamento no HTML, rotas e worker/WASM, sem cache antigo', async (t) => {

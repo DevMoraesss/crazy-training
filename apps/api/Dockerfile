@@ -27,7 +27,10 @@ COPY --from=build /repo/packages/shared/package.json packages/shared/
 COPY --from=build /repo/packages/shared/dist packages/shared/dist
 COPY --from=build /repo/apps/api/package.json apps/api/
 COPY --from=build /repo/apps/api/dist apps/api/dist
+COPY --from=build /repo/apps/api/drizzle apps/api/drizzle
 WORKDIR /repo/apps/api
 USER node
 EXPOSE 3000
-CMD ["node", "dist/main.js"]
+# Aplica as migrações novas e só então sobe a API. Se a migração falhar, a API não sobe
+# e a Railway mantém a versão anterior no ar (healthcheck em /health).
+CMD ["sh", "-c", "node dist/migrate.js && exec node dist/main.js"]

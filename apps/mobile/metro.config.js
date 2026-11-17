@@ -10,7 +10,7 @@ config.resolver.assetExts.push('wasm');
 
 // Na web, o expo-sqlite usa SharedArrayBuffer, que exige estes cabeçalhos.
 config.server.enhanceMiddleware = (middleware) => (req, res, next) => {
-  res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   middleware(req, res, next);
 };

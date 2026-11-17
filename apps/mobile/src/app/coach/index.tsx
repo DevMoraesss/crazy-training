@@ -158,7 +158,7 @@ export default function CoachScreen() {
           </>
         ) : (
           <View className="mx-4">
-            <Button title={busy ? 'Preparando sugestão…' : 'Gerar sugestão com IA'} onPress={generate} />
+            <Button title={busy ? 'Preparando sugestão (leva alguns minutos)…' : 'Gerar sugestão com IA'} onPress={generate} />
           </View>
         )}
         {proposal && !setup.appliedAt ? (

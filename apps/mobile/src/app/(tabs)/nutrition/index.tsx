@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { HeaderButton } from '@/components/ui/header-button';
 import { ListRow } from '@/components/ui/list-row';
 import { Section } from '@/components/ui/section';
+import { DailyFoodSummary } from '@/components/daily-food-summary';
 import {
   deleteMealEntry,
   deleteMealTemplate,
@@ -128,7 +129,9 @@ export default function NutritionScreen() {
                   {target === null ? 'Sem meta definida' : `Meta: ${formatNumber(target)} ${unit}`}
                 </Text>
                 {summary.missing[key] > 0 ? (
-                  <Text className="text-caption text-label-secondary">Parcial · {summary.missing[key]} sem valor</Text>
+                  <Text className="text-caption text-label-secondary">
+                    Parcial · {summary.missing[key]} sem valor
+                  </Text>
                 ) : null}
               </View>
             );
@@ -138,9 +141,21 @@ export default function NutritionScreen() {
 
       <View className="mx-4">
         <Button
+          title="Analisar refeição com IA"
+          onPress={() => router.push({ pathname: '/food/analyze', params: { date } })}
+        />
+      </View>
+      <DailyFoodSummary date={date} />
+      <View className="mx-4">
+        <Button
           title="Registrar refeição"
           icon={{ ios: 'plus', android: 'add', web: 'add' }}
-          onPress={() => router.push({ pathname: '/food/meal', params: { mode: 'log', date } })}
+          onPress={() =>
+            router.push({
+              pathname: '/food/meal',
+              params: { mode: 'log', date },
+            })
+          }
         />
       </View>
 
@@ -155,16 +170,25 @@ export default function NutritionScreen() {
                 title={entry.data.name}
                 subtitle={[mealDetails(entry.data), entry.data.description].filter(Boolean).join('\n')}
               />
+              {entry.data.evidence ? (
+                <Text className="px-5 pb-2 text-footnote text-label-secondary">
+                  Estimativa por IA · revisada por você
+                </Text>
+              ) : null}
               <View className="items-end px-5 pb-3">
                 <HeaderButton
                   title="Remover"
                   accessibilityLabel={`Remover ${entry.data.name}`}
                   destructive
                   onPress={async () => {
-                    if (await confirm('Remover registro?', 'A refeição sai apenas deste dia.', 'Remover', true)) {
+                    if (
+                      await confirm('Remover registro?', 'A refeição sai apenas deste dia.', 'Remover', true)
+                    ) {
                       try {
                         await deleteMealEntry(entry.id);
-                        notify('Registro removido', undefined, { tone: 'success' });
+                        notify('Registro removido', undefined, {
+                          tone: 'success',
+                        });
                       } catch {
                         notify('Não foi possível remover', 'Tente novamente.');
                       }
@@ -191,7 +215,12 @@ export default function NutritionScreen() {
             <ListRow
               title={template.data.name}
               subtitle={[mealDetails(template.data), template.data.description].filter(Boolean).join('\n')}
-              onPress={() => router.push({ pathname: '/food/meal', params: { id: template.id, mode: 'template' } })}
+              onPress={() =>
+                router.push({
+                  pathname: '/food/meal',
+                  params: { id: template.id, mode: 'template' },
+                })
+              }
             />
             <View className="flex-row items-center justify-between gap-3 px-5 pb-3">
               <HeaderButton
@@ -237,7 +266,12 @@ export default function NutritionScreen() {
           title="Adicionar refeição ao plano"
           tone="tint"
           icon={{ ios: 'plus', android: 'add', web: 'add' }}
-          onPress={() => router.push({ pathname: '/food/meal', params: { mode: 'template' } })}
+          onPress={() =>
+            router.push({
+              pathname: '/food/meal',
+              params: { mode: 'template' },
+            })
+          }
         />
       </Section>
     </ScrollView>

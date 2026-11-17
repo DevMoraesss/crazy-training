@@ -1,4 +1,4 @@
-import { formatReps } from '@crazy-training/shared';
+import { formatPrescription } from '@crazy-training/shared';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ScrollView, Text, View } from 'react-native';
 
@@ -66,10 +66,25 @@ export default function ProgramScreen() {
           </Card>
         ) : null}
 
+        {data.notes ? (
+          <Card>
+            <Text className="text-headline font-semibold text-label">Orientações</Text>
+            <Text className="mt-1.5 text-body text-label-secondary">{data.notes}</Text>
+          </Card>
+        ) : null}
+
         {data.workouts.map((workout, workoutIndex) => (
-          <Section key={workoutIndex} title={workout.name} footer={workout.focus}>
+          <Section
+            key={workoutIndex}
+            title={workout.name}
+            footer={[workout.focus, workout.notes].filter(Boolean).join('\n\n') || undefined}>
             {workout.exercises.map((exercise, index) => (
-              <ListRow key={index} title={exercise.name} value={`${exercise.sets} × ${formatReps(exercise.reps)}`} />
+              <ListRow
+                key={index}
+                title={exercise.name}
+                subtitle={exercise.repsPerSet ? formatPrescription(exercise) : undefined}
+                value={exercise.repsPerSet ? `${exercise.sets} séries` : formatPrescription(exercise)}
+              />
             ))}
             <ListRow
               title={`Começar ${workout.name}`}

@@ -1,4 +1,12 @@
-import type { Equipment, Goal, Level, Meal, NutritionTargets, Program, Workout } from '@crazy-training/shared';
+import type {
+  Equipment,
+  Goal,
+  Level,
+  Meal,
+  NutritionTargets,
+  Program,
+  Workout,
+} from '@crazy-training/shared';
 import { index, integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 // Banco no aparelho (expo-sqlite). Depois de mudar este arquivo, gere a migração:
@@ -95,6 +103,13 @@ export const mealEntries = sqliteTable(
 export const nutritionTargets = sqliteTable('nutrition_targets', {
   id: integer('id').primaryKey(),
   data: text('data', { mode: 'json' }).$type<NutritionTargets>().notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});
+
+/** Fechamento e estimativas informados por data; gasto total já inclui atividades. */
+export const nutritionDays = sqliteTable('nutrition_days', {
+  date: text('date').primaryKey(),
+  data: text('data', { mode: 'json' }).$type<import('@crazy-training/shared').NutritionDay>().notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
 });
 

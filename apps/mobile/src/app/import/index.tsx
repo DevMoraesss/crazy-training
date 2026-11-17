@@ -1,6 +1,6 @@
 import {
   buildImportPrompt,
-  formatReps,
+  formatPrescription,
   matchExercise,
   parseProgramCsv,
   type CsvIssue,
@@ -14,6 +14,7 @@ import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 
+import { useCloud } from '@/components/cloud-provider';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { FieldRow } from '@/components/ui/field-row';
@@ -21,8 +22,9 @@ import { HeaderButton } from '@/components/ui/header-button';
 import { ListRow } from '@/components/ui/list-row';
 import { Section } from '@/components/ui/section';
 import { createProgram } from '@/db/queries';
-import { notify } from '@/lib/dialogs';
+import { confirm, notify } from '@/lib/dialogs';
 import { linkToCatalog } from '@/lib/program-edit';
+import { importWorkoutPdf, pickWorkoutPdf } from '@/lib/workout-import-api';
 import { useColors } from '@/theme';
 
 const MONOSPACE = Platform.select({ ios: 'ui-monospace', android: 'monospace', default: 'ui-monospace, monospace' });
@@ -31,11 +33,41 @@ type Review = { ok: true; program: Program } | { ok: false; issues: CsvIssue[] }
 
 export default function ImportScreen() {
   const router = useRouter();
+  const { user } = useCloud();
   const colors = useColors();
   const [csv, setCsv] = useState('');
   const [name, setName] = useState('Programa importado');
   const [copied, setCopied] = useState(false);
   const [review, setReview] = useState<Review | null>(null);
+  const [reading, setReading] = useState(false);
+
+  const importPdf = async () => {
+    if (reading) return;
+    let pdf: Awaited<ReturnType<typeof pickWorkoutPdf>>;
+    try {
+      pdf = await pickWorkoutPdf();
+    } catch (error) {
+      notify('Não foi possível abrir o PDF', error instanceof Error ? error.message : 'Tente outro arquivo.');
+      return;
+    }
+    if (!pdf) return;
+    const ok = await confirm(
+      'Ler a ficha com IA?',
+      'O PDF vai para o servidor e para a IA (Claude), que monta o programa. Nada é salvo antes da sua revisão.',
+      'Enviar ficha',
+    );
+    if (!ok) return;
+    setReading(true);
+    try {
+      const program = await importWorkoutPdf(pdf);
+      setName(program.name);
+      setReview({ ok: true, program: linkToCatalog(program) });
+    } catch (error) {
+      notify('Não foi possível ler a ficha', error instanceof Error ? error.message : 'Tente novamente.');
+    } finally {
+      setReading(false);
+    }
+  };
 
   const copyPrompt = async () => {
     await Clipboard.setStringAsync(buildImportPrompt());
@@ -93,7 +125,28 @@ export default function ImportScreen() {
         ) : (
           <>
             <Card>
-              <Text className="text-headline font-semibold text-label">Como funciona</Text>
+              <Text className="text-headline font-semibold text-label">Ficha em PDF</Text>
+              <Text className="mt-1.5 text-body text-label-secondary">
+                Envie a ficha do seu treinador. O app monta o programa com as repetições de cada série, o descanso
+                e o vídeo de cada exercício. Você revisa antes de salvar.
+              </Text>
+              <View className="mt-4">
+                {user ? (
+                  <Button
+                    title={reading ? 'Lendo a ficha (leva 1 a 3 minutos)…' : 'Escolher PDF'}
+                    disabled={reading}
+                    icon={{ ios: 'doc.text', android: 'description', web: 'description' }}
+                    onPress={importPdf}
+                  />
+                ) : (
+                  // A leitura usa a IA do servidor, que exige conta: evita escolher o PDF à toa.
+                  <Button title="Entrar para usar a IA" variant="gray" onPress={() => router.push('/account')} />
+                )}
+              </View>
+            </Card>
+
+            <Card>
+              <Text className="text-headline font-semibold text-label">Ou pelo ChatGPT, Gemini ou Claude</Text>
               {[
                 'Copie o prompt abaixo.',
                 'Abra o ChatGPT, Gemini ou Claude, anexe seu treino (PDF, foto ou planilha) e cole o prompt.',
@@ -191,14 +244,25 @@ function ReviewList({ program, onEdit, onSave }: { program: Program; onEdit: () 
         </Text>
       </Card>
 
+      {program.notes ? (
+        <Card>
+          <Text className="text-headline font-semibold text-label">Orientações da ficha</Text>
+          <Text className="mt-1.5 text-body text-label-secondary">{program.notes}</Text>
+        </Card>
+      ) : null}
+
       {program.workouts.map((workout, workoutIndex) => (
-        <Section key={workoutIndex} title={workout.name} footer={workout.focus} separatorInset={56}>
+        <Section
+          key={workoutIndex}
+          title={workout.name}
+          footer={[workout.focus, workout.notes].filter(Boolean).join('\n\n') || undefined}
+          separatorInset={56}>
           {workout.exercises.map((exercise, index) => {
             const match = exercise.exerciseId ? matchExercise(exercise.name) : null;
             const found = Boolean(exercise.exerciseId);
-            const details = `${exercise.sets} × ${formatReps(exercise.reps)}${
+            const details = `${formatPrescription(exercise)}${
               exercise.restSeconds === undefined ? '' : `, descanso ${exercise.restSeconds} s`
-            }`;
+            }${exercise.videoUrl ? ', com vídeo' : ''}${exercise.notes ? `. ${exercise.notes}` : ''}`;
             return (
               <ListRow
                 key={index}
@@ -224,7 +288,7 @@ function ReviewList({ program, onEdit, onSave }: { program: Program; onEdit: () 
 
       <View className="mx-4 gap-2">
         <Button title="Salvar programa" onPress={onSave} />
-        <Button title="Voltar e editar o CSV" variant="plain" onPress={onEdit} />
+        <Button title="Voltar" variant="plain" onPress={onEdit} />
       </View>
     </>
   );

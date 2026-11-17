@@ -2,6 +2,9 @@
 
 ## Direção atual (novembro de 2026)
 
+- Assistente de alimentação: priorizar análise por descrição/foto, revisão dos alimentos e porções e resumo diário sincero. Decisões detalhadas e áudio opcional estão em `docs/food-assistant.md`. A IA informa; a ação final é do usuário. Nunca confundir saldo energético estimado com gordura perdida/ganha.
+- A análise requer conta e provedor hospedado configurado. Gasto total diário é uma estimativa informada pelo usuário nesta entrega, já incluindo atividades. Campos ausentes continuam desconhecidos. A sincronização v2 preserva fechamentos por data e evidências de estimativa; cópias v1 são lidas, mas escritas de clientes antigos são recusadas.
+
 - Plataforma principal: web responsiva para navegador no iPhone, Android e PC; instalação nativa e Expo Go não são requisitos.
 - Validar localmente antes de qualquer deploy. `npm run dev:web` abre o fluxo web; `npm run build:web` exporta a interface.
 - Hospedagem planejada: interface na Vercel; API e Postgres na Railway.
@@ -11,7 +14,8 @@
 - A conexão SQLite é compartilhada entre montagens e Fast Refresh. Na web, um Web Lock mantém uma aba por origem; não apague o banco para contornar bloqueios. Migrações novas devem preservar os dados existentes.
 - Alimentação: `shared/src/nutrition.ts`, `db/nutrition-queries.ts`, aba `nutrition` e formulários `food`. Totais desconhecidos são `null`, nunca zero presumido. Metas podem ser informadas pelo usuário ou aplicadas após revisão da sugestão do assistente. O diário guarda cópias independentes das refeições do plano.
 - Calendário: `shared/src/activity.ts`, tabela `activities`, `db/activity-queries.ts` e aba `history` (rótulo Calendário). Conta datas locais únicas de atividades e sessões concluídas; semana começa segunda. Uma corrida não avança o rodízio de musculação. Não estimar calorias de check-ins como crédito alimentar.
-- Assistente: `shared/src/coach.ts`, tabela `coach_setup`, rotas `coach` do app e `apps/api/src/coach`. Questionário em carrossel em `components/plan-questionnaire.tsx`, com progresso, validação por etapa, rodapé fixo e revisão final; mantém respostas ao navegar e respeita movimento reduzido. Salva perfil; sugestão persiste antes de aplicar. Aplicação atômica de metas, refeições e programa, com `appliedAt` evitando duplicação. Geração depende da API e das variáveis privadas `COACH_PROVIDER`, `COACH_MODEL`, `OPENAI_API_KEY`. Nunca expor chave no app. API de IA exige sessão e origem permitida em produção; exceção sem conta existe somente para loopback em desenvolvimento. Testes usam respostas simuladas, sem chamadas pagas.
+- Assistente: `shared/src/coach.ts`, tabela `coach_setup`, rotas `coach` do app e `apps/api/src/coach`. Questionário em carrossel em `components/plan-questionnaire.tsx`, com progresso, validação por etapa, rodapé fixo e revisão final; mantém respostas ao navegar e respeita movimento reduzido. Salva perfil; sugestão persiste antes de aplicar. Aplicação atômica de metas, refeições e programa, com `appliedAt` evitando duplicação. Geração usa a API do Claude (`@anthropic-ai/sdk`, `apps/api/src/ai`) e a variável privada `ANTHROPIC_API_KEY` (modelo em `AI_MODEL`, padrão `claude-opus-5-5`); pedidos demorados rodam em segundo plano (`AiJobs`) e o app consulta o resultado. Nunca expor chave no app. API de IA exige sessão e origem permitida em produção; exceção sem conta existe somente para loopback em desenvolvimento. Testes usam respostas simuladas, sem chamadas pagas.
+- Ficha em PDF: `shared/src/workout-import.ts` (schema da leitura e `sheetToProgram`, que só aceita links do próprio PDF), `apps/api/src/workouts` (extração de links com `pdfjs-dist`, rota `POST/GET /workouts/import` em segundo plano) e `lib/workout-import-api.ts` no app. Exercícios têm `repsPerSet` e `videoUrl` opcionais; treino e programa têm `notes`. Fichas de terceiros nunca entram no repositório (ele é público).
 - Conta e nuvem: login pessoal provisionado por `ACCOUNT_EMAIL`/`ACCOUNT_PASSWORD` no servidor, sessão opaca HttpOnly, snapshots versionados por usuário no PostgreSQL. App: `CloudProvider`, `db/cloud-data.ts`, rota `account`. Nunca sobrescrever alterações simultâneas automaticamente; guardar cópia local ao substituir por dados da conta. Metadados de nuvem e cópias não fazem parte do snapshot.
 - Web usa `/api` via proxy da mesma origem (`scripts/api-proxy.cjs`, `api/proxy.js`, `vercel.json`). `API_PROXY_URL` fica na Vercel; `WEB_ORIGINS` limita origens na API. Não usar cookies cross-site como requisito do iPhone. Não houve deploy.
 - Banco local e testes usam PostgreSQL nativo; não executar Docker. Integração exige `TEST_DATABASE_URL` em localhost e banco terminado em `_test`; sem isso, os testes são pulados, nunca devem reutilizar `DATABASE_URL` como fallback. A conexão foi corrigida e os 6 testes de integração passaram no PostgreSQL nativo isolado; as migrações também foram aplicadas no banco de desenvolvimento. A IA continua sem validação com modelo real.
@@ -30,16 +34,16 @@ Prioridade de plataforma: **iOS primeiro**, depois Android. O desktop (web) é o
 
 ## Stack
 
-| Camada | Escolha |
-|---|---|
-| Monorepo | npm workspaces (o Expo configura o Metro para o monorepo sozinho) |
-| App (`apps/mobile`) | Expo SDK 58 + React Native + TypeScript, expo-router (tab bar nativa `expo-router/native-tabs`, abas em JS só na web), expo-symbols, NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop. |
-| Dados no aparelho | expo-sqlite + Drizzle ORM. **Offline-first**: o app funciona 100% sem internet. |
-| API (`apps/api`) | NestJS 12 (ESM) + PostgreSQL + Drizzle, testes com Vitest, lint com oxlint. Deploy via `apps/api/Dockerfile` na Railway (`railway.json`). |
-| Local | PostgreSQL nativo da máquina; não usar Docker |
+| Camada                            | Escolha                                                                                                                                                                                                              |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Monorepo                          | npm workspaces (o Expo configura o Metro para o monorepo sozinho)                                                                                                                                                    |
+| App (`apps/mobile`)               | Expo SDK 58 + React Native + TypeScript, expo-router (tab bar nativa `expo-router/native-tabs`, abas em JS só na web), expo-symbols, NativeWind 4 (Tailwind 3). O mesmo código gera a versão web do editor desktop.  |
+| Dados no aparelho                 | expo-sqlite + Drizzle ORM. **Offline-first**: o app funciona 100% sem internet.                                                                                                                                      |
+| API (`apps/api`)                  | NestJS 12 (ESM) + PostgreSQL + Drizzle, testes com Vitest, lint com oxlint. Deploy via `apps/api/Dockerfile` na Railway (`railway.json`).                                                                            |
+| Local                             | PostgreSQL nativo da máquina; não usar Docker                                                                                                                                                                        |
 | Compartilhado (`packages/shared`) | Schemas zod do formato de treino e do perfil, import/export CSV, prompt da importação manual, catálogo de exercícios pt-BR (busca e reconhecimento de nomes), progresso da sessão, duração estimada e calorias (MET) |
-| IA | API do Claude, **somente no backend**. A chave nunca vai para o app. |
-| Exercícios | [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (domínio público) traduzido para pt-BR, com link opcional de YouTube por exercício |
+| IA                                | API do Claude, **somente no backend**. A chave nunca vai para o app.                                                                                                                                                 |
+| Exercícios                        | [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (domínio público) traduzido para pt-BR, com link opcional de YouTube por exercício                                                                   |
 
 ## Decisões de produto
 
@@ -98,8 +102,8 @@ Antes de dar uma tarefa como pronta: typecheck, testes e lint do pacote que mudo
 
 ## Roadmap
 
-- **Fase 0 — Fundação:** monorepo; app rodando no iPhone via Expo Go; tokens de design e componentes base; API + Postgres local (Docker) e na Railway. *Feita, exceto o primeiro deploy na Railway, que depende da conta do dono do projeto (passo a passo no README).*
-- **Fase 1 — Musculação offline (uso pessoal):** perfil; base de exercícios pt-BR; editor manual; execução com timer e registro; histórico; import manual (prompt + CSV) e export. *Feita.*
+- **Fase 0 — Fundação:** monorepo; app rodando no iPhone via Expo Go; tokens de design e componentes base; API + Postgres local (Docker) e na Railway. _Feita, exceto o primeiro deploy na Railway, que depende da conta do dono do projeto (passo a passo no README)._
+- **Fase 1 — Musculação offline (uso pessoal):** perfil; base de exercícios pt-BR; editor manual; execução com timer e registro; histórico; import manual (prompt + CSV) e export. _Feita._
 - **Fase 2 — IA + conta:** import integrado; geração pelo perfil; biblioteca de modelos; login Apple/Google e sync; editor desktop (web); compartilhamento por link.
 - **Fase 3 — Outras modalidades:** timers de HIIT/funcional; mobilidade; calorias (MET); corrida/caminhada com GPS em primeiro plano.
 - **Fase 4 — Nativo (exige conta Apple):** development build; GPS em segundo plano; Apple Saúde/Watch; TestFlight e App Store; Play Store.

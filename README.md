@@ -9,9 +9,10 @@ Decisões de produto, stack e roadmap ficam no [CLAUDE.md](CLAUDE.md).
 ## O que já funciona
 
 - **Hoje:** o próximo treino do rodízio (A → B → C → A), com os exercícios e o tempo estimado. Um treino interrompido aparece para continuar.
-- **Execução:** foto do movimento (as duas posições se alternando), "Como fazer" e link para vídeo; repetições e carga pré-preenchidas com o que você fez na última vez; timer de descanso com aviso mesmo com a tela bloqueada; desfazer série, pular exercício e resumo no fim (duração, volume e calorias).
+- **Execução:** foto do movimento (as duas posições se alternando), "Como fazer" e link para vídeo; repetições e carga pré-preenchidas com o que você fez na última vez; timer de descanso (no app nativo, avisa também com a tela bloqueada; na web, o aviso só aparece com a página aberta); desfazer série, pular exercício e resumo no fim (duração, volume e calorias).
 - **Treinos:** vários programas, um ativo. Editor completo (treinos, exercícios, séries, repetições, carga, descanso e ordem) com busca na base de exercícios em português. Exporta CSV.
-- **Importar:** o app dá um prompt pronto. Você cola no ChatGPT, Gemini ou Claude junto com o seu treino (PDF, foto ou planilha) e cola de volta o CSV da resposta, ou abre o arquivo. Antes de salvar, você revisa o que foi reconhecido.
+- **Importar ficha em PDF:** em **Importar treino → Escolher PDF**, envie a ficha do seu treinador (até 3 MB, conta e `ANTHROPIC_API_KEY` necessárias). O servidor lê os links de vídeo do PDF e a IA monta o programa com as repetições de cada série ("15, 15, 12, 12"), o descanso, as técnicas (drop set, bi-set) como observação e o vídeo de cada exercício; cardio, aquecimento e duração da fase viram orientações do treino/programa. Só são aceitos links que existem no PDF. Você revisa antes de salvar, e o campo **Por série** do editor corrige qualquer valor. Bi-set ainda não alterna sozinho entre os dois exercícios. Exportar CSV guarda só a faixa de repetições, não os valores por série.
+- **Importar por CSV:** o app dá um prompt pronto. Você cola no ChatGPT, Gemini ou Claude junto com o seu treino (PDF, foto ou planilha) e cola de volta o CSV da resposta, ou abre o arquivo. Antes de salvar, você revisa o que foi reconhecido.
 - **Calendário:** atividades por data, frequência semanal por dias únicos e detalhes das sessões. Corrida, caminhada, ciclismo, natação e musculação manual contam como dia ativo. Duas atividades no mesmo dia contam uma vez. Registros manuais não avançam o rodízio do programa. Atividades concluídas podem ser registradas em datas anteriores; não há agendamento futuro ou sincronização com relógios.
 - **Perfil:** peso, altura, objetivo, nível, onde treina e dias por semana. O peso alimenta a estimativa de calorias.
 - **Alimentação:** refeições reutilizáveis do plano, diário por data, descrição de alimentos e porções, calorias/macronutrientes opcionais e metas manuais. Valores não informados são sinalizados como parciais. Editar o plano não muda o diário já registrado. Ainda não há reconhecimento de alimentos por foto, cálculo por banco de alimentos ou sincronização.
@@ -88,7 +89,7 @@ O resultado fica em `apps/mobile/dist/`. O servidor `scripts/serve-web.mjs` incl
 
 O celular e o computador precisam estar na mesma rede, com a porta do servidor liberada no firewall. **Acessar somente `http://IP-DO-PC:8081` não é suficiente para o banco web atual**: o SQLite usa `SharedArrayBuffer`, que exige um contexto seguro e isolamento entre origens.
 
-Para esse teste, configure um proxy HTTPS local com certificado para o IP ou hostname do computador e confie na autoridade certificadora no aparelho. O proxy deve encaminhar para a porta 8081 e preservar os cabeçalhos `Cross-Origin-Opener-Policy: same-origin` e `Cross-Origin-Embedder-Policy: credentialless`. Não basta ignorar o aviso de certificado. Veja o [guia de HTTPS local do Expo](https://docs.expo.dev/guides/local-https-development/).
+Para esse teste, configure um proxy HTTPS local com certificado para o IP ou hostname do computador e confie na autoridade certificadora no aparelho. O proxy deve encaminhar para a porta 8081 e preservar os cabeçalhos `Cross-Origin-Opener-Policy: same-origin` e `Cross-Origin-Embedder-Policy: require-corp`. Não basta ignorar o aviso de certificado. Veja o [guia de HTTPS local do Expo](https://docs.expo.dev/guides/local-https-development/).
 
 PWA, abertura offline e notificações web ainda precisam ser implementadas e validadas; manter dados locais não garante que a página abra sem o servidor. No código atual, as notificações de descanso estão desativadas na web.
 
@@ -145,33 +146,55 @@ npm run lint -w @crazy-training/api
 npm run lint -w @crazy-training/mobile
 ```
 
-## Deploy da API na Railway
+## Publicar: API na Railway e interface na Vercel
 
-O `railway.json` já diz à Railway para construir `apps/api/Dockerfile` e usar `/health` como verificação de saúde. Só redeploya quando algo em `apps/api`, `packages/shared` ou no lockfile muda.
+As duas plataformas publicam sozinhas a partir da branch `main` do GitHub. A ordem importa: primeiro a API (a Vercel precisa da URL dela).
 
-1. Envie o repositório para o GitHub (`git push`).
-2. Na Railway: **New Project → Deploy from GitHub repo** e escolha este repositório.
-3. No mesmo projeto: **+ New → Database → PostgreSQL**.
-4. No serviço da API, em **Variables**, crie `DATABASE_URL` com o valor `${{Postgres.DATABASE_URL}}`. A `PORT` a Railway define sozinha.
-5. Em **Settings → Networking → Generate Domain**, gere uma URL pública e abra `https://<sua-url>/health`. A resposta esperada é `{"status":"ok","database":"up"}`.
+### 1. API e banco na Railway
 
-O app mobile não é hospedado: ele vai para o iPhone pelo Expo Go agora, e pela TestFlight/App Store quando houver a conta Apple Developer (Fase 4).
+O `railway.json` manda construir `apps/api/Dockerfile` e usar `/health` como verificação de saúde. Ao subir, o container aplica as migrações novas do banco (`dist/migrate.js`) e só então inicia a API; se a migração falhar, a versão anterior continua no ar.
+
+1. Na Railway: **New Project → Deploy from GitHub repo** e escolha este repositório (branch `main`).
+2. No mesmo projeto: **+ New → Database → PostgreSQL**.
+3. No serviço da API, em **Variables**:
+
+   | Variável            | Valor                                                                        |
+   | ------------------- | ---------------------------------------------------------------------------- |
+   | `DATABASE_URL`      | `${{Postgres.DATABASE_URL}}`                                                 |
+   | `ACCOUNT_EMAIL`     | seu e-mail de login no app                                                   |
+   | `ACCOUNT_PASSWORD`  | senha do app, com 12 caracteres ou mais                                      |
+   | `WEB_ORIGINS`       | a URL da Vercel, por exemplo `https://crazy-training.vercel.app` (sem `/` no fim) |
+   | `ANTHROPIC_API_KEY` | sua chave da API do Claude (opcional; sem ela o app funciona sem IA)         |
+
+   A `PORT` a Railway define sozinha, e o `NODE_ENV=production` vem do Dockerfile.
+4. Em **Settings → Networking → Generate Domain**, gere a URL pública e abra `https://<url-da-api>/health`. A resposta esperada é `{"status":"ok","database":"up"}`.
+
+### 2. Interface na Vercel
+
+O `vercel.json` já define o build (`npm run build:web`), a pasta publicada (`apps/mobile/dist`), os cabeçalhos que o banco do navegador exige e o proxy `/api`.
+
+1. Na Vercel: **Add New → Project**, importe este repositório e deixe **Root Directory** na raiz do repositório. Framework: **Other**.
+2. Em **Environment Variables**, crie `API_PROXY_URL` com a URL HTTPS da API na Railway (por exemplo `https://crazy-training-api.up.railway.app`).
+3. Faça o deploy e copie a URL final. Se ela for diferente do que você colocou em `WEB_ORIGINS` na Railway, corrija lá e reinicie a API.
+4. Abra a URL no Safari do iPhone, entre em **Perfil → Entrar na minha conta** e use **Compartilhar → Adicionar à Tela de Início**. Instalado na tela inicial, o Safari não apaga os dados locais por falta de uso.
+
+O banco do navegador exige `Cross-Origin-Embedder-Policy: require-corp`. O valor `credentialless` não funciona no Safari (nem no iPhone) e deixaria o app sem banco. As fotos dos exercícios vêm do GitHub, que já envia `Cross-Origin-Resource-Policy: cross-origin`.
 
 ## Assistente de planejamento (teste local)
 
 Abra **Configurar meu plano** na tela inicial, em Perfil ou em Alimentação. O carrossel mantém as respostas ao voltar entre etapas, permite ajustar os campos pelo resumo final e respeita movimento reduzido. O questionário funciona sem API e salva as respostas e o perfil ao concluir. Corrida e outras atividades são registradas em **Calendário → Registrar atividade**.
 
-A geração usa o servidor para manter credenciais fora do navegador. O primeiro conector implementado é OpenAI Responses API, com JSON mode, validação Zod e `store: false`. Não existe plano fictício de fallback. Sem serviço configurado, o app mantém suas respostas e explica que não conseguiu gerar a sugestão.
+A geração usa a API do Claude pelo servidor, com saída estruturada e validação Zod; a chave nunca vai para o navegador. O plano é gerado em segundo plano (`POST /coach/plan` devolve um pedido e o app consulta `GET /coach/plan/:id`), porque leva alguns minutos e não pode depender da tela do celular ficar aberta. Não existe plano fictício de reserva: sem chave configurada, o app mantém suas respostas e explica que não conseguiu gerar a sugestão.
 
 1. Configure `apps/api/.env` com a conexão PostgreSQL nativa, sem publicar esse arquivo.
-2. Configure `COACH_PROVIDER=openai`, `COACH_MODEL` com um modelo disponível na sua conta que suporte JSON mode, e `OPENAI_API_KEY` **somente no servidor**. Não coloque a chave em variável `EXPO_PUBLIC`.
+2. Configure `ANTHROPIC_API_KEY` **somente no servidor** (o modelo padrão é `claude-opus-5-5`; `AI_MODEL` troca). Não coloque a chave em variável `EXPO_PUBLIC`.
 3. Inicie a API com `npm run dev:api`. A configuração de Postgres continua sendo necessária para a API; o assistente não grava os questionários no Postgres.
 4. Mantenha `npm run dev:expo` (8082) e `npm run dev:web:proxy` (8083) abertos. Use `http://localhost:8083`. A URL padrão da API é `http://localhost:3000`; pode ser alterada com `EXPO_PUBLIC_API_URL` (reinicie o Expo após alterar).
 5. Conclua o questionário, gere e revise a sugestão. Somente **Aplicar plano** atualiza as metas, adiciona as refeições ao plano e ativa o programa. Nenhuma refeição é lançada automaticamente no diário.
 
 As respostas incluem medidas e restrições e só são enviadas após confirmação. O fluxo automático é para adultos e direciona perfis que declaram necessidade de acompanhamento para um profissional. A IA pode errar e as metas são estimativas editáveis. Uma nova sugestão não altera registros de refeições ou treinos já realizados.
 
-**Limites atuais:** o conector foi testado com respostas simuladas; a resposta de um modelo real depende das credenciais e ainda precisa ser validada. Não há chat contínuo, análise de foto ou ajustes automáticos de metas. O calendário registra atividades realizadas; não planeja a semana futura. Em produção, as rotas `/coach` exigem sessão autenticada e origem permitida. Em desenvolvimento, o teste de IA sem conta continua limitado a loopback. A IA mantém o limite de uma geração por vez.
+**Limites atuais:** os testes automáticos usam respostas simuladas, sem chamadas pagas; a qualidade do modelo real só é conferida com a chave configurada. Não há chat contínuo, análise de foto ou ajustes automáticos de metas. O calendário registra atividades realizadas; não planeja a semana futura. Em produção, as rotas `/coach` exigem sessão autenticada e origem permitida. Em desenvolvimento, o teste de IA sem conta continua limitado a loopback. A IA mantém o limite de uma geração por vez por conta. Pedidos em segundo plano ficam na memória da API por 30 minutos; se ela reiniciar, o app pede para enviar de novo.
 
 ## Conta, sincronização e acesso pelo celular
 
@@ -200,7 +223,7 @@ Configure `TEST_DATABASE_URL` apontando para localhost e um banco de testes term
 npm run test:e2e -w @crazy-training/api
 ```
 
-Estado da validação: 133 testes unitários, regressão do SQLite e cenários de dois navegadores com servidor simulado passaram. Também passaram 6 testes de integração no PostgreSQL nativo isolado, incluindo persistência, isolamento entre contas, conflito de revisão, logout e expiração. As migrações foram aplicadas no banco nativo de desenvolvimento, sem apagar dados. Não foi usado Docker. A IA continua testada apenas com respostas simuladas.
+Estado da validação: 152 testes unitários, 10 regressões de SQLite/feedback/servidores web e 8 testes de integração no PostgreSQL nativo isolado passaram. Cenários no Chromium cobrem revisão por texto e imagem, confirmação de registros, persistência e fechamento do dia. Não foi usado Docker. A IA continua testada apenas com respostas controladas; nenhuma chamada real foi validada.
 
 ### Preparar PostgreSQL nativo manualmente
 
@@ -218,7 +241,21 @@ Encerre com `Ctrl+C` os processos iniciados para validação. Não deixe instân
 
 Para usar a web local na porta 8083 sem iniciar Expo/Metro em outra porta, execute `WEB_PORT=8083 npm run dev:web` e abra `http://localhost:8083` diretamente em uma aba. O comando gera o build e serve os cabeçalhos necessários ao SQLite. A porta 8082 do Expo não é o acesso web adequado para esse banco. Mantenha o mesmo hostname e porta que já usava para acessar os mesmos dados locais do navegador.
 
-## Confirmações e avisos no app
+## Assistente de alimentação e balanço diário
+
+As decisões do produto estão em [docs/food-assistant.md](docs/food-assistant.md), incluindo áudio como evolução opcional. Em **Alimentação → Analisar refeição com IA**, envie uma descrição e/ou imagem JPEG, PNG ou WebP de até 2 MB. É necessário entrar na conta e configurar o provedor no servidor. O resultado identifica alimentos, porções, premissas e perguntas; o usuário pode corrigir todos os itens antes de confirmar o registro. Alterar alimento ou porção limpa os nutrientes anteriores para não reaproveitar uma estimativa incompatível. Campos desconhecidos permanecem em branco. Fotos não são guardadas no PostgreSQL nem no diário.
+
+O registro conserva a identificação de estimativa por IA e evita duplicação por reenvio da mesma proposta. Os totais e a projeção em relação à meta são calculados pelo aplicativo. A IA não grava registros diretamente nem afirma quanto de gordura foi perdido ou ganho.
+
+Em **Revisar fechamento do dia**, informe opcionalmente o gasto total diário estimado (incluindo atividades) e a pesagem. Confirme a alimentação completa somente após registrar tudo. O saldo só aparece com confirmação, calorias em todas as refeições e gasto informado; atividades não são somadas novamente. Adicionar ou remover refeições reabre a confirmação. Sem esses dados, o resumo informa o que falta em vez de inventar um déficit ou superávit.
+
+O SQLite recebe uma migração aditiva para `nutrition_days`. A sincronização passa para o formato v2, que preserva fechamentos e metadados de estimativa. Cópias v1 continuam legíveis, mas clientes antigos não podem enviar dados e apagar os campos novos. Atualize a API e a interface juntas; se solicitado, recarregue a página antes de sincronizar.
+
+Configuração privada em `apps/api/.env` (ou nas variáveis da Railway): `ANTHROPIC_API_KEY` e, opcionalmente, `AI_MODEL` (padrão `claude-opus-5-5`). A chamada usa o SDK oficial `@anthropic-ai/sdk` com saída estruturada e, se o modelo recusar por engano, o reenvio automático para um modelo alternativo (`fallbacks: 'default'`). Não há resposta de demonstração em produção. Chaves ficam no servidor; o envio ocorre após consentimento. O cadastro manual e o resumo local funcionam sem IA configurada.
+
+Até a configuração e uma chamada real serem validadas, testes com respostas controladas verificam apenas a integração e os fluxos do aplicativo, sem comprovar a precisão nutricional de um modelo real.
+
+## Funcionamento dos avisos
 
 Na web, `lib/dialogs.ts` usa `FeedbackHost` e `feedback-store`, sem `window.alert` ou `window.confirm`. Confirmações são diálogos com cancelar, ação explícita e destaque destrutivo; escolhas múltiplas aparecem juntas. Escape cancela, o foco fica no diálogo e retorna ao botão de origem. Mensagens longas de exercícios usam `showInfo` com conteúdo rolável.
 

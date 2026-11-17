@@ -3,7 +3,11 @@ const { request: httpsRequest } = require('node:https');
 
 // O navegador usa /api na mesma origem: cookies funcionam também no Safari do iPhone.
 function proxyApi(req, res, upstreamUrl, pathname) {
-  if (!/^\/(?:auth\/(?:login|logout|me)|cloud\/snapshot|coach\/(?:plan|status))$/.test(pathname)) {
+  if (
+    !/^\/(?:auth\/(?:login|logout|me)|cloud\/snapshot|coach\/(?:status|plan(?:\/[0-9a-f-]{36})?)|food\/(?:analyze|status)|workouts\/import(?:\/[0-9a-f-]{36})?)$/.test(
+      pathname,
+    )
+  ) {
     res.writeHead(404).end();
     return;
   }
@@ -43,20 +47,34 @@ function proxyApi(req, res, upstreamUrl, pathname) {
         : Buffer.from(typeof req.body === 'string' ? req.body : JSON.stringify(req.body));
   if (parsedBody) headers['content-length'] = String(parsedBody.length);
   const send = base.protocol === 'https:' ? httpsRequest : httpRequest;
-  const upstream = send(new URL(pathname, base), { method: req.method, headers, timeout: 110_000 }, (response) => {
-    const responseHeaders = { ...response.headers, 'cache-control': 'no-store' };
-    delete responseHeaders['transfer-encoding'];
-    delete responseHeaders.connection;
-    res.writeHead(response.statusCode ?? 502, responseHeaders);
-    response.on('error', () => res.destroy());
-    response.pipe(res);
-  });
+  const upstream = send(
+    new URL(pathname, base),
+    { method: req.method, headers, timeout: 110_000 },
+    (response) => {
+      const responseHeaders = {
+        ...response.headers,
+        'cache-control': 'no-store',
+      };
+      delete responseHeaders['transfer-encoding'];
+      delete responseHeaders.connection;
+      res.writeHead(response.statusCode ?? 502, responseHeaders);
+      response.on('error', () => res.destroy());
+      response.pipe(res);
+    },
+  );
   upstream.on('timeout', () => upstream.destroy(new Error('timeout')));
   upstream.on('error', () => {
     if (res.headersSent) res.destroy();
     else {
-      res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
-      res.end(JSON.stringify({ message: 'O servidor não está disponível. Seus dados continuam neste aparelho.' }));
+      res.writeHead(502, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+      });
+      res.end(
+        JSON.stringify({
+          message: 'O servidor não está disponível. Seus dados continuam neste aparelho.',
+        }),
+      );
     }
   });
   req.on('aborted', () => upstream.destroy());

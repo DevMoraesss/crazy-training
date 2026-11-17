@@ -12,32 +12,39 @@ export const NUTRIENT_FIELDS = [
 /** Campo controlado: o botão Salvar lê também o último valor digitado, sem depender do blur. */
 export function NutritionField({
   label,
+  accessibilityLabel,
   value,
   onChange,
   unit,
   placeholder,
   multiline,
   numeric,
+  disabled = false,
 }: {
   label: string;
+  accessibilityLabel?: string;
   value: string;
   onChange: (text: string) => void;
   unit?: string;
   placeholder?: string;
   multiline?: boolean;
   numeric?: boolean;
+  disabled?: boolean;
 }) {
   const colors = useColors();
   return (
     <View className={`px-5 py-3 ${multiline ? 'gap-2' : 'min-h-[56px] flex-row items-center gap-3'}`}>
       <Text className="text-body text-label">{label}</Text>
       <TextInput
-        accessibilityLabel={label}
+        accessibilityLabel={accessibilityLabel ?? label}
         value={value}
+        editable={!disabled}
         onChangeText={onChange}
         multiline={multiline}
         keyboardType={numeric ? 'decimal-pad' : 'default'}
-        className={multiline ? 'min-h-[100px] text-body text-label' : 'flex-1 text-right text-body text-label'}
+        className={
+          multiline ? 'min-h-[100px] text-body text-label' : 'flex-1 text-right text-body text-label'
+        }
         placeholder={placeholder ?? 'Opcional'}
         placeholderTextColor={colors['label-tertiary']}
         style={multiline ? { textAlignVertical: 'top' } : undefined}

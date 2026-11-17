@@ -6,8 +6,16 @@ import m0001 from './0001_wakeful_venus.sql';
 import m0002 from './0002_late_spacker_dave.sql';
 import m0003 from './0003_equal_microbe.sql';
 import m0004 from './0004_parched_stone_men.sql';
+import m0005 from './0005_careless_tomorrow_man.sql';
 
 export default {
   journal,
-  migrations: { m0000, m0001, m0002, m0003, m0004 },
+  migrations: {
+    m0000,
+    m0001,
+    m0002,
+    m0003,
+    m0004,
+    m0005,
+  },
 };
